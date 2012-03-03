@@ -27,6 +27,7 @@ public class IndexController {
 
 	public IndexController(Result result) {
 		this.result = result;
+		System.out.println("a");
 	}
 
 	@Path("/")
