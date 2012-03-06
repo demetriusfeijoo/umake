@@ -17,16 +17,17 @@ public class Group {
 		
 	}
 	
+	@Override
 	public String toString(){
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format(this.getDateOfRegistration());
 
-		return String.format("Grupo %s, cadastrado no dia %s",
-				this.getName(), dateRegForm);
+		return String.format("Grupo %s, cadastrado no dia %s", this.getName(), dateRegForm);
 		
 	}
 	
+	@Override
 	public boolean equals( Object o ){
 		
 		Group group2 = (Group) o;
