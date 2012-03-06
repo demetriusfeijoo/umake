@@ -32,6 +32,7 @@ public class User {
 
 	}
 
+	@Override
 	public String toString() {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");

@@ -19,7 +19,7 @@ public class Permission {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format(this.getDateOfRegistration());
 
-		return String.format("Permiss„o %s, cadastrada no dia %s",
+		return String.format("Permiss√£o %s, cadastrada no dia %s",
 				this.getName(), dateRegForm);
 
 	}
