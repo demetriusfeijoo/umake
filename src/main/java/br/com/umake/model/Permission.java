@@ -14,12 +14,13 @@ public class Permission {
 
 	}
 
+	@Override
 	public String toString() {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format(this.getDateOfRegistration());
 
-		return String.format("Permissão %s, cadastrada no dia %s",
+		return String.format("Permissï¿½o %s, cadastrada no dia %s",
 				this.getName(), dateRegForm);
 
 	}
