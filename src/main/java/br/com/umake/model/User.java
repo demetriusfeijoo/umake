@@ -31,14 +31,14 @@ public class User {
 	public User() {
 
 	}
-
+	
+	@Override
 	public String toString() {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format(this.getDateOfRegistration());
 
-		return String.format("Usuario %s, cadastrado no dia %s",
-				this.getName(), dateRegForm);
+		return String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);
 
 	}
 
