@@ -1,18 +1,19 @@
 package br.com.umake.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.Entity;
+import javax.persistence.Table;
 
 @Entity
-public class User {
+@Table(name="umake_users")
+public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue
@@ -21,14 +22,14 @@ public class User {
 	private String login;
 	private String password;
 	private String email;
-	private Date dateOfRegistration;
-	private Date dateLastVisit;
+	private String dateOfRegistration;
+	private String dateLastVisit;
 	private Boolean receiveEmail;
 	private Boolean userBlock;
-	private List<Group> groups;
-	private Set<Permission> permissions;
+	//private List<Group> groups;
+	//private Set<Permission> permissions;
 
-	public User() {
+	public User() { 
 
 	}
 
@@ -71,11 +72,11 @@ public class User {
 		return email;
 	}
 
-	public Date getDateOfRegistration() {
+	public String getDateOfRegistration() {
 		return dateOfRegistration;
 	}
 
-	public Date getDateLastVisit() {
+	public String getDateLastVisit() {
 		return dateLastVisit;
 	}
 
@@ -87,8 +88,8 @@ public class User {
 		return userBlock;
 	}
 
-	public List<Group> getGroups() {
-		return groups;
+/*	public List<Group> getGroups() {
+		 groups;
 	}
 
 	public Set<Permission> getPermissions() { 
@@ -106,7 +107,7 @@ public class User {
 		}
 		
 		return permissions;
-	}
+	}*/
 
 	public void setId(Long id) {
 		this.id = id;
@@ -128,11 +129,11 @@ public class User {
 		this.email = email;
 	}
 
-	public void setDateOfRegistration(Date dateOfRegistration) {
+	public void setDateOfRegistration(String dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
 	}
 
-	public void setDateLastVisit(Date dateLastVisit) {
+	public void setDateLastVisit(String dateLastVisit) {
 		this.dateLastVisit = dateLastVisit;
 	}
 
@@ -145,11 +146,11 @@ public class User {
 	}
 
 	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+		//this.groups = groups;
 	}
 
 	public void setPermissions(Set<Permission> permissions) {
-		this.permissions = permissions;
+		//this.permissions = permissions;
 	}
 
 }
