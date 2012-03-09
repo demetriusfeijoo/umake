@@ -1,30 +1,24 @@
 package br.com.umake.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 
-import br.com.umake.model.Teste;
+import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.model.User;
 
+@Component
 public class UserDao {
 
-	AnnotationConfiguration configuration;
-	Session session;
+	private final Session session;
 
-	public UserDao() {
+	public UserDao( Session session ) {
 
-		configuration = new AnnotationConfiguration();
-		configuration.configure();
-		SessionFactory factory = configuration.buildSessionFactory();
-		session = factory.openSession();
+		this.session = session;
 		
 	}
 
-	public Teste getAllUsers() {
+	public User getAllUsers() {
 
-		Teste user = (Teste) session.load(Teste.class, new Long(10)); 
-
-		return user;
+		return null;
 
 	}
 

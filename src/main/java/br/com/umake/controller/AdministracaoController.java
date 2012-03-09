@@ -19,7 +19,7 @@ public class AdministracaoController {
 	@Get @Path("/login")
 	public void formLogin( Result result ){
 		
-			result.include("usuario", new UserDao().getAllUsers());
+			
 	}
 	
 	@Post @Path("/login")

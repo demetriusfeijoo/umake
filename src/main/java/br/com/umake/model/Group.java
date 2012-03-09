@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-public class Group {
+public class Group implements Comparable<Group> {
 
 	private Long id;
 	private String name;
@@ -13,7 +13,7 @@ public class Group {
 	private Group parentGroup;
 	private Set<Permission> permissions;
 	
-	public Group(){
+	public Group(){ 
 		
 	}
 	
@@ -74,6 +74,12 @@ public class Group {
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	public int compareTo(Group o) {
+		
+		return Integer.parseInt(String.valueOf((this.getId() - o.getId()))); 
+		
 	}
 
 
