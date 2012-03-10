@@ -12,7 +12,7 @@ import br.com.caelum.vraptor.ioc.ComponentFactory;
 
 @Component
 @ApplicationScoped
-public class CriadoDeSessionFactory implements ComponentFactory<SessionFactory> {
+public class FactorySessionFactory implements ComponentFactory<SessionFactory> {
 
 	private SessionFactory factory;
 

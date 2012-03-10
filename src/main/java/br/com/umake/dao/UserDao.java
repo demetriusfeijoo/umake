@@ -1,6 +1,7 @@
 package br.com.umake.dao;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.User;
@@ -11,15 +12,24 @@ public class UserDao {
 	private final Session session;
 
 	public UserDao( Session session ) {
-
+		System.out.println("criando session");
 		this.session = session;
 		
 	}
 
-	public User getAllUsers() {
+	public Object getAllUsers() {
 
 		return null;
 
+	}
+
+	public User findUser(User user) {
+
+		return (User) session.createCriteria(User.class)
+				.add(Restrictions.eq("login", user.getLogin()))
+				.add(Restrictions.eq("senha", user.getPassword()))
+				.uniqueResult();
+		
 	}
 
 }
