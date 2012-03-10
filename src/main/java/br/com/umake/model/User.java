@@ -2,15 +2,19 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -26,11 +30,24 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
+	@Column(nullable = false)  
+	@Temporal(TemporalType.DATE) 
 	private Date dateOfRegistration;
-	private Date dateLastVisit;
-	private Boolean receiveEmail;
+	@Column(nullable = false)  
+	@Temporal(TemporalType.DATE) 
+	private Date dateLastVisit; 
+	private Boolean receiveEmail; 
 	private Boolean userBlock;
-	//private List<Group> groups;
+    @ManyToMany(
+            targetEntity=br.com.umake.model.Group.class,
+            cascade={CascadeType.PERSIST, CascadeType.MERGE}
+     )
+     @JoinTable(
+            name="umake_users_groups",
+            joinColumns={@JoinColumn(name="id_user")},
+            inverseJoinColumns={@JoinColumn(name="id_group")}
+       )
+	private List<Group> groups;
 	//private Set<Permission> permissions;
 	private static final long serialVersionUID = 1L;
 
@@ -41,10 +58,11 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+/*		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format( ( this.getDateOfRegistration() != null ? this.getDateOfRegistration() : new Date() )  );
 
-		return String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);
+		String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);*/
+		return ""; 
 
 	}
 
@@ -93,11 +111,11 @@ public class User implements Serializable {
 		return userBlock;
 	}
 
-/*	public List<Group> getGroups() {
-		 groups;
+	public List<Group> getGroups() {
+		 return groups;
 	}
 
-	public Set<Permission> getPermissions() { 
+/*	public Set<Permission> getPermissions() { 
 				
 		for (Group group : this.getGroups() ) {
 			
@@ -151,11 +169,11 @@ public class User implements Serializable {
 	}
 
 	public void setGroups(List<Group> groups) {
-		//this.groups = groups;
+		this.groups = groups;
 	}
 
-	public void setPermissions(Set<Permission> permissions) {
+/*	public void setPermissions(Set<Permission> permissions) {
 		//this.permissions = permissions;
-	}
+	}*/
 
 }

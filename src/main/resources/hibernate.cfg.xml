@@ -13,11 +13,11 @@
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
-		<property name="show_sql">true</property>
+		<property name="show_sql">false</property>
 		<property name="format_sql">true</property>
 		
 		<mapping class="br.com.umake.model.User" />
-		<!--<mapping class="br.com.umake.model.Teste" />  -->
+		<mapping class="br.com.umake.model.Group" /> 
 	</session-factory>
 
 </hibernate-configuration>

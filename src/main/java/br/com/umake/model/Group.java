@@ -5,23 +5,31 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import br.com.caelum.vraptor.ioc.Component;
 
 
 @Entity
 @Table(name="umake_groups")
+@Component
 public class Group {
-	
+    
 	@Id
 	@GeneratedValue
 	private Long id;
 	private String name;
+	@Column(nullable = false)  
+	@Temporal(TemporalType.DATE) 
 	private Date dateOfRegistration;
-	private Group parentGroup;
-	private Set<Permission> permissions;
+	//private Group parentGroup;
+	//private Set<Permission> permissions;
 	
 	public Group(){ 
 		
@@ -58,13 +66,13 @@ public class Group {
 		return dateOfRegistration;
 	}
 
-	public Group getParentGroup() {
+/*	public Group getParentGroup() {
 		return parentGroup;
-	}
+	}*/
 
-	public Set<Permission> getPermissions() {
+/*	public Set<Permission> getPermissions() {
 		return permissions;
-	}
+	}*/
 
 	public void setId(Long id) {
 		this.id = id;
@@ -78,19 +86,12 @@ public class Group {
 		this.dateOfRegistration = dateOfRegistration;
 	}
 
-	public void setParentGroup(Group parentGroup) {
+/*	public void setParentGroup(Group parentGroup) {
 		this.parentGroup = parentGroup;
-	}
+	}*/
 
-	public void setPermissions(Set<Permission> permissions) {
+/*	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
-	}
-
-	public int compareTo(Group o) {
-		
-		return Integer.parseInt(String.valueOf((this.getId() - o.getId()))); 
-		
-	}
-
+	}*/
 
 }
