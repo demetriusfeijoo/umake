@@ -5,8 +5,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-public class Group {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="umake_groups")
+public class Group {
+	
+	@Id
+	@GeneratedValue
 	private Long id;
 	private String name;
 	private Date dateOfRegistration;

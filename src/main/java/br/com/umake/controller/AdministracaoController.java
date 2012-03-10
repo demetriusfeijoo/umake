@@ -5,8 +5,9 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.umake.dao.GroupDao;
 import br.com.umake.dao.UserDao;
-import br.com.umake.model.User;
+
 
 @Resource
 @Path("/administracao")
@@ -20,6 +21,7 @@ public class AdministracaoController {
 	public void formLogin( Result result ){
 		
 			result.include("usuario", new UserDao().getAllUsers());
+			
 	}
 	
 	@Post @Path("/login")
@@ -29,6 +31,10 @@ public class AdministracaoController {
 	
 	public void logout(){
 		System.out.println("Sair");
+	}
+	
+	public void groups(){
+		result.include("grupos", new GroupDao().getAllGroups());
 	}
 	
 	@Path("/")
