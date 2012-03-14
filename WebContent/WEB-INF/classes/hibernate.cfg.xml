@@ -17,7 +17,7 @@
 		<property name="format_sql">true</property>
 		
 		<mapping class="br.com.umake.model.User" />
-		<mapping class="br.com.umake.model.Teste" />
+		<!--<mapping class="br.com.umake.model.Teste" />  -->
 	</session-factory>
 
 </hibernate-configuration>

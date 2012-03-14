@@ -1,6 +1,7 @@
 package br.com.umake.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -11,8 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.caelum.vraptor.ioc.Component;
+
 @Entity
 @Table(name="umake_users")
+@Component
 public class User implements Serializable {
 	
 	@Id
@@ -22,12 +26,13 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	private String dateOfRegistration;
-	private String dateLastVisit;
+	private Date dateOfRegistration;
+	private Date dateLastVisit;
 	private Boolean receiveEmail;
 	private Boolean userBlock;
 	//private List<Group> groups;
 	//private Set<Permission> permissions;
+	private static final long serialVersionUID = 1L;
 
 	public User() { 
 
@@ -37,7 +42,7 @@ public class User implements Serializable {
 	public String toString() {
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		String dateRegForm = df.format(this.getDateOfRegistration());
+		String dateRegForm = df.format( ( this.getDateOfRegistration() != null ? this.getDateOfRegistration() : new Date() )  );
 
 		return String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);
 
@@ -72,11 +77,11 @@ public class User implements Serializable {
 		return email;
 	}
 
-	public String getDateOfRegistration() {
+	public Date getDateOfRegistration() {
 		return dateOfRegistration;
 	}
 
-	public String getDateLastVisit() {
+	public Date getDateLastVisit() {
 		return dateLastVisit;
 	}
 
@@ -129,11 +134,11 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public void setDateOfRegistration(String dateOfRegistration) {
+	public void setDateOfRegistration(Date dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
 	}
 
-	public void setDateLastVisit(String dateLastVisit) {
+	public void setDateLastVisit(Date dateLastVisit) {
 		this.dateLastVisit = dateLastVisit;
 	}
 

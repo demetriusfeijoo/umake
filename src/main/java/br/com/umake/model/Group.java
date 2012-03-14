@@ -5,10 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+<<<<<<< HEAD
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+=======
+public class Group implements Comparable<Group> {
+>>>>>>> upstream/master
 
 @Entity
 @Table(name="umake_groups")
@@ -22,7 +26,7 @@ public class Group {
 	private Group parentGroup;
 	private Set<Permission> permissions;
 	
-	public Group(){
+	public Group(){ 
 		
 	}
 	
@@ -83,6 +87,12 @@ public class Group {
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	public int compareTo(Group o) {
+		
+		return Integer.parseInt(String.valueOf((this.getId() - o.getId()))); 
+		
 	}
 
 
