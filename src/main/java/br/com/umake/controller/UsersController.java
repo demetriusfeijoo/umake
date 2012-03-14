@@ -44,10 +44,10 @@ public class UsersController {
 		if (recovery == null) {
 
 			validator.add(new ValidationMessage("Login e/ou senha inválidos",
-					"user.login"));
+					""));
 
 		}
-		
+
 		this.userControl.login(recovery);
 
 		validator.onErrorUsePageOf(this).formLogin();
