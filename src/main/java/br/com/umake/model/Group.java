@@ -1,5 +1,5 @@
-package br.com.umake.model;
 
+package br.com.umake.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +29,9 @@ public class Group {
 	@Temporal(TemporalType.DATE) 
 	private Date dateOfRegistration;
 	//private Group parentGroup;
-	//private Set<Permission> permissions;
+	private Set<Permission> permissions;
+	
+
 	
 	public Group(){ 
 		
@@ -70,9 +72,9 @@ public class Group {
 		return parentGroup;
 	}*/
 
-/*	public Set<Permission> getPermissions() {
+	public Set<Permission> getPermissions() {
 		return permissions;
-	}*/
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -90,8 +92,8 @@ public class Group {
 		this.parentGroup = parentGroup;
 	}*/
 
-/*	public void setPermissions(Set<Permission> permissions) {
+	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
-	}*/
+	}
 
 }

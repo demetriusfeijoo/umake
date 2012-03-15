@@ -1,4 +1,4 @@
-package br.com.umake.util;
+package br.com.umake.components;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

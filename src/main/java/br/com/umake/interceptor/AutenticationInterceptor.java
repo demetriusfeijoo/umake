@@ -7,6 +7,7 @@ import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.UsersController;
+import br.com.umake.permissions.Context;
 
 @Intercepts
 public class AutenticationInterceptor implements Interceptor {
@@ -16,7 +17,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 	public boolean accepts(ResourceMethod arg0) {
 
-		return !user.isLogged() && arg0.containsAnnotation(Restrictable.class);
+		return !user.isLogged() && arg0.containsAnnotation(Context.class);
 	}
 
 	public void intercept(InterceptorStack arg0, ResourceMethod arg1,
