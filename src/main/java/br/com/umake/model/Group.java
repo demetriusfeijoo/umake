@@ -5,28 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import br.com.caelum.vraptor.ioc.Component;
 
-
-@Entity
-@Table(name="umake_groups")
 @Component
 public class Group {
     
-	@Id
-	@GeneratedValue
 	private Long id;
 	private String name;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
 	private Date dateOfRegistration;
 	//private Group parentGroup;
 	private Set<Permission> permissions;
