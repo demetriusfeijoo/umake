@@ -16,9 +16,12 @@
 		<property name="show_sql">false</property>
 		<property name="format_sql">true</property>
 		
-		<mapping class="br.com.umake.model.User" />
+		<!-- <mapping class="br.com.umake.model.User" />
 		<mapping class="br.com.umake.model.Group" /> 
-		<mapping class="br.com.umake.model.Permission" /> 
+		<mapping class="br.com.umake.model.Permission" />--> 
+		
+		<mapping resource="User.hbm.xml"/>
+		
 	</session-factory>
 
 </hibernate-configuration>

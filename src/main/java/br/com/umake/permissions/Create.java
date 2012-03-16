@@ -7,6 +7,13 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
+<<<<<<< HEAD
+
+public @interface Restrictable {
+	
+	
+=======
 public @interface Create {
+>>>>>>> upstream/master
 
 }

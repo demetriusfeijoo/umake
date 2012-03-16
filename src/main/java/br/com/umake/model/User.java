@@ -21,7 +21,6 @@ import javax.persistence.TemporalType;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
-@Table(name="umake_users")
 @Component
 public class User implements Serializable {
 	
@@ -32,24 +31,11 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
-	private Date dateOfRegistration;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
+	private Date dateOfRegistration; 
 	private Date dateLastVisit; 
 	private Boolean receiveEmail; 
 	private Boolean userBlock;
-    @ManyToMany(
-            targetEntity=br.com.umake.model.Group.class,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE}
-
-     )
-     @JoinTable(
-            name="umake_users_groups",
-            joinColumns={@JoinColumn(name="id_user")},
-            inverseJoinColumns={@JoinColumn(name="id_group")}
-     )
+  
 	private List<Group> groups;
 	private Set permissions;
 	private static final long serialVersionUID = 1L;
