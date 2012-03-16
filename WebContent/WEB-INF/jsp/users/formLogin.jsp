@@ -1,5 +1,9 @@
 <%@include file="../../../admin/header.jsp" %>
 
+<c:forEach var="error" items="${errors}">
+  ${error.message}<br />
+</c:forEach>
+
 <div>
 	<form method="POST" action="<c:url value="/users/login" />">
 		<label for="login">Login: </label>

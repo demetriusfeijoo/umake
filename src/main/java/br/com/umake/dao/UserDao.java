@@ -27,7 +27,7 @@ public class UserDao {
 
 		return (User) session.createCriteria(User.class)
 				.add(Restrictions.eq("login", user.getLogin()))
-				.add(Restrictions.eq("senha", user.getPassword()))
+				.add(Restrictions.eq("password", user.getPassword()))
 				.uniqueResult();
 		
 	}
