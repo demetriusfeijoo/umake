@@ -11,8 +11,9 @@ import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
 import br.com.umake.model.User;
 import br.com.umake.permissions.Context;
-import br.com.umake.permissions.Create;
 import br.com.umake.permissions.Delete;
+import br.com.umake.permissions.Create;
+
 
 @Resource
 @Path("/users")

@@ -21,10 +21,10 @@ import javax.persistence.TemporalType;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
-@Table(name="umake_users")
 @Component
 public class User implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,33 +32,15 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
-	private Date dateOfRegistration;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
+	private Date dateOfRegistration; 
 	private Date dateLastVisit; 
 	private Boolean receiveEmail; 
 	private Boolean userBlock;
-    @ManyToMany(
-            targetEntity=br.com.umake.model.Group.class,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE}
-
-     )
-     @JoinTable(
-            name="umake_users_groups",
-            joinColumns={@JoinColumn(name="id_user")},
-            inverseJoinColumns={@JoinColumn(name="id_group")}
-     )
-	private List<Group> groups;
-	private Set permissions;
-	private static final long serialVersionUID = 1L;
-
-    Set<Permission> permission = new HashSet<Permission>();
-    
+  
+/*	private List<Group> groups;
+    Set<Permission> permissions = new HashSet<Permission>();*/	
 	
-	
-	  public User() { 
+	public User() { 
 
 	}
 
@@ -118,7 +100,7 @@ public class User implements Serializable {
 		return userBlock;
 	}
 
-	public List<Group> getGroups() {
+/*	public List<Group> getGroups() {
 		 return groups;
 	}
 
@@ -138,7 +120,7 @@ public class User implements Serializable {
 		
 		return  permissions;
 		
-	}
+	}*/
 
 	public void setId(Long id) {
 		this.id = id;
@@ -175,13 +157,13 @@ public class User implements Serializable {
 	public void setUserBlock(Boolean userBlock) {
 		this.userBlock = userBlock;
 	}
-
+/*
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
 	}
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
-	}
+	}*/
 
 }

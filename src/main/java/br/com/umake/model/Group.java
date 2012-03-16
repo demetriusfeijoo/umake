@@ -1,22 +1,27 @@
-
 package br.com.umake.model;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import br.com.caelum.vraptor.ioc.Component;
 
+@Entity
 @Component
-public class Group {
-    
+public class Group{
+
+	@Id
+	@GeneratedValue
 	private Long id;
-	private String name;
+	private String name; 
 	private Date dateOfRegistration;
 	//private Group parentGroup;
 	private Set<Permission> permissions;
-	
-
 	
 	public Group(){ 
 		

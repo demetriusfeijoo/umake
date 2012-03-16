@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="Group" table="umake_groups">
+
+		<!-- Identificador da classe -->
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+
+		<!-- Propriedades da classe -->
+		<property name="name" type="String" />
+		<property name="dateOfRegistration" type="Date" />
+		<property name="parentGroup" type="Group" />
+		<property name="permissions" type="Permission" />
+
+		<!-- Relacionamento da classe -->
+		<one-to-one name="parentGroup"  class="br.com.umake.model.Group" />  
+		
+		<!--  <set name="users" table="umake_users_groups">
+			<key column="id_group" />
+			<many-to-many column="id" class="User" />
+		</set>-->
+
+	</class>
+</hibernate-mapping> 
