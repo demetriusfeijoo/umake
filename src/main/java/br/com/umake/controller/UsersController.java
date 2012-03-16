@@ -10,10 +10,14 @@ import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
 import br.com.umake.model.User;
+import br.com.umake.permissions.Context;
+import br.com.umake.permissions.Create;
+import br.com.umake.permissions.Delete;
 
 @Resource
 @Path("/users")
-public class UsersController {
+@Context("users")
+public class UsersController { 
 
 	private UserControl userControl;
 	private UserDao userDao;
@@ -32,7 +36,7 @@ public class UsersController {
 	@Get
 	@Path("/login")
 	public void formLogin() {
-
+			System.out.println("login");
 	}
 
 	@Post
@@ -60,6 +64,20 @@ public class UsersController {
 
 		this.userControl.logout();
 
+	}
+	
+	@Create
+	@Path("/create")
+	public Boolean create(final User user ){
+		System.out.println("criou");
+		return true;
+	}
+	
+	@Delete
+	@Path("/delete")
+	public Boolean delete(final User user){
+		System.out.println("deletou");
+		return true;
 	}
 
 }

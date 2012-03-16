@@ -2,7 +2,9 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -19,7 +21,6 @@ import javax.persistence.TemporalType;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
-@Table(name="umake_users")
 @Component
 public class User implements Serializable {
 	
@@ -30,28 +31,20 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
-	private Date dateOfRegistration;
-	@Column(nullable = false)  
-	@Temporal(TemporalType.DATE) 
+	private Date dateOfRegistration; 
 	private Date dateLastVisit; 
 	private Boolean receiveEmail; 
 	private Boolean userBlock;
-    @ManyToMany(
-            targetEntity=br.com.umake.model.Group.class,
-            cascade={CascadeType.PERSIST, CascadeType.MERGE}
-     )
-     @JoinTable(
-            name="umake_users_groups",
-            joinColumns={@JoinColumn(name="id_user")},
-            inverseJoinColumns={@JoinColumn(name="id_group")}
-       )
+  
 	private List<Group> groups;
-	//private Set<Permission> permissions;
+	private Set permissions;
 	private static final long serialVersionUID = 1L;
 
-	public User() { 
+    Set<Permission> permission = new HashSet<Permission>();
+    
+	
+	
+	  public User() { 
 
 	}
 
@@ -115,7 +108,7 @@ public class User implements Serializable {
 		 return groups;
 	}
 
-/*	public Set<Permission> getPermissions() { 
+	public Set getPermissions() { 
 				
 		for (Group group : this.getGroups() ) {
 			
@@ -129,8 +122,9 @@ public class User implements Serializable {
 			
 		}
 		
-		return permissions;
-	}*/
+		return  permissions;
+		
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -172,8 +166,8 @@ public class User implements Serializable {
 		this.groups = groups;
 	}
 
-/*	public void setPermissions(Set<Permission> permissions) {
-		//this.permissions = permissions;
-	}*/
+	public void setPermissions(Set<Permission> permissions) {
+		this.permissions = permissions;
+	}
 
 }

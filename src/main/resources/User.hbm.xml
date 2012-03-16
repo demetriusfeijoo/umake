@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="User" table="umake_users">
+
+		<!-- Identificador da classe -->
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+
+		<!-- Propriedades da classe -->
+		<property name="id" />
+		<property name="name" />
+		<property name="login" />
+		<property name="password" />
+		<property name="email" />
+		<property name="dateOfRegistration" />
+		<property name="dateLastVisit" />
+		<property name="receiveEmail" />
+		<property name="userBlock" />
+		<property name="groups" />
+		<property name="permissions" />
+		<property name="serialVersionUID" />
+
+		<!-- Relacionamento da classe -->
+		<set name="groups" table="umake_users_groups">
+			<key column="id_user" />
+			<many-to-many column="id" class="Group" />
+		</set>
+		
+	</class>
+</hibernate-mapping> 
