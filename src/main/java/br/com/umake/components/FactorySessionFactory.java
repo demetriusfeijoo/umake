@@ -24,7 +24,7 @@ public class FactorySessionFactory implements ComponentFactory<SessionFactory> {
 
 	@PostConstruct
 	public void openFactory() {
-		
+
 		AnnotationConfiguration configuration = new AnnotationConfiguration();
 		configuration.configure();
 
@@ -32,11 +32,10 @@ public class FactorySessionFactory implements ComponentFactory<SessionFactory> {
 
 	}
 
-	@PreDestroy
 	public void closeFactory() {
 
 		this.factory.close();
-		
+
 	}
 
 }

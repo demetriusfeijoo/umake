@@ -4,7 +4,7 @@
    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="Group" table="umake_groups">
+	<class name="br.com.umake.model.Group" table="umake_groups">
 
 		<!-- Identificador da classe -->
 		<id name="id" column="id" type="long">
@@ -12,18 +12,17 @@
 		</id>
 
 		<!-- Propriedades da classe -->
-		<property name="name" type="String" />
-		<property name="dateOfRegistration" type="Date" />
-		<property name="parentGroup" type="Group" />
-		<property name="permissions" type="Permission" />
+		<property name="name"/>
+		<property name="dateOfRegistration" />
+		<!-- <property name="permissions" />   -->
 
 		<!-- Relacionamento da classe -->
 		<one-to-one name="parentGroup"  class="br.com.umake.model.Group" />  
 		
-		<!--  <set name="users" table="umake_users_groups">
+<!-- 		<set name="users" table="umake_users_groups">
 			<key column="id_group" />
-			<many-to-many column="id" class="User" />
-		</set>-->
+			<many-to-many column="id" class="br.com.umake.model.User" />
+		</set> -->
 
 	</class>
 </hibernate-mapping> 

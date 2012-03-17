@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
 
-	<session-factory name="br.com.umake.components.FactorySessionFactory">
+	<session-factory name="br.com.umake.components.FactorySessionFactory" >
 
 		<property name="hibernate.connection.username">umakecom_db</property>
 		<property name="hibernate.connection.password">djsd1234</property>
@@ -21,7 +21,7 @@
 		<mapping class="br.com.umake.model.Permission" />--> 
 		
 		<mapping resource="User.hbm.xml"/>
-		<!-- <mapping resource="Group.hbm.xml"/> -->
+		<mapping resource="Group.hbm.xml"/>
 		
 	</session-factory>
 

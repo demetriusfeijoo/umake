@@ -12,7 +12,6 @@
 		</id>
 
 		<!-- Propriedades da classe -->
-		<property name="id" insert="false" update="false" />
 		<property name="name" />
 		<property name="login" />
 		<property name="password" />
@@ -23,7 +22,6 @@
 		<property name="userBlock" />
 		<!--<property name="groups" />
 		<property name="permissions" />  -->
-		<property name="serialVersionUID" />
 
 		<!-- Relacionamento da classe -->
 <!-- 		<set name="groups" table="umake_users_groups">

@@ -20,7 +20,7 @@ public class Group{
 	private Long id;
 	private String name; 
 	private Date dateOfRegistration;
-	//private Group parentGroup;
+	private Group parentGroup;
 	private Set<Permission> permissions;
 	
 	public Group(){ 
@@ -58,9 +58,9 @@ public class Group{
 		return dateOfRegistration;
 	}
 
-/*	public Group getParentGroup() {
+	public Group getParentGroup() {
 		return parentGroup;
-	}*/
+	}
 
 	public Set<Permission> getPermissions() {
 		return permissions;
@@ -78,9 +78,9 @@ public class Group{
 		this.dateOfRegistration = dateOfRegistration;
 	}
 
-/*	public void setParentGroup(Group parentGroup) {
+	public void setParentGroup(Group parentGroup) {
 		this.parentGroup = parentGroup;
-	}*/
+	}
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
