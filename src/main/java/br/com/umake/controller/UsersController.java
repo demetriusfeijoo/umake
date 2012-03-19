@@ -9,10 +9,12 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
+import br.com.umake.model.Group;
+import br.com.umake.model.Permission;
 import br.com.umake.model.User;
 import br.com.umake.permissions.Context;
-import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.Create;
+import br.com.umake.permissions.Delete;
 
 
 @Resource
@@ -45,14 +47,13 @@ public class UsersController {
 	public void login(final User user) { // falta validar usuário pelo servidor.
 
 		User recovery = this.userDao.findUser(user);
-
+		
 		if (recovery == null) {
 
-			validator.add(new ValidationMessage("Login e/ou senha inválidos",
-					""));
+			validator.add(new ValidationMessage("Login e/ou senha inválidos",""));
 
 		}
-
+		
 		this.userControl.login(recovery);
 
 		validator.onErrorUsePageOf(this).formLogin();

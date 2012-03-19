@@ -20,14 +20,17 @@
 		<property name="dateLastVisit" />
 		<property name="receiveEmail" />
 		<property name="userBlock" />
-		<!--<property name="groups" />
-		<property name="permissions" />  -->
 
 		<!-- Relacionamento da classe -->
-<!-- 		<set name="groups" table="umake_users_groups">
+ 		<set name="groups" table="umake_users_groups">
 			<key column="id_user" />
-			<many-to-many column="id" class="Group" />
-		</set> -->
+			<many-to-many column="id_group" class="br.com.umake.model.Group" />
+		</set> 
+		
+ 		<set name="permissions" table="umake_users_permissions">
+			<key column="id_user" />
+			<many-to-many column="id_permission" class="br.com.umake.model.Permission" />
+		</set> 
 		
 	</class>
 </hibernate-mapping> 

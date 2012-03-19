@@ -2,21 +2,11 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -24,7 +14,6 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class User implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -36,9 +25,9 @@ public class User implements Serializable {
 	private Date dateLastVisit; 
 	private Boolean receiveEmail; 
 	private Boolean userBlock;
-  
-/*	private List<Group> groups;
-    Set<Permission> permissions = new HashSet<Permission>();*/	
+	private Set<Group> groups;
+	private Set<Permission> permissions;
+	private static final long serialVersionUID = 1L;
 	
 	public User() { 
 
@@ -100,11 +89,11 @@ public class User implements Serializable {
 		return userBlock;
 	}
 
-/*	public List<Group> getGroups() {
+	public Set<Group> getGroups() {
 		 return groups;
 	}
 
-	public Set getPermissions() { 
+	public Set<Permission> getPermissions() { 
 				
 		for (Group group : this.getGroups() ) {
 			
@@ -120,7 +109,7 @@ public class User implements Serializable {
 		
 		return  permissions;
 		
-	}*/
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -157,13 +146,13 @@ public class User implements Serializable {
 	public void setUserBlock(Boolean userBlock) {
 		this.userBlock = userBlock;
 	}
-/*
-	public void setGroups(List<Group> groups) {
+
+	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
 	}
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
-	}*/
+	}
 
 }
