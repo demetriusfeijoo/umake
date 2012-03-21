@@ -2,6 +2,7 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -153,6 +154,10 @@ public class User implements Serializable {
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	public Boolean hasPermissions(List<Permission> recoveryNecessaryPermissions) {
+		return true;		
 	}
 
 }

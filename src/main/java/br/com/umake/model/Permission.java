@@ -15,8 +15,6 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class Permission {
 	
-	//public enum PermissionName{ CREATE, VIEW, EDIT, DELETE }
-
 	private Long id;
 	private String context;
 	private String name; 
@@ -70,7 +68,7 @@ public class Permission {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toUpperCase();
 	}
 	
 	public void setId(Long id) {
@@ -78,7 +76,7 @@ public class Permission {
 	}
 
 	public void setContext(String context) {
-		this.context = context;
+		this.context = context.toUpperCase();
 	}
 
 	public void setDateOfRegistration(Date dateOfRegistration) {

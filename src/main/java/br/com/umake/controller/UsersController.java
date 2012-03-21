@@ -9,12 +9,12 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
-import br.com.umake.model.Group;
-import br.com.umake.model.Permission;
 import br.com.umake.model.User;
 import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
 import br.com.umake.permissions.Delete;
+import br.com.umake.permissions.Edit;
+import br.com.umake.permissions.View;
 
 
 @Resource
@@ -76,6 +76,8 @@ public class UsersController {
 	}
 	
 	@Delete
+	@Edit
+	@View
 	@Path("/delete")
 	public Boolean delete(final User user){
 		System.out.println("deletou");
