@@ -9,17 +9,23 @@ import br.com.umake.permissions.View;
 
 @Resource
 @Path("adm")
-@Context("SYSTEM")
+@Context("ADMINISTRATION")
 public class AdministrationController {
 	
 	
 	@Get @Path("/")
 	@View
-	@Create
 	public void index(){
 	
-		
+		System.out.println("Index adm");
 		
 	}
 	
+	@Get @Path("/insert")
+	@Create
+	public void insert(){
+		
+		System.out.println("Insert adm");
+		
+	}
 }

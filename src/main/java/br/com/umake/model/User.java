@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.ioc.Component;
 @Entity
 @Component
 public class User implements Serializable {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -22,35 +22,40 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	private Date dateOfRegistration; 
-	private Date dateLastVisit; 
-	private Boolean receiveEmail; 
+	private Date dateOfRegistration;
+	private Date dateLastVisit;
+	private Boolean receiveEmail;
 	private Boolean userBlock;
 	private Set<Group> groups;
 	private Set<Permission> permissions;
 	private static final long serialVersionUID = 1L;
-	
-	public User() { 
+
+	public User() {
 
 	}
 
 	@Override
 	public String toString() {
 
-/*		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		String dateRegForm = df.format( ( this.getDateOfRegistration() != null ? this.getDateOfRegistration() : new Date() )  );
-
-		String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);*/
-		return ""; 
+		/*
+		 * DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); String
+		 * dateRegForm = df.format( ( this.getDateOfRegistration() != null ?
+		 * this.getDateOfRegistration() : new Date() ) );
+		 * 
+		 * String.format("Usuario %s, cadastrado no dia %s", this.getName(),
+		 * dateRegForm);
+		 */
+		return "";
 
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		
+
 		User user2 = (User) o;
-		
-		return (!user2.getId().equals(null) && this.getId() == user2.getId() ? true : false);
+
+		return (!user2.getId().equals(null) && this.getId() == user2.getId() ? true
+				: false);
 
 	}
 
@@ -91,25 +96,25 @@ public class User implements Serializable {
 	}
 
 	public Set<Group> getGroups() {
-		 return groups;
+		return groups;
 	}
 
-	public Set<Permission> getPermissions() { 
-				
-		for (Group group : this.getGroups() ) {
-			
+	public Set<Permission> getPermissions() {
+
+		for (Group group : this.getGroups()) {
+
 			Set<Permission> groupPermissions = group.getPermissions();
-			
+
 			for (Permission permissions : groupPermissions) {
-			
+
 				this.permissions.add(permissions);
-				
+
 			}
-			
+
 		}
-		
-		return  permissions;
-		
+
+		return permissions;
+
 	}
 
 	public void setId(Long id) {
@@ -156,8 +161,31 @@ public class User implements Serializable {
 		this.permissions = permissions;
 	}
 
-	public Boolean hasPermissions(List<Permission> recoveryNecessaryPermissions) {
-		return true;		
+	public Boolean hasAllNecessariesPermissions(
+			List<Permission> recoveryNecessaryPermissions) {
+
+		for (Permission permissaoNecessaria : recoveryNecessaryPermissions) {
+
+			Boolean exists = false;
+
+			for (Permission perm : this.getPermissions()) {
+								
+				if (permissaoNecessaria.equals(perm)){
+					
+					exists = true;
+					
+				}
+					
+
+			}
+
+			if (!exists) {
+				return false;
+			}
+		}
+
+		return true;
+
 	}
 
 }

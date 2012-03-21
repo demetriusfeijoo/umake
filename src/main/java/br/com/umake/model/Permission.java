@@ -41,9 +41,8 @@ public class Permission {
 	public boolean equals(Object o) {
 
 		Permission permission2 = (Permission) o;
-
-		return (!permission2.getId().equals(null)
-				&& this.getId() == permission2.getId() ? true : false);
+		
+		return (this.getContext().equals(permission2.getContext() ) && this.getName().equals(permission2.getName()) ? true : false);
 
 	}
 

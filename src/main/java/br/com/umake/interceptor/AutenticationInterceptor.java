@@ -10,6 +10,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
+import br.com.umake.controller.AdministrationController;
 import br.com.umake.model.Permission;
 import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
@@ -25,20 +26,43 @@ public class AutenticationInterceptor implements Interceptor {
 
 	public boolean accepts(ResourceMethod method) {
 
-		return true;
+		Annotation[] annotations = method.getMethod().getAnnotations();
+
+		
+		for (Annotation annotation : annotations) {
+
+			if (annotation.annotationType() == View.class || annotation.annotationType() == Create.class || annotation.annotationType() == Delete.class || annotation.annotationType() == Edit.class) {
+				
+				return true;
+				
+			}
+
+		}
+		
+		return false;
 
 	}
 
 	public void intercept(InterceptorStack arg0, ResourceMethod method, Object arg2) throws InterceptionException {
+		
+		if(!this.user.isLogged()){
+			
+				this.result.redirectTo(br.com.umake.controller.UsersController.class).formLogin();	
+				
+		}else{ 
 
-		Boolean feedbackPermission = this.user.getUser().hasPermissions(this.recoveryNecessaryPermissions(method, arg2));
-		
-		if(feedbackPermission){
-			
-			arg0.next(method, arg2);
-			
+			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessaryPermissions(method, arg2))){
+					
+					arg0.next(method, arg2);
+					
+			}else{
+				
+					this.result.redirectTo(AdministrationController.class).index();
+					
+			}
+				
 		}
-		
+				
 
 	}
 	
@@ -71,9 +95,7 @@ public class AutenticationInterceptor implements Interceptor {
 			}
 
 
-		} else {
-
-		}
+		} 
 		
 		return permissoesExigidas;
 		
