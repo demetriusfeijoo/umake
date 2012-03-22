@@ -161,8 +161,7 @@ public class User implements Serializable {
 		this.permissions = permissions;
 	}
 
-	public Boolean hasAllNecessariesPermissions(
-			List<Permission> recoveryNecessaryPermissions) {
+	public Boolean hasAllNecessariesPermissions(List<Permission> recoveryNecessaryPermissions) { //trocar list por set
 
 		for (Permission permissaoNecessaria : recoveryNecessaryPermissions) {
 

@@ -23,11 +23,17 @@ public class AutenticationInterceptor implements Interceptor {
 
 	private final UserControl user;
 	private final Result result;
+	
+	public AutenticationInterceptor(UserControl user, Result result) {
+		
+		this.result = result;
+		this.user = user;
+		
+	}
 
 	public boolean accepts(ResourceMethod method) {
 
 		Annotation[] annotations = method.getMethod().getAnnotations();
-
 		
 		for (Annotation annotation : annotations) {
 
@@ -43,7 +49,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 	}
 
-	public void intercept(InterceptorStack arg0, ResourceMethod method, Object arg2) throws InterceptionException {
+	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
 		
 		if(!this.user.isLogged()){
 			
@@ -51,9 +57,9 @@ public class AutenticationInterceptor implements Interceptor {
 				
 		}else{ 
 
-			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessaryPermissions(method, arg2))){
+			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
 					
-					arg0.next(method, arg2);
+					stack.next(method, obj);
 					
 			}else{
 				
@@ -62,11 +68,10 @@ public class AutenticationInterceptor implements Interceptor {
 			}
 				
 		}
-				
 
 	}
 	
-	private List<Permission> recoveryNecessaryPermissions(ResourceMethod method, Object objectInUse){
+	private List<Permission> recoveryNecessariesPermissions(ResourceMethod method, Object objectInUse){
 		
 		List<Permission> permissoesExigidas = new ArrayList<Permission>(4);
 		
@@ -94,17 +99,9 @@ public class AutenticationInterceptor implements Interceptor {
 
 			}
 
-
-		} 
+		}
 		
 		return permissoesExigidas;
-		
-	}
-
-	public AutenticationInterceptor(UserControl user, Result result) {
-		
-		this.result = result;
-		this.user = user;
 		
 	}
 

@@ -19,7 +19,7 @@ import br.com.umake.permissions.View;
 
 @Resource
 @Path("/users")
-@Context("users")
+@Context("user")
 public class UsersController { 
 
 	private UserControl userControl;
@@ -27,8 +27,7 @@ public class UsersController {
 	private Result result;
 	private Validator validator;
 
-	public UsersController(UserControl userControl, UserDao userDao,
-			Result result, Validator validator) {
+	public UsersController(UserControl userControl, UserDao userDao, Result result, Validator validator) {
 
 		this.userControl = userControl;
 		this.userDao = userDao;
@@ -68,11 +67,21 @@ public class UsersController {
 
 	}
 	
-	@Create
+    @Create
+	@Post
 	@Path("/create")
-	public Boolean create(final User user ){
-		System.out.println("criou");
+	public Boolean create(final User user) {
+    	
+    	this.userDao.insertUser(user);
+    	
 		return true;
+	}
+	
+    @Get
+	@Create
+	@Path("/create") 
+	public void formCreateUser() {
+
 	}
 	
 	@Delete

@@ -5,6 +5,7 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
+import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.View;
 
 @Resource
@@ -26,6 +27,14 @@ public class AdministrationController {
 	public void insert(){
 		
 		System.out.println("Insert adm");
+		
+	}
+	
+	@Get @Path("/delete")
+	@Delete
+	public void delete(){
+		
+		System.out.println("cu");
 		
 	}
 }
