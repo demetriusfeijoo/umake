@@ -2,7 +2,10 @@ package br.com.umake.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -21,14 +24,15 @@ public class Group{
 	private String name; 
 	private Date dateOfRegistration;
 	private Group parentGroup;
-	private Set<Permission> permissions;
+	private Set<User> users;
+	private Set<Permission> permissions;				
 	
 	public Group(){ 
 		
 	}
 	
 	@Override
-	public String toString(){
+	public String toString(){ 
 
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		String dateRegForm = df.format(this.getDateOfRegistration());
@@ -41,8 +45,7 @@ public class Group{
 	public boolean equals( Object o ){
 		
 		Group group2 = (Group) o;
-		
-		return (!group2.getId().equals(null) && this.getId() == group2.getId() ? true : false);
+		return (this.getId() == group2.getId() ? true : false);
 		
 	}
 
@@ -60,6 +63,10 @@ public class Group{
 
 	public Group getParentGroup() {
 		return parentGroup;
+	}
+	
+	public Set<User> getUsers() {
+		return users;
 	}
 
 	public Set<Permission> getPermissions() {
@@ -81,9 +88,16 @@ public class Group{
 	public void setParentGroup(Group parentGroup) {
 		this.parentGroup = parentGroup;
 	}
+	
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
 	}
 
+	public Boolean isParent(){
+		return this.equals(this.getParentGroup());
+	}
 }

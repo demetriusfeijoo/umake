@@ -22,6 +22,7 @@
 		
 		<mapping resource="User.hbm.xml"/>
 		<mapping resource="Group.hbm.xml"/>
+		<mapping resource="Permission.hbm.xml"/>
 		
 	</session-factory>
 

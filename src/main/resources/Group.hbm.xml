@@ -5,7 +5,8 @@
 
 <hibernate-mapping>
 	<class name="br.com.umake.model.Group" table="umake_groups">
-
+		<meta attribute="class-description">Está classe contem tudo relacionado com a entidade groups.</meta>
+		
 		<!-- Identificador da classe -->
 		<id name="id" column="id" type="long">
 			<generator class="native" />
@@ -14,15 +15,19 @@
 		<!-- Propriedades da classe -->
 		<property name="name"/>
 		<property name="dateOfRegistration" />
-		<!-- <property name="permissions" />   -->
 
 		<!-- Relacionamento da classe -->
-		<one-to-one name="parentGroup"  class="br.com.umake.model.Group" />  
+		<many-to-one name="parentGroup" column="parentGroup"  class="br.com.umake.model.Group" />  
 		
-<!-- 		<set name="users" table="umake_users_groups">
+ 		<set name="users" table="umake_users_groups">
 			<key column="id_group" />
-			<many-to-many column="id" class="br.com.umake.model.User" />
-		</set> -->
+			<many-to-many column="id_user" class="br.com.umake.model.User" />
+		</set> 
 
+ 		<set name="permissions" table="umake_groups_permissions">
+			<key column="id_group" />
+			<many-to-many column="id_permission" class="br.com.umake.model.Permission" />
+		</set> 
+		
 	</class>
 </hibernate-mapping> 

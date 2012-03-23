@@ -11,13 +11,15 @@ import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
 import br.com.umake.model.User;
 import br.com.umake.permissions.Context;
-import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.Create;
+import br.com.umake.permissions.Delete;
+import br.com.umake.permissions.Edit;
+import br.com.umake.permissions.View;
 
 
 @Resource
 @Path("/users")
-@Context("users")
+@Context("user")
 public class UsersController { 
 
 	private UserControl userControl;
@@ -25,8 +27,7 @@ public class UsersController {
 	private Result result;
 	private Validator validator;
 
-	public UsersController(UserControl userControl, UserDao userDao,
-			Result result, Validator validator) {
+	public UsersController(UserControl userControl, UserDao userDao, Result result, Validator validator) {
 
 		this.userControl = userControl;
 		this.userDao = userDao;
@@ -45,14 +46,13 @@ public class UsersController {
 	public void login(final User user) { // falta validar usuário pelo servidor.
 
 		User recovery = this.userDao.findUser(user);
-
+		
 		if (recovery == null) {
 
-			validator.add(new ValidationMessage("Login e/ou senha inválidos",
-					""));
+			validator.add(new ValidationMessage("Login e/ou senha inválidos",""));
 
 		}
-
+		
 		this.userControl.login(recovery);
 
 		validator.onErrorUsePageOf(this).formLogin();
@@ -67,14 +67,28 @@ public class UsersController {
 
 	}
 	
-	@Create
+    @Create
+	@Post
 	@Path("/create")
-	public Boolean create(final User user ){
-		System.out.println("criou");
+	public Boolean create(final User user) {
+    	
+    	this.userDao.insertUser(user);
+    	
+    	System.out.println("cadastrado com sucesso!");
+    	
 		return true;
 	}
 	
+    @Get
+	@Create
+	@Path("/create") 
+	public void formCreateUser() {
+
+	}
+	
 	@Delete
+	@Edit
+	@View
 	@Path("/delete")
 	public Boolean delete(final User user){
 		System.out.println("deletou");

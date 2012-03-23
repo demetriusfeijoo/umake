@@ -2,29 +2,19 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
 @Component
 public class User implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,35 +22,40 @@ public class User implements Serializable {
 	private String login;
 	private String password;
 	private String email;
-	private Date dateOfRegistration; 
-	private Date dateLastVisit; 
-	private Boolean receiveEmail; 
+	private Date dateOfRegistration;
+	private Date dateLastVisit;
+	private Boolean receiveEmail;
 	private Boolean userBlock;
-  
-/*	private List<Group> groups;
-    Set<Permission> permissions = new HashSet<Permission>();*/	
-	
-	public User() { 
+	private Set<Group> groups;
+	private Set<Permission> permissions;
+	private static final long serialVersionUID = 1L;
+
+	public User() {
 
 	}
 
 	@Override
 	public String toString() {
 
-/*		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		String dateRegForm = df.format( ( this.getDateOfRegistration() != null ? this.getDateOfRegistration() : new Date() )  );
-
-		String.format("Usuario %s, cadastrado no dia %s", this.getName(), dateRegForm);*/
-		return ""; 
+		/*
+		 * DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); String
+		 * dateRegForm = df.format( ( this.getDateOfRegistration() != null ?
+		 * this.getDateOfRegistration() : new Date() ) );
+		 * 
+		 * String.format("Usuario %s, cadastrado no dia %s", this.getName(),
+		 * dateRegForm);
+		 */
+		return "";
 
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		
+
 		User user2 = (User) o;
-		
-		return (!user2.getId().equals(null) && this.getId() == user2.getId() ? true : false);
+
+		return (!user2.getId().equals(null) && this.getId() == user2.getId() ? true
+				: false);
 
 	}
 
@@ -100,27 +95,27 @@ public class User implements Serializable {
 		return userBlock;
 	}
 
-/*	public List<Group> getGroups() {
-		 return groups;
+	public Set<Group> getGroups() {
+		return groups;
 	}
 
-	public Set getPermissions() { 
-				
-		for (Group group : this.getGroups() ) {
-			
+	public Set<Permission> getPermissions() {
+
+		for (Group group : this.getGroups()) {
+
 			Set<Permission> groupPermissions = group.getPermissions();
-			
+
 			for (Permission permissions : groupPermissions) {
-			
+
 				this.permissions.add(permissions);
-				
+
 			}
-			
+
 		}
-		
-		return  permissions;
-		
-	}*/
+
+		return permissions;
+
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -157,13 +152,39 @@ public class User implements Serializable {
 	public void setUserBlock(Boolean userBlock) {
 		this.userBlock = userBlock;
 	}
-/*
-	public void setGroups(List<Group> groups) {
+
+	public void setGroups(Set<Group> groups) {
 		this.groups = groups;
 	}
 
 	public void setPermissions(Set<Permission> permissions) {
 		this.permissions = permissions;
-	}*/
+	}
+
+	public Boolean hasAllNecessariesPermissions(List<Permission> recoveryNecessaryPermissions) { //trocar list por set
+
+		for (Permission permissaoNecessaria : recoveryNecessaryPermissions) {
+
+			Boolean exists = false;
+
+			for (Permission perm : this.getPermissions()) {
+								
+				if (permissaoNecessaria.equals(perm)){
+					
+					exists = true;
+					
+				}
+					
+
+			}
+
+			if (!exists) {
+				return false;
+			}
+		}
+
+		return true;
+
+	}
 
 }
