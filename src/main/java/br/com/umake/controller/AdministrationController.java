@@ -5,7 +5,7 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 
 @Resource
-@Path("adm")
+@Path("/adm")
 public class AdministrationController {
 	
 	
