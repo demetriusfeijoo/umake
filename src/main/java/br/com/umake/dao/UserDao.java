@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
@@ -18,13 +19,16 @@ import br.com.umake.model.User;
 public class UserDao {
 
 	private final Session session;
+	private Transaction transaction;
 
 	public UserDao( Session session ) {
 		System.out.println("criando session novo usuario");
 		this.session = session;
+		this.transaction = this.session.beginTransaction();
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void insertUser(User user){
 		
 		Set<Permission> listPermissions = new HashSet<Permission>();
@@ -47,14 +51,16 @@ public class UserDao {
 		
 		Set<Group> listGroup = new HashSet<Group>();
 		
-		this.session.beginTransaction();
 		user.setPermissions(listPermissions);
 		user.setGroups(listGroup);
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
 		user.setUserBlock(false);
-		this.session.save(user);
 		
+		this.session.save(user);
+		this.transaction.commit();
+		this.session.flush();
+		this.session.close();		
 		
 	}
 	
