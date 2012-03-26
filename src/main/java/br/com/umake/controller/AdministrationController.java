@@ -9,8 +9,12 @@ import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.View;
 
 @Resource
+<<<<<<< HEAD
+@Path("/adm")
+=======
 @Path("adm")
 @Context("ADMINISTRATION")
+>>>>>>> upstream/master
 public class AdministrationController {
 	
 	
