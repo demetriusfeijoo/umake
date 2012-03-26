@@ -68,23 +68,25 @@ public class UsersController {
 	}
 	
     @Create
-	@Post
+	@Get
 	@Path("/create")
-	public Boolean create(final User user) {
+	public Boolean create() {
     	
-    	this.userDao.insertUser(user);
+    	System.out.println("ate aki porra");
+
+/*    	this.userDao.insertUser(user);
     	
-    	System.out.println("cadastrado com sucesso!");
+    	System.out.println("cadastrado com sucesso!");*/
     	
 		return true;
 	}
 	
-    @Get
+/*    @Get
 	@Create
 	@Path("/create") 
 	public void formCreateUser() {
 
-	}
+	}*/
 	
 	@Delete
 	@Edit

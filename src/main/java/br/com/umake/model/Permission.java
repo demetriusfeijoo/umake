@@ -1,5 +1,6 @@
 package br.com.umake.model;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,14 +14,14 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
 @Component
-public class Permission {
+public class Permission implements Serializable{
 	
 	private Long id;
 	private String context;
 	private String name; 
 	private Date dateOfRegistration;
-	private Set<User> users ;
-	private Set<Group> groups ;
+	private Set<User> users;
+	private Set<Group> groups;
 
 	public Permission() {
 		

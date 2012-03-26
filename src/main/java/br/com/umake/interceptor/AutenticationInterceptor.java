@@ -38,7 +38,7 @@ public class AutenticationInterceptor implements Interceptor {
 		for (Annotation annotation : annotations) {
 
 			if (annotation.annotationType() == View.class || annotation.annotationType() == Create.class || annotation.annotationType() == Delete.class || annotation.annotationType() == Edit.class) {
-				
+
 				return true;
 				
 			}
@@ -56,9 +56,9 @@ public class AutenticationInterceptor implements Interceptor {
 				this.result.redirectTo(br.com.umake.controller.UsersController.class).formLogin();	
 				
 		}else{ 
-
+			
 			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
-					
+
 					stack.next(method, obj);
 					
 			}else{

@@ -23,15 +23,12 @@ public class UserDao {
 
 	public UserDao( Session session ) {
 		System.out.println("criando session novo usuario");
-		this.session = session;
-		this.transaction = this.session.beginTransaction();
-		
+		this.session = session;		
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void insertUser(User user){
-		
-		Set<Permission> listPermissions = new HashSet<Permission>();
+		System.out.println("insertuser chamado");
+/*		Set<Permission> listPermissions = new HashSet<Permission>();
 		Permission permission1 = new Permission();
 		Permission permission2 = new Permission();
 		Permission permission3 = new Permission();
@@ -55,12 +52,14 @@ public class UserDao {
 		user.setGroups(listGroup);
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
-		user.setUserBlock(false);
-		
+		user.setUserBlock(false);*/
+		this.transaction = this.session.beginTransaction();
+
 		this.session.save(user);
 		this.transaction.commit();
-		this.session.flush();
-		this.session.close();		
+		//this.session.flush();
+		//this.session.close();	
+		System.out.println("transacao ok");
 		
 	}
 	
