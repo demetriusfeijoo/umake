@@ -74,6 +74,8 @@ public class UsersController {
     	
     	this.userDao.insertUser(user);
     	
+    	System.out.println("cadastrado com sucesso!");
+    	
 		return true;
 	}
 	
