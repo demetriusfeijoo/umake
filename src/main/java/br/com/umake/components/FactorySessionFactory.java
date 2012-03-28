@@ -32,6 +32,7 @@ public class FactorySessionFactory implements ComponentFactory<SessionFactory> {
 
 	}
 
+	@PreDestroy
 	public void closeFactory() {
 
 		this.factory.close();
