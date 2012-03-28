@@ -72,18 +72,21 @@ public class UsersController {
 	@Path("/create")
 	public Boolean create(final User user) {
     	
-    	this.userDao.insertUser(user);
-    	
-    	System.out.println("cadastrado com sucesso!");
-    	
+    	if(this.userDao.insertUser(user)){
+    		// ERRADOOOOOOOOOOOOOOOO AINDA mostra que foi inserido e joga para listagem de usuário
+    		this.result.redirectTo(UsersController.class).create();
+    	}else{
+    		this.result.redirectTo(UsersController.class).create();
+    	}
+    	    	
 		return true;
 	}
 	
     @Get
 	@Create
 	@Path("/create") 
-	public void formCreateUser() {
-
+	public void create() {
+    	
 	}
 	
 	@Delete

@@ -1,3 +1,6 @@
-#Sun Mar 04 23:16:50 BRT 2012
+#Tue Mar 27 20:28:49 BRT 2012
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/jsp/administration/index.jsp=UTF-8
+encoding//WebContent/WEB-INF/jsp/users/create.jsp=UTF-8
+encoding//WebContent/admin/footer.jsp=UTF-8
 encoding/<project>=UTF-8

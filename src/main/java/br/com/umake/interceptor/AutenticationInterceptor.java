@@ -32,8 +32,22 @@ public class AutenticationInterceptor implements Interceptor {
 	}
 
 	public boolean accepts(ResourceMethod method) {
-
-		Annotation[] annotations = method.getMethod().getAnnotations();
+		
+		Object o = null;
+		Boolean contextExists = false;
+		
+		try {
+			
+			o = method.getClass().newInstance();
+			contextExists = o.getClass().isAnnotationPresent(Context.class);
+			
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		
+/*		Annotation[] annotations = method.getMethod().getAnnotations();
 		
 		for (Annotation annotation : annotations) {
 
@@ -43,9 +57,24 @@ public class AutenticationInterceptor implements Interceptor {
 				
 			}
 
+		}*/
+		
+		if(this.user.isLogged()){
+			
+			return true;
+			
+		}else{
+			
+			if( contextExists ){
+			
+				return true;
+				
+			}
+			
 		}
 		
 		return false;
+		
 
 	}
 
@@ -63,7 +92,7 @@ public class AutenticationInterceptor implements Interceptor {
 					
 			}else{
 				
-					this.result.redirectTo(AdministrationController.class).index();
+					this.result.forwardTo(AdministrationController.class).index();
 					
 			}
 				

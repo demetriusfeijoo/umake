@@ -1,8 +1,6 @@
 package br.com.umake.dao;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,8 +8,6 @@ import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.umake.model.Group;
-import br.com.umake.model.Permission;
 import br.com.umake.model.User;
 
 @Component
@@ -22,16 +18,13 @@ public class UserDao {
 	private Transaction transaction;
 
 	public UserDao( Session session ) {
-		System.out.println("criando session novo usuario");
 		this.session = session;
-		this.transaction = this.session.beginTransaction();
 		
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void insertUser(User user){
-		
-		Set<Permission> listPermissions = new HashSet<Permission>();
+	public Boolean insertUser(User user){
+		System.out.println("Insert user");
+/*		Set<Permission> listPermissions = new HashSet<Permission>();
 		Permission permission1 = new Permission();
 		Permission permission2 = new Permission();
 		Permission permission3 = new Permission();
@@ -52,15 +45,19 @@ public class UserDao {
 		Set<Group> listGroup = new HashSet<Group>();
 		
 		user.setPermissions(listPermissions);
-		user.setGroups(listGroup);
+		user.setGroups(listGroup);*/
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
 		user.setUserBlock(false);
+		user.setReceiveEmail(true);
 		
+		System.out.println(user.getName());
+		this.transaction = this.session.beginTransaction();
 		this.session.save(user);
 		this.transaction.commit();
-		this.session.flush();
-		this.session.close();		
+		this.session.flush();	
+		
+		return this.transaction.wasCommitted();
 		
 	}
 	

@@ -2,6 +2,7 @@ package br.com.umake.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -26,12 +27,12 @@ public class User implements Serializable {
 	private Date dateLastVisit;
 	private Boolean receiveEmail;
 	private Boolean userBlock;
-	private Set<Group> groups;
-	private Set<Permission> permissions;
+	private Set<Group> groups = new HashSet<Group>();
+	private Set<Permission> permissions = new HashSet<Permission>();
 	private static final long serialVersionUID = 1L;
 
 	public User() {
-
+		
 	}
 
 	@Override
