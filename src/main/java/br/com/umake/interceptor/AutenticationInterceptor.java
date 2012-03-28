@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.AdministrationController;
+import br.com.umake.controller.UsersController;
 import br.com.umake.model.Permission;
 import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
@@ -33,17 +34,20 @@ public class AutenticationInterceptor implements Interceptor {
 
 	public boolean accepts(ResourceMethod method) {
 		
-		Object o = null;
+		String o;
+		
 		Boolean contextExists = false;
 		
 		try {
+
+			o = method.getResource().getType().getName();
+			UsersController obj = (UsersController)  Class.forName("br.com.umake.controller.UsersController").newInstance();
 			
-			o = method.getClass().newInstance();
-			contextExists = o.getClass().isAnnotationPresent(Context.class);
+			//System.out.println(obj.getClass().getAnnotation(Context.class).value());
 			
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+			//contextExists = o.getClass().isAnnotationPresent(Context.class);
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
