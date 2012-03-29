@@ -26,25 +26,27 @@ public class UsersController {
 	private UserDao userDao;
 	private Result result;
 	private Validator validator;
-
+	
 	public UsersController(UserControl userControl, UserDao userDao, Result result, Validator validator) {
-
+	
 		this.userControl = userControl;
 		this.userDao = userDao;
 		this.result = result;
 		this.validator = validator;
+		
 	}
+	
 
 	@Get
 	@Path("/login")
 	public void formLogin() {
-			System.out.println("login");
+			
 	}
 
 	@Post
 	@Path("/login")
 	public void login(final User user) { // falta validar usuário pelo servidor.
-
+		
 		User recovery = this.userDao.findUser(user);
 		
 		if (recovery == null) {
@@ -56,7 +58,7 @@ public class UsersController {
 		this.userControl.login(recovery);
 
 		validator.onErrorUsePageOf(this).formLogin();
-
+		
 		result.redirectTo(AdministrationController.class).index();
 
 	}

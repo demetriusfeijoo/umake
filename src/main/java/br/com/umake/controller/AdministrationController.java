@@ -14,7 +14,6 @@ public class AdministrationController {
 	
 	
 	@Get @Path("/")
-	@View
 	public void index(){
 	
 		System.out.println("Index adm");

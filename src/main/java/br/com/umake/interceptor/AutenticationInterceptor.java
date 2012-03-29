@@ -1,6 +1,7 @@
 package br.com.umake.interceptor;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,118 +25,112 @@ public class AutenticationInterceptor implements Interceptor {
 
 	private final UserControl user;
 	private final Result result;
-	
+	private Boolean contextExists = false;
+
 	public AutenticationInterceptor(UserControl user, Result result) {
-		
+
 		this.result = result;
 		this.user = user;
-		
+
 	}
 
 	public boolean accepts(ResourceMethod method) {
-		
-		String o;
-		
-		Boolean contextExists = false;
-		
-		try {
 
-			o = method.getResource().getType().getName();
-			UsersController obj = (UsersController)  Class.forName("br.com.umake.controller.UsersController").newInstance();
-			
-			//System.out.println(obj.getClass().getAnnotation(Context.class).value());
-			
-			//contextExists = o.getClass().isAnnotationPresent(Context.class);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-/*		Annotation[] annotations = method.getMethod().getAnnotations();
-		
-		for (Annotation annotation : annotations) {
+		this.contextExists = method.getMethod().getDeclaringClass().isAnnotationPresent(Context.class);
 
-			if (annotation.annotationType() == View.class || annotation.annotationType() == Create.class || annotation.annotationType() == Delete.class || annotation.annotationType() == Edit.class) {
-				
-				return true;
-				
-			}
 
-		}*/
-		
-		if(this.user.isLogged()){
-			
+		if (this.user.isLogged()) {
+
 			return true;
-			
-		}else{
-			
-			if( contextExists ){
-			
+
+		} else {
+
+			if (this.contextExists) {
+
 				return true;
-				
+
 			}
-			
+
 		}
 		
 		return false;
-		
 
 	}
 
-	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
-		
-		if(!this.user.isLogged()){
-			
-				this.result.redirectTo(br.com.umake.controller.UsersController.class).formLogin();	
-				
-		}else{ 
+	public void intercept(InterceptorStack stack, ResourceMethod method,
+			Object obj) throws InterceptionException {
 
-			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
+		if( this.contextExists ){
+			
+			if( !this.user.isLogged() ){
+				
+				if(this.recoveryNecessariesPermissions(method, obj).size() > 0 ){ //tem anotacao no metodo tbm
+					
+					this.result.forwardTo(UsersController.class).formLogin();	
+					
+				}else{ // não tem anotação no método
+					stack.next(method, obj);
+				}
+				
+				
+			}else{
+				
+				//Existe contexto e está logado
+				if( this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj) ) ){ //Tem permissao
 					
 					stack.next(method, obj);
 					
-			}else{
+				}else{ //Logado mas não tem permissao
+					this.result.redirectTo(AdministrationController.class).index();
+				}
 				
-					this.result.forwardTo(AdministrationController.class).index();
-					
 			}
-				
+			
+		}else{
+			
+			stack.next(method, obj);
+			
 		}
 
 	}
-	
-	private List<Permission> recoveryNecessariesPermissions(ResourceMethod method, Object objectInUse){
-		
+
+	private List<Permission> recoveryNecessariesPermissions(
+			ResourceMethod method, Object objectInUse) {
+
 		List<Permission> permissoesExigidas = new ArrayList<Permission>(4);
-		
+
 		if (objectInUse.getClass().isAnnotationPresent(Context.class)) {
 
-			String context = objectInUse.getClass().getAnnotation(Context.class).value();
+			String context = objectInUse.getClass()
+					.getAnnotation(Context.class).value();
 
 			Annotation[] annotations = method.getMethod().getAnnotations();
 
-			
 			for (Annotation annotation : annotations) {
 
-				if (annotation.annotationType() == View.class || annotation.annotationType() == Create.class || annotation.annotationType() == Delete.class || annotation.annotationType() == Edit.class) {
-					
-					String[] pedacosPerm = annotation.annotationType().getName().split("\\.");
+				if (annotation.annotationType() == View.class
+						|| annotation.annotationType() == Create.class
+						|| annotation.annotationType() == Delete.class
+						|| annotation.annotationType() == Edit.class) {
+
+					String[] pedacosPerm = annotation.annotationType()
+							.getName().split("\\.");
 					int ultimaPosicao = pedacosPerm.length - 1;
-					
+
 					Permission permissionTemp = new Permission();
 					permissionTemp.setContext(context);
 					permissionTemp.setName(pedacosPerm[ultimaPosicao]);
-					
-					permissoesExigidas.add( permissionTemp );
-					
+
+					permissoesExigidas.add(permissionTemp);
+
 				}
 
 			}
 
 		}
-		
+
 		return permissoesExigidas;
-		
+
 	}
 
 }
