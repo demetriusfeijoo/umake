@@ -18,6 +18,7 @@ import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
 import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.Edit;
+import br.com.umake.permissions.IsNotPermission;
 import br.com.umake.permissions.View;
 
 @Intercepts
@@ -25,7 +26,6 @@ public class AutenticationInterceptor implements Interceptor {
 
 	private final UserControl user;
 	private final Result result;
-	private Boolean contextExists = false;
 
 	public AutenticationInterceptor(UserControl user, Result result) {
 
@@ -36,60 +36,44 @@ public class AutenticationInterceptor implements Interceptor {
 
 	public boolean accepts(ResourceMethod method) {
 
-		this.contextExists = method.getMethod().getDeclaringClass().isAnnotationPresent(Context.class);
-
-
-		if (this.user.isLogged()) {
-
-			return true;
-
-		} else {
-
-			if (this.contextExists) {
-
-				return true;
-
-			}
-
-		}
-		
-		return false;
+		return method.getMethod().getDeclaringClass().isAnnotationPresent(Context.class);
 
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method,
 			Object obj) throws InterceptionException {
 
-		if( this.contextExists ){
+		if( this.user.isLogged()){
 			
-			if( !this.user.isLogged() ){
+			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
+				// tem context, tah logado e tem todas as permissoes
 				
-				if(this.recoveryNecessariesPermissions(method, obj).size() > 0 ){ //tem anotacao no metodo tbm
+				if(method.getMethod().getName() != "formLogin"){//Já está logado, mas acessa a página de login novamente.
+				
+						stack.next(method, obj);
+
+				}else{
 					
-					this.result.forwardTo(UsersController.class).formLogin();	
+					this.result.redirectTo(AdministrationController.class).index();	
 					
-				}else{ // não tem anotação no método
-					stack.next(method, obj);
 				}
-				
-				
+
 			}else{
-				
-				//Existe contexto e está logado
-				if( this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj) ) ){ //Tem permissao
-					
-					stack.next(method, obj);
-					
-				}else{ //Logado mas não tem permissao
-					this.result.redirectTo(AdministrationController.class).index();
-				}
-				
+				// Tem context, tah logado, não tem todas as permissoes caso tenha alguma.
+				this.result.redirectTo(AdministrationController.class).index();
 			}
 			
 		}else{
 			
-			stack.next(method, obj);
-			
+			if( method.getMethod().isAnnotationPresent(IsNotPermission.class) ){
+				
+				stack.next(method, obj);
+				
+			}else{
+				
+				this.result.forwardTo(UsersController.class).formLogin();
+
+			}
 		}
 
 	}

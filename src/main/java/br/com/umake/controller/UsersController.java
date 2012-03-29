@@ -14,12 +14,13 @@ import br.com.umake.permissions.Context;
 import br.com.umake.permissions.Create;
 import br.com.umake.permissions.Delete;
 import br.com.umake.permissions.Edit;
+import br.com.umake.permissions.IsNotPermission;
 import br.com.umake.permissions.View;
 
 
 @Resource
 @Path("/users")
-@Context("user")
+@Context("user") // Criar anotacao para adm
 public class UsersController { 
 
 	private UserControl userControl;
@@ -45,6 +46,7 @@ public class UsersController {
 
 	@Post
 	@Path("/login")
+	@IsNotPermission
 	public void login(final User user) { // falta validar usuário pelo servidor.
 		
 		User recovery = this.userDao.findUser(user);
@@ -64,8 +66,9 @@ public class UsersController {
 	}
 
 	public void logout() {
-
+		
 		this.userControl.logout();
+		this.result.redirectTo(this).formLogin();
 
 	}
 	

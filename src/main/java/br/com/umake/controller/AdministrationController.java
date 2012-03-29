@@ -4,7 +4,6 @@ import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.umake.permissions.Context;
-import br.com.umake.permissions.View;
 
 
 @Resource
@@ -15,9 +14,7 @@ public class AdministrationController {
 	
 	@Get @Path("/")
 	public void index(){
-	
-		System.out.println("Index adm");
-		
+			
 	}
 
 }

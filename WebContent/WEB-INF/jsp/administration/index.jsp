@@ -6,10 +6,11 @@
 		
 		<ul>
 		
-			<li><a href="#">Usu·rio</a></li>
-			<li><a href="/umake/users/create">Criar Usu·rio</a></li>
+			<li><a href="/umake/users/logout">Logout</a></li>
+			<li><a href="#">Usu√°rio</a></li>
+			<li><a href="/umake/users/create">Criar Usu√°rio</a></li>
 			<li><a href="#">Grupo</a></li>
-			<li><a href="#">Permiss„o</a></li>
+			<li><a href="#">Permiss√£o</a></li>
 			
 		</ul>
 	
