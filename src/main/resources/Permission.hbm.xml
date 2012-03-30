@@ -13,7 +13,7 @@
 
 		<!-- Propriedades da classe -->
 		<property name="context" />
-		<property name="name" />
+		<property name="type" />
 		<property name="dateOfRegistration" />
 
 		<!-- Relacionamento da classe -->

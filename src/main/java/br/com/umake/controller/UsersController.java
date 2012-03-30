@@ -10,17 +10,13 @@ import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
 import br.com.umake.model.User;
-import br.com.umake.permissions.Context;
-import br.com.umake.permissions.Create;
-import br.com.umake.permissions.Delete;
-import br.com.umake.permissions.Edit;
-import br.com.umake.permissions.IsNotPermission;
-import br.com.umake.permissions.View;
+import br.com.umake.permissions.PermissionAnnotation;
+import br.com.umake.permissions.PermissionType;
+import br.com.umake.permissions.Restrictable;
 
 
 @Resource
 @Path("/users")
-@Context("user") // Criar anotacao para adm
 public class UsersController { 
 
 	private UserControl userControl;
@@ -41,12 +37,14 @@ public class UsersController {
 	@Get
 	@Path("/login")
 	public void formLogin() {
+		
+		if( this.userControl.isLogged() ) 
+			this.result.redirectTo(AdministrationController.class).index();
 			
 	}
 
 	@Post
 	@Path("/login")
-	@IsNotPermission
 	public void login(final User user) { // falta validar usuário pelo servidor.
 		
 		User recovery = this.userDao.findUser(user);
@@ -72,9 +70,9 @@ public class UsersController {
 
 	}
 	
-    @Create
 	@Post
 	@Path("/create")
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE}) }) 
 	public Boolean create(final User user) {
     	
     	if(this.userDao.insertUser(user)){
@@ -88,15 +86,12 @@ public class UsersController {
 	}
 	
     @Get
-	@Create
 	@Path("/create") 
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void create() {
     	
 	}
 	
-	@Delete
-	@Edit
-	@View
 	@Path("/delete")
 	public Boolean delete(final User user){
 		System.out.println("deletou");

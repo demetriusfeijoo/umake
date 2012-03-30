@@ -17,7 +17,7 @@ public class Permission {
 	
 	private Long id;
 	private String context;
-	private String name; 
+	private String type; 
 	private Date dateOfRegistration;
 	private Set<User> users ;
 	private Set<Group> groups ;
@@ -33,7 +33,7 @@ public class Permission {
 		String dateRegForm = df.format(this.getDateOfRegistration());
 
 		return String.format("Permissão %s, cadastrada no dia %s",
-				this.getName(), dateRegForm);
+				this.getType(), dateRegForm);
 
 	}
 
@@ -42,7 +42,7 @@ public class Permission {
 
 		Permission permission2 = (Permission) o;
 		
-		return (this.getContext().equals(permission2.getContext() ) && this.getName().equals(permission2.getName()) ? true : false);
+		return (this.getContext().equals(permission2.getContext() ) && this.getType().equals(permission2.getType()) ? true : false);
 
 	}
 
@@ -66,8 +66,8 @@ public class Permission {
 		return users;
 	}
 
-	public void setName(String name) {
-		this.name = name.toUpperCase();
+	public void setType(String type) {
+		this.type = type.toUpperCase();
 	}
 	
 	public void setId(Long id) {
@@ -90,8 +90,8 @@ public class Permission {
 		this.users = users;
 	}
 	
-	public String getName(){
-		return this.name;
+	public String getType(){
+		return this.type;
 	}
 
 }

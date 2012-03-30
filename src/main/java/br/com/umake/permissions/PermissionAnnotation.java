@@ -7,6 +7,9 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface Edit {
+public @interface PermissionAnnotation {
 
+	String context();
+	PermissionType[] permissionsTypes();
+	
 }

@@ -6,9 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-public @interface Context {
-	
-	String value() default "";
+@Target(ElementType.METHOD)
+public @interface Restrictable {
+
+	PermissionAnnotation[] permissions() default  @PermissionAnnotation(context = "", permissionsTypes = {});
 	
 }

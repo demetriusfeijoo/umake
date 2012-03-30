@@ -1,12 +1,12 @@
 package br.com.umake.interceptor;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Lazy;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
@@ -14,14 +14,12 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.AdministrationController;
 import br.com.umake.controller.UsersController;
 import br.com.umake.model.Permission;
-import br.com.umake.permissions.Context;
-import br.com.umake.permissions.Create;
-import br.com.umake.permissions.Delete;
-import br.com.umake.permissions.Edit;
-import br.com.umake.permissions.IsNotPermission;
-import br.com.umake.permissions.View;
+import br.com.umake.permissions.PermissionAnnotation;
+import br.com.umake.permissions.PermissionType;
+import br.com.umake.permissions.Restrictable;
 
 @Intercepts
+@Lazy
 public class AutenticationInterceptor implements Interceptor {
 
 	private final UserControl user;
@@ -30,91 +28,102 @@ public class AutenticationInterceptor implements Interceptor {
 	public AutenticationInterceptor(UserControl user, Result result) {
 
 		this.result = result;
-		this.user = user;
+		this.user = user;		
 
 	}
 
 	public boolean accepts(ResourceMethod method) {
 
-		return method.getMethod().getDeclaringClass().isAnnotationPresent(Context.class);
+		return method.getMethod().isAnnotationPresent(Restrictable.class);
 
 	}
 
-	public void intercept(InterceptorStack stack, ResourceMethod method,
-			Object obj) throws InterceptionException {
+	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
 
-		if( this.user.isLogged()){
+		if(this.user.isLogged()){
 			
-			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
-				// tem context, tah logado e tem todas as permissoes
-				
-				if(method.getMethod().getName() != "formLogin"){//Já está logado, mas acessa a página de login novamente.
-				
-						stack.next(method, obj);
-
-				}else{
-					
-					this.result.redirectTo(AdministrationController.class).index();	
-					
-				}
-
-			}else{
-				// Tem context, tah logado, não tem todas as permissoes caso tenha alguma.
-				this.result.redirectTo(AdministrationController.class).index();
-			}
-			
-		}else{
-			
-			if( method.getMethod().isAnnotationPresent(IsNotPermission.class) ){
+			if( this.onlyRestrictable(method) ){
 				
 				stack.next(method, obj);
 				
 			}else{
 				
-				this.result.forwardTo(UsersController.class).formLogin();
-
+				if( this.user.getUser().hasAllNecessariesPermissions( this.recoveryNecessariesPermissions(method) ) ){
+					
+					stack.next(method, obj);
+					
+				}else{
+					
+					this.result.redirectTo(AdministrationController.class).index();
+					
+				}
+				
 			}
+			
+		}else{
+			
+			this.result.redirectTo(UsersController.class).formLogin();
+			
 		}
 
 	}
 
-	private List<Permission> recoveryNecessariesPermissions(
-			ResourceMethod method, Object objectInUse) {
+	private List<Permission> recoveryNecessariesPermissions( ResourceMethod method ) {
+		
+		List<Permission> permissions = new ArrayList<Permission>(4);
 
-		List<Permission> permissoesExigidas = new ArrayList<Permission>(4);
-
-		if (objectInUse.getClass().isAnnotationPresent(Context.class)) {
-
-			String context = objectInUse.getClass()
-					.getAnnotation(Context.class).value();
-
-			Annotation[] annotations = method.getMethod().getAnnotations();
-
-			for (Annotation annotation : annotations) {
-
-				if (annotation.annotationType() == View.class
-						|| annotation.annotationType() == Create.class
-						|| annotation.annotationType() == Delete.class
-						|| annotation.annotationType() == Edit.class) {
-
-					String[] pedacosPerm = annotation.annotationType()
-							.getName().split("\\.");
-					int ultimaPosicao = pedacosPerm.length - 1;
-
-					Permission permissionTemp = new Permission();
-					permissionTemp.setContext(context);
-					permissionTemp.setName(pedacosPerm[ultimaPosicao]);
-
-					permissoesExigidas.add(permissionTemp);
-
-				}
-
-			}
-
+		Restrictable restrictable = method.getMethod().getAnnotation(Restrictable.class);
+		PermissionAnnotation[] permissionsOfRestrictable = restrictable.permissions();
+		
+		for (PermissionAnnotation permissionAnnotation : permissionsOfRestrictable) {
+			
+			 if(permissionAnnotation.context().equals("") || permissionAnnotation.permissionsTypes().length == 0){
+				 
+				 continue;
+				 
+			 }
+			 
+			 String context = permissionAnnotation.context();
+			 
+			 for (PermissionType permissionType : permissionAnnotation.permissionsTypes()) {
+				 
+				 Permission permission = new Permission();
+				 permission.setContext(context);
+				 permission.setType(permissionType.name());
+				 
+				 permissions.add(permission);
+				 
+			 }
+			 
 		}
+		
+		return permissions;
 
-		return permissoesExigidas;
+	}
+	
+	private Boolean onlyRestrictable(ResourceMethod method){
+		
+		Restrictable restrictable = method.getMethod().getAnnotation(Restrictable.class);
+			
+		br.com.umake.permissions.PermissionAnnotation[] permissions = restrictable.permissions();
+		 
+		if(permissions.length == 1){
+			 
+			 if(permissions[0].context().equals("") || permissions[0].permissionsTypes().length == 0){
+				 
+				 return true;
+				 
+			 }
+			 
+		 }else if(permissions.length == 0){
+			 
+			 return true;
+			 
+		 }
 
+
+		
+		return false;
 	}
 
 }
