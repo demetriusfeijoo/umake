@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,11 +20,11 @@
   ${error.message}<br />
 </c:forEach>
 <div>
-	<form method="post" action="<c:url value="/users/login" />">
-		<label for="login">Login: </label>
-		<input name="user.login" id="login" /><br />
+	<form method="post" action="<c:url value="/adm/users/login" />">
+		<label for="login" >Login: </label>
+		<input name="user.login" id="login" required autofocus/><br />
 		<label for="pwd">Password: </label>
-		<input type="password" name="user.password" id="pwd" /><br />
+		<input type="password" name="user.password" id="pwd" required /><br />
 		<input type="submit" />
 	</form>	
 </div>
