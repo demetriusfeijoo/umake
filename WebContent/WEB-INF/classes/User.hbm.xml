@@ -16,18 +16,18 @@
 		<property name="login" />
 		<property name="password" />
 		<property name="email" />
-		<property name="dateOfRegistration" />
-		<property name="dateLastVisit" />
+		<property name="dateOfRegistration" update="false" />
+		<property name="dateLastVisit" update="false" />
 		<property name="receiveEmail" />
 		<property name="userBlock" />
 
 		<!-- Relacionamento da classe -->
- 		<set name="groups" table="umake_users_groups">
+ 		<set name="groups" table="umake_users_groups" cascade="none">
 			<key column="id_user" />
 			<many-to-many column="id_group" class="br.com.umake.model.Group" not-found="ignore" />
 		</set> 
 		
- 		<set name="permissions" table="umake_users_permissions">
+ 		<set name="permissions" table="umake_users_permissions" cascade="none">
 			<key column="id_user" />			
 			<many-to-many column="id_permission" class="br.com.umake.model.Permission" not-found="ignore" />
 		</set> 

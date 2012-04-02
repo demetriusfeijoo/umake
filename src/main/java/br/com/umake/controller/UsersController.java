@@ -1,7 +1,5 @@
 package br.com.umake.controller;
 
-import java.util.List;
-
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -10,7 +8,6 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.interceptor.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
@@ -76,7 +73,6 @@ public class UsersController {
 
 	}
 	
-<<<<<<< HEAD
     @Get("adm/users/create")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formCreate() {
@@ -94,21 +90,7 @@ public class UsersController {
 	@Post("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE}) }) 
 	public Boolean create(final User user) {
-=======
-    @Create
-	@Get
-	@Path("/create")
-	public Boolean create() {
     	
-<<<<<<< HEAD
-    	System.out.println("ate aki porra");
-
-/*    	this.userDao.insertUser(user);
-    	
-    	System.out.println("cadastrado com sucesso!");*/
->>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
-    	
-=======
     	if(this.userDao.insertUser(user)){
     		// ERRADOOOOOOOOOOOOOOOO AINDA mostra que foi inserido e joga para listagem de usuário
     		this.result.redirectTo(UsersController.class).formCreate();
@@ -116,11 +98,9 @@ public class UsersController {
     		this.result.redirectTo(UsersController.class).formCreate();
     	}
     	    	
->>>>>>> upstream/master
 		return true;
 	}
 	
-<<<<<<< HEAD
 	@Get("adm/users/{user.id}")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getUser( User user ){
@@ -133,24 +113,23 @@ public class UsersController {
 	
 	@Put("adm/users/{user.id}")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.EDIT})}) 
-	public User editUser(User user){
-		
-		return null;
-		
-=======
-/*    @Get
-	@Create
-	@Path("/create") 
-<<<<<<< HEAD
-	public void formCreateUser() {
+	public void editUser(User user){
 
-	}*/
-=======
-	public void create() {
-    	
->>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
+		User oldUser = this.userDao.getUser(user);
+		oldUser.setName(user.getName());
+		oldUser.setEmail(user.getEmail());
+		oldUser.setLogin(user.getLogin());
+		oldUser.setPassword(user.getPassword());
+		oldUser.setReceiveEmail(user.getReceiveEmail());
+		oldUser.setUserBlock(user.getUserBlock());
+		
+		this.userDao.editUser(user);
+
+		this.result.include("user", this.userDao.getUser(user));
+		
+		this.result.forwardTo(this).formCreate();		
+		
 	}
->>>>>>> upstream/master
 	
     @Delete("adm/users/{user.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="USER", permissionsTypes={ PermissionType.DELETE} )})

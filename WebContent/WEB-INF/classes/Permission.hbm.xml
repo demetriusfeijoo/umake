@@ -7,7 +7,7 @@
 	<class name="br.com.umake.model.Permission" table="umake_permissions">
 
 		<!-- Identificador da classe -->
-		<id name="id" column="id">
+		<id name="id" column="id" type="long">
 			<generator class="native" />
 		</id>
 
@@ -17,14 +17,14 @@
 		<property name="dateOfRegistration" />
 
 		<!-- Relacionamento da classe -->
- 		<set name="groupsRelation" table="umake_groups_permissions">
+ 		<set name="groups" table="umake_groups_permissions" cascade="none">
 			<key column="id_permission" />
-			<many-to-many column="id_group" class="br.com.umake.model.Group" not-found="ignore" />
+			<many-to-many column="id_group" class="br.com.umake.model.Group" />
 		</set> 
 		
- 		<set name="users" table="umake_users_permissions">
+ 		<set name="users" table="umake_users_permissions" cascade="none">
 			<key column="id_permission" />
-			<many-to-many column="id_user" class="br.com.umake.model.User" not-found="ignore" />
+			<many-to-many column="id_user" class="br.com.umake.model.User" />
 		</set> 
 		
 	</class>

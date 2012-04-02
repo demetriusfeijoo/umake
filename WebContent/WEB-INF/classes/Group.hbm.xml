@@ -8,7 +8,7 @@
 		<meta attribute="class-description">Está classe contem tudo relacionado com a entidade groups.</meta>
 		
 		<!-- Identificador da classe -->
-		<id name="id" column="id">
+		<id name="id" column="id" type="long">
 			<generator class="native" />
 		</id>
 
@@ -17,18 +17,16 @@
 		<property name="dateOfRegistration" />
 
 		<!-- Relacionamento da classe -->
-		<many-to-one name="parentGroup" class="br.com.umake.model.Group" not-found="ignore" >  
-			<column name="parentGroup" not-null="false" />
-		</many-to-one>
+		<many-to-one name="parentGroup" column="parentGroup"  class="br.com.umake.model.Group"/>  
 		
- 		<set name="users" table="umake_users_groups">
+ 		<set name="users" table="umake_users_groups" cascade="none" >
 			<key column="id_group" />
-			<many-to-many column="id_user" class="br.com.umake.model.User" not-found="ignore" />
+			<many-to-many column="id_user" class="br.com.umake.model.User" />
 		</set> 
 
- 		<set name="permissions" table="umake_groups_permissions">
+ 		<set name="permissions" table="umake_groups_permissions" cascade="none" >
 			<key column="id_group" />
-			<many-to-many column="id_permission" class="br.com.umake.model.Permission" not-found="ignore" />
+			<many-to-many column="id_permission" class="br.com.umake.model.Permission" />
 		</set> 
 		
 	</class>

@@ -1,9 +1,11 @@
 package br.com.umake.model;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
 @Component
-public class Group implements Serializable{
+public class Group{
 
 	@Id
 	@GeneratedValue
