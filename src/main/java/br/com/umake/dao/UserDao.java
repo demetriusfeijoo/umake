@@ -1,13 +1,16 @@
 package br.com.umake.dao;
 
 import java.util.Date;
+import java.util.HashSet;
 
+import org.hibernate.CacheMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.model.Permission;
 import br.com.umake.model.User;
 
 @Component
@@ -19,6 +22,7 @@ public class UserDao {
 
 	public UserDao( Session session ) {
 		this.session = session;
+		this.session.setCacheMode(CacheMode.IGNORE);
 
 	}
 	
@@ -26,12 +30,10 @@ public class UserDao {
 
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
-		user.setUserBlock(false);
 		
 		this.transaction = this.session.beginTransaction();
 		this.session.save(user);
 		this.transaction.commit();
-		this.session.flush();
 		
 		return this.transaction.wasCommitted();
 		
@@ -39,7 +41,9 @@ public class UserDao {
 	
 	public User getUser(User user){
 		
-		return (User) this.session.load( User.class , new Long(user.getId()) );		
+		User userLoaded = (User) this.session.load( User.class , new Long(user.getId()) );
+		
+		return userLoaded;
 
 	}
 
@@ -58,22 +62,33 @@ public class UserDao {
 	
 	public Boolean editUser( User user ){
 		
-		return true;
+		this.session.flush();
+		this.session.clear();
+		this.transaction = this.session.beginTransaction();
+		this.transaction.begin();
+		this.session.merge(user);
+		this.transaction.commit();
+
+		return this.transaction.wasCommitted();
 		
 	}
 	
 	public void updateInfoUser(User user){
 	
-		
-		
 	}
 		
 	public User findUser(User user) {
-
-		return (User) session.createCriteria(User.class)
+		
+		this.session.flush();
+		this.session.clear();
+		user.setId(new Long(5));
+		System.out.println(session.contains(user));
+	
+		User userFound = (User) session.createCriteria(User.class)
 				.add(Restrictions.eq("login", user.getLogin()))
 				.add(Restrictions.eq("password", user.getPassword()))
-				.uniqueResult();
+				.add(Restrictions.eq("userBlock", false)).setCacheMode(CacheMode.IGNORE).uniqueResult();
+		return userFound;
 		
 	}
 

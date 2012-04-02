@@ -17,14 +17,14 @@
 		<property name="dateOfRegistration" />
 
 		<!-- Relacionamento da classe -->
-		<many-to-one name="parentGroup" column="parentGroup"  class="br.com.umake.model.Group" />  
+		<many-to-one name="parentGroup" column="parentGroup"  class="br.com.umake.model.Group"/>  
 		
- 		<set name="users" table="umake_users_groups">
+ 		<set name="users" table="umake_users_groups" cascade="none" >
 			<key column="id_group" />
 			<many-to-many column="id_user" class="br.com.umake.model.User" />
 		</set> 
 
- 		<set name="permissions" table="umake_groups_permissions">
+ 		<set name="permissions" table="umake_groups_permissions" cascade="none" >
 			<key column="id_group" />
 			<many-to-many column="id_permission" class="br.com.umake.model.Permission" />
 		</set> 

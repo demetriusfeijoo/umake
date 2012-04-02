@@ -1,7 +1,5 @@
 package br.com.umake.controller;
 
-import java.util.List;
-
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -10,7 +8,6 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
-import br.com.caelum.vraptor.interceptor.ForwardToDefaultViewInterceptor;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
@@ -116,9 +113,21 @@ public class UsersController {
 	
 	@Put("adm/users/{user.id}")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.EDIT})}) 
-	public User editUser(User user){
+	public void editUser(User user){
+
+		User oldUser = this.userDao.getUser(user);
+		oldUser.setName(user.getName());
+		oldUser.setEmail(user.getEmail());
+		oldUser.setLogin(user.getLogin());
+		oldUser.setPassword(user.getPassword());
+		oldUser.setReceiveEmail(user.getReceiveEmail());
+		oldUser.setUserBlock(user.getUserBlock());
 		
-		return null;
+		this.userDao.editUser(user);
+
+		this.result.include("user", this.userDao.getUser(user));
+		
+		this.result.forwardTo(this).formCreate();		
 		
 	}
 	
