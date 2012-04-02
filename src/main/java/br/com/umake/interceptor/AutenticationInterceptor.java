@@ -34,11 +34,19 @@ public class AutenticationInterceptor implements Interceptor {
 
 	public boolean accepts(ResourceMethod method) {
 
+<<<<<<< HEAD
 		return method.getMethod().isAnnotationPresent(Restrictable.class);
 
 	}
 
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
+=======
+			if (annotation.annotationType() == View.class || annotation.annotationType() == Create.class || annotation.annotationType() == Delete.class || annotation.annotationType() == Edit.class) {
+
+				return true;
+				
+			}
+>>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
 
 		if(this.user.isLogged()){
 			
@@ -70,6 +78,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 	private List<Permission> recoveryNecessariesPermissions( ResourceMethod method ) {
 		
+<<<<<<< HEAD
 		List<Permission> permissions = new ArrayList<Permission>(4);
 
 		Restrictable restrictable = method.getMethod().getAnnotation(Restrictable.class);
@@ -95,6 +104,24 @@ public class AutenticationInterceptor implements Interceptor {
 				 
 			 }
 			 
+=======
+		if(!this.user.isLogged()){
+			
+				this.result.redirectTo(br.com.umake.controller.UsersController.class).formLogin();	
+				
+		}else{ 
+			
+			if(this.user.getUser().hasAllNecessariesPermissions(this.recoveryNecessariesPermissions(method, obj))){
+
+					stack.next(method, obj);
+					
+			}else{
+				
+					this.result.forwardTo(AdministrationController.class).index();
+					
+			}
+				
+>>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
 		}
 		
 		return permissions;

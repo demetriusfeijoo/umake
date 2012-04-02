@@ -76,6 +76,7 @@ public class UsersController {
 
 	}
 	
+<<<<<<< HEAD
     @Get("adm/users/create")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formCreate() {
@@ -93,7 +94,21 @@ public class UsersController {
 	@Post("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE}) }) 
 	public Boolean create(final User user) {
+=======
+    @Create
+	@Get
+	@Path("/create")
+	public Boolean create() {
     	
+<<<<<<< HEAD
+    	System.out.println("ate aki porra");
+
+/*    	this.userDao.insertUser(user);
+    	
+    	System.out.println("cadastrado com sucesso!");*/
+>>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
+    	
+=======
     	if(this.userDao.insertUser(user)){
     		// ERRADOOOOOOOOOOOOOOOO AINDA mostra que foi inserido e joga para listagem de usuário
     		this.result.redirectTo(UsersController.class).formCreate();
@@ -101,9 +116,11 @@ public class UsersController {
     		this.result.redirectTo(UsersController.class).formCreate();
     	}
     	    	
+>>>>>>> upstream/master
 		return true;
 	}
 	
+<<<<<<< HEAD
 	@Get("adm/users/{user.id}")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getUser( User user ){
@@ -120,7 +137,20 @@ public class UsersController {
 		
 		return null;
 		
+=======
+/*    @Get
+	@Create
+	@Path("/create") 
+<<<<<<< HEAD
+	public void formCreateUser() {
+
+	}*/
+=======
+	public void create() {
+    	
+>>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
 	}
+>>>>>>> upstream/master
 	
     @Delete("adm/users/{user.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="USER", permissionsTypes={ PermissionType.DELETE} )})

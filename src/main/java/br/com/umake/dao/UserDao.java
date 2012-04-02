@@ -18,14 +18,59 @@ public class UserDao {
 	private Transaction transaction;
 
 	public UserDao( Session session ) {
+<<<<<<< HEAD
+		System.out.println("criando session novo usuario");
+		this.session = session;		
+	}
+	
+	public void insertUser(User user){
+		System.out.println("insertuser chamado");
+=======
 		this.session = session;
 
 	}
 	
 	public Boolean insertUser(User user){
+<<<<<<< HEAD
 
+=======
+		System.out.println("Insert user");
+>>>>>>> upstream/master
+/*		Set<Permission> listPermissions = new HashSet<Permission>();
+		Permission permission1 = new Permission();
+		Permission permission2 = new Permission();
+		Permission permission3 = new Permission();
+		Permission permission4 = new Permission();
+		permission1.setName("CREATE");
+		permission2.setName("VIEW");
+		permission3.setName("EDIT");
+		permission4.setName("DELETE");
+		permission1.setContext("ADMINISTRATION");
+		permission2.setContext("ADMINISTRATION");
+		permission3.setContext("ADMINISTRATION");
+		permission4.setContext("ADMINISTRATION");
+		listPermissions.add(permission1);
+		listPermissions.add(permission2);
+		listPermissions.add(permission3);
+		listPermissions.add(permission4);
+		
+		Set<Group> listGroup = new HashSet<Group>();
+		
+		user.setPermissions(listPermissions);
+		user.setGroups(listGroup);*/
+>>>>>>> f75ada794862b68edc54ee4ef66e0d4dd68858cc
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
+<<<<<<< HEAD
+		user.setUserBlock(false);*/
+		this.transaction = this.session.beginTransaction();
+
+		this.session.save(user);
+		this.transaction.commit();
+		//this.session.flush();
+		//this.session.close();	
+		System.out.println("transacao ok");
+=======
 		user.setUserBlock(false);
 		
 		this.transaction = this.session.beginTransaction();
@@ -34,6 +79,7 @@ public class UserDao {
 		this.session.flush();
 		
 		return this.transaction.wasCommitted();
+>>>>>>> upstream/master
 		
 	}
 	
