@@ -1,14 +1,14 @@
 package br.com.umake.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 import br.com.caelum.vraptor.ioc.Component;
 
@@ -16,8 +16,6 @@ import br.com.caelum.vraptor.ioc.Component;
 @Component
 public class User implements Serializable {
 
-	@Id
-	@GeneratedValue
 	private Long id;
 	private String name;
 	private String login;
@@ -38,15 +36,14 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 
-		/*
-		 * DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); String
-		 * dateRegForm = df.format( ( this.getDateOfRegistration() != null ?
-		 * this.getDateOfRegistration() : new Date() ) );
-		 * 
-		 * String.format("Usuario %s, cadastrado no dia %s", this.getName(),
-		 * dateRegForm);
-		 */
-		return "";
+		
+		 DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); String
+		 dateRegForm = df.format( ( this.getDateOfRegistration() != null ?
+		 this.getDateOfRegistration() : new Date() ) );
+ 
+		 return  String.format("Usuario %s, cadastrado no dia %s", this.getName(),
+		 dateRegForm);
+
 
 	}
 
@@ -102,19 +99,7 @@ public class User implements Serializable {
 
 	public Set<Permission> getPermissions() {
 
-		for (Group group : this.getGroups()) {
-
-			Set<Permission> groupPermissions = group.getPermissions();
-
-			for (Permission permissions : groupPermissions) {
-
-				this.permissions.add(permissions);
-
-			}
-
-		}
-
-		return permissions;
+		return this.permissions;
 
 	}
 
@@ -162,13 +147,13 @@ public class User implements Serializable {
 		this.permissions = permissions;
 	}
 
-	public Boolean hasAllNecessariesPermissions(List<Permission> recoveryNecessaryPermissions) { //trocar list por set
+	public Boolean hasAllNecessariesPermissions(List<Permission> recoveryNecessaryPermissions) { 
 
 		for (Permission permissaoNecessaria : recoveryNecessaryPermissions) {
 
 			Boolean exists = false;
 
-			for (Permission perm : this.getPermissions()) {
+			for (Permission perm : this.getAllPermissions()) {
 								
 				if (permissaoNecessaria.equals(perm)){
 					
@@ -186,6 +171,26 @@ public class User implements Serializable {
 
 		return true;
 
+	}
+
+	private Set<Permission> getAllPermissions() {
+		
+		Set<Permission> allPermissions = new HashSet<Permission>( this.getPermissions().size() );
+		allPermissions.addAll(this.getPermissions());
+		
+		for (Group group : this.getGroups()) {
+
+			Set<Permission> groupPermissions = group.getPermissions();
+
+			for (Permission permissions : groupPermissions) {
+
+				allPermissions.add(permissions);
+
+			}
+
+		}
+
+		return allPermissions;
 	}
 
 }
