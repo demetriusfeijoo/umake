@@ -9,9 +9,10 @@ import org.hibernate.SessionFactory;
 import br.com.caelum.vraptor.ioc.ApplicationScoped;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.ComponentFactory;
+import br.com.caelum.vraptor.ioc.RequestScoped;
 
 @Component
-@ApplicationScoped
+@RequestScoped
 public class CreateSession implements ComponentFactory<Session>{
 	
 	private final SessionFactory factory;
