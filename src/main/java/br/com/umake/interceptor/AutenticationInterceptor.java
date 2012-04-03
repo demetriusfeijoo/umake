@@ -1,12 +1,10 @@
 package br.com.umake.interceptor;
 
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
-import br.com.caelum.vraptor.Lazy;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
@@ -19,7 +17,6 @@ import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
 
 @Intercepts
-@Lazy
 public class AutenticationInterceptor implements Interceptor {
 
 	private final UserControl user;
@@ -42,12 +39,13 @@ public class AutenticationInterceptor implements Interceptor {
 
 		if(this.user.isLogged()){
 			
+			
 			if( this.onlyRestrictable(method) ){
 				
 				stack.next(method, obj);
 				
 			}else{
-				
+								
 				if( this.user.getUser().hasAllNecessariesPermissions( this.recoveryNecessariesPermissions(method) ) ){
 					
 					stack.next(method, obj);

@@ -1,5 +1,7 @@
 package br.com.umake.controller;
 
+import org.hibernate.Session;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -24,13 +26,15 @@ public class UsersController {
 	private UserDao userDao;
 	private Result result;
 	private Validator validator;
+	private Session session;
 	
-	public UsersController(UserControl userControl, UserDao userDao, Result result, Validator validator) {
+	public UsersController(UserControl userControl, UserDao userDao, Result result, Validator validator, Session session) {
 	
 		this.userControl = userControl;
 		this.userDao = userDao;
 		this.result = result;
 		this.validator = validator;
+		this.session = session;
 		
 	}
 	
@@ -137,5 +141,19 @@ public class UsersController {
 		System.out.println("deletou");
 		return true;
 	}
+    
+    @Path("atual")
+    public void atualizaUser(){
+    	
+    	User user1 = new User();
+    	user1.setId((long) 5);
+    	
+    	System.out.println("Atualiza");
+    	
+    	User userTemp = this.userDao.getUser( this.userControl.getUser() );
+    	
+    	this.session.refresh(userTemp);
+    	
+    }
 
 }

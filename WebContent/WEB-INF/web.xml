@@ -9,6 +9,11 @@
         <param-name>br.com.caelum.vraptor.encoding</param-name>  
         <param-value>UTF-8</param-value>  
     </context-param> 
+    
+	<context-param>
+	    <param-name>br.com.caelum.vraptor.packages</param-name>
+	    <param-value>br.com.caelum.vraptor.util.hibernate</param-value>
+	</context-param>
 		
 	<filter>
 		<filter-name>vraptor</filter-name>
@@ -21,4 +26,5 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
+	
 </web-app>
