@@ -25,7 +25,7 @@ public class AutenticationInterceptor implements Interceptor {
 	public AutenticationInterceptor(UserControl user, Result result) {
 
 		this.result = result;
-		this.user = user;		
+		this.user = user;	
 
 	}
 
@@ -38,7 +38,6 @@ public class AutenticationInterceptor implements Interceptor {
 	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
 
 		if(this.user.isLogged()){
-			
 			
 			if( this.onlyRestrictable(method) ){
 				

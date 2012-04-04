@@ -1,10 +1,10 @@
 package br.com.umake.dao;
 
 import java.util.Date;
+import java.util.List;
 
-import org.hibernate.CacheMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -14,7 +14,6 @@ import br.com.umake.model.User;
 public class UserDao {
 
 	private final Session session;
-	private Transaction transaction;
 
 	public UserDao( Session session ) {
 		
@@ -28,30 +27,47 @@ public class UserDao {
 		user.setDateOfRegistration(new Date());
 		user.setDateLastVisit(new Date());
 		
-		this.session.save(user);
+		try{
+			
+			this.session.save(user);
+			
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
 		
-		return  this.session.getTransaction().wasCommitted();
+		return true;
 		
 	}
 	
 	public User getUser(User user){
 		
-		User userLoaded = (User) this.session.load( User.class , new Long(user.getId()) );
 		
+		User userLoaded = (User) this.session.load( User.class , new Long(user.getId()) );
 		return userLoaded;
 
 	}
 
 	public Boolean deleteUser( User user ){
 		
+		try{
+			
+			this.session.delete(user);
+
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
 		return true;
 		
 	}
 	
-	public Boolean getAllUsers( User user ){
+	public List<User> getAllUsers(){
 		
-		this.session.load(UserDao.class, 1L);
-		return true;
+		return this.session.createCriteria(User.class).list();
 		
 	}
 	

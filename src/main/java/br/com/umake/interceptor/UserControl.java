@@ -17,8 +17,8 @@ public class UserControl {
 	}
 
 	public User getUser() {
-
-		return this.user;
+		
+		return this.user; 
 
 	}
 

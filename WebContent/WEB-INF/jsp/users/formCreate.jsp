@@ -41,9 +41,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${user.id == null}"><button>enviar</button></c:if>
+				<c:if test="${user.id == null}"><button name="_method" value="post">enviar</button></c:if>
 				<c:if test="${user.id != null}"><button name="_method" value="put">enviar</button></c:if>
-			
+				<c:if test="${user.id != null}"><button name="_method" value="delete">Deletar</button></c:if>
 			</td>
 		</tr>
 							

@@ -10,6 +10,9 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 
+import net.sf.trugger.validation.validator.Email;
+import net.sf.trugger.validation.validator.NotEmpty;
+
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
