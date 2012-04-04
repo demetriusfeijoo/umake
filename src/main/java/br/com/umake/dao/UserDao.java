@@ -19,7 +19,6 @@ public class UserDao {
 		
 		this.session = session;
 
-
 	}
 	
 	public Boolean insertUser(User user){
@@ -42,7 +41,6 @@ public class UserDao {
 	}
 	
 	public User getUser(User user){
-		
 		
 		User userLoaded = (User) this.session.load( User.class , new Long(user.getId()) );
 		return userLoaded;

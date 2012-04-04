@@ -14,12 +14,9 @@ import javax.persistence.Id;
 
 import br.com.caelum.vraptor.ioc.Component;
 
-@Entity
 @Component
 public class Group{
 
-	@Id
-	@GeneratedValue
 	private Long id;
 	private String name; 
 	private Date dateOfRegistration;

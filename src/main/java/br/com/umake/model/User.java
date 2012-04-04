@@ -8,14 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Entity;
-
-import net.sf.trugger.validation.validator.Email;
-import net.sf.trugger.validation.validator.NotEmpty;
-
 import br.com.caelum.vraptor.ioc.Component;
 
-@Entity
 @Component
 public class User implements Serializable {
 
@@ -23,6 +17,8 @@ public class User implements Serializable {
 	private String name;
 	private String login;
 	private String password;
+	
+	//@Email
 	private String email;
 	private Date dateOfRegistration;
 	private Date dateLastVisit;

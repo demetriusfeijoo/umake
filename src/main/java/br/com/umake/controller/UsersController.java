@@ -36,7 +36,6 @@ public class UsersController {
 		
 	}
 	
-
 	@Get
 	@Path("adm/users/login")
 	public void formLogin() {

@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 
 import br.com.caelum.vraptor.ioc.Component;
 
-
-
-@Entity
 @Component
 public class Permission {
 	
