@@ -98,12 +98,11 @@ public class UsersController {
 						
 	}
 
-	@Path("adm/users/alluser.json")
+	@Path("adm/users/json")
 	public void getAllUserInJson(){
 		
 		System.out.println("entrou");
 		this.result.use(json()).from(this.userDao.getAllUsers()).serialize();	
-		
 	}	
 	
 	@Post("adm/users")

@@ -12,6 +12,7 @@
 	<meta name="googlebot" content="nofollow" />
 	<meta name="description" content="" />
 	<meta http-equiv="content-language" content="pt-br" />
+	<link href="<c:url value="/admin/css/flexigrid.pack.css" />" type="text/css" rel="stylesheet" />
 <title>Administracao</title>
 </head>
 <body>
