@@ -1,7 +1,6 @@
 package br.com.umake.controller;
 
-import java.util.List;
-
+import static br.com.caelum.vraptor.view.Results.json;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -17,7 +16,6 @@ import br.com.umake.model.User;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
-
 
 @Resource
 public class UsersController { 
@@ -40,11 +38,11 @@ public class UsersController {
 	@Path("adm/users/login")
 	public void formLogin() {
 		
-/*		if( this.userControl.isLogged() ) 
-			this.result.redirectTo(AdministrationController.class).index();*/
+		if( this.userControl.isLogged() ) 
+			this.result.redirectTo(AdministrationController.class).index();
 			
 	}
-
+    
 	@Post
 	@Path("adm/users/login")
 	public void login(final User user) { // falta validar usuário pelo servidor.
@@ -65,7 +63,7 @@ public class UsersController {
 
 	}
 
-	@Path("adm/users/logout")
+	@Get("adm/users/logout")
 	@Restrictable
 	public void logout() {
 		
@@ -74,29 +72,55 @@ public class UsersController {
 
 	}
 	
+	
+    
+	@Get("adm/users/{user.id}")
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
+	public void getUser( User user ){
+		
+		this.result.include("user", this.userDao.getUser(user));
+		
+		this.result.forwardTo(this).formCreate();
+				
+	}
+
+	
     @Get("adm/users/create")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formCreate() {
     	
 	}
+
+    
+	@Get("adm/users")
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW}) } ) 
+	public void list(){
+						
+	}
+
+	@Path("adm/users/alluser.json")
+	public void getAllUserInJson(){
+		
+		System.out.println("entrou");
+		this.result.use(json()).from(this.userDao.getAllUsers()).serialize();	
+		
+	}	
 	
 	@Post("adm/users")
-	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE}) }) 
-	public Boolean create(final User user) {
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE }) }) 
+	public void create(final User user) {
     	
     	if(this.userDao.insertUser(user)){
-    		// ERRADOOOOOOOOOOOOOOOO AINDA mostra que foi inserido e joga para listagem de usuário
-    		this.result.include("user", this.userDao.getUser(user));
-    		this.result.redirectTo(UsersController.class).formCreate();
-    	}else{
     		
-    		this.result.redirectTo(UsersController.class).formCreate();
+    		this.result.include("user", this.userDao.getUser(user));
+    	
     	}
-    	    	
-		return true;
+    	 
+		this.result.redirectTo(UsersController.class).formCreate();
+
 	}
 	
-	@Put("adm/users/{user.id}")
+	@Put("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.EDIT})}) 
 	public void editUser(User user){
 
@@ -116,13 +140,13 @@ public class UsersController {
 		
 	}
 	
-    @Delete("adm/users/{user.id}")
+    @Delete("adm/users")
     @Restrictable(permissions={@PermissionAnnotation(context="USER", permissionsTypes={ PermissionType.DELETE} )})
 	public Boolean delete(final User user){
 
     	if(this.userDao.deleteUser(user)){
     		
-        	this.result.forwardTo(this).getAllUsers();
+        	this.result.forwardTo(this).list();
     		
     	}else{
     		
@@ -131,29 +155,9 @@ public class UsersController {
     		
     	}
     	
-    	
     	return true;
     	
 	}
-    
-	@Get("adm/users/{user.id}")
-	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
-	public void getUser( User user ){
-		
-		this.result.include("user", this.userDao.getUser(user));
-		
-		this.result.forwardTo(this).formCreate();
-				
-	}
-    
-	@Get("adm/users")
-	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
-	public void getAllUsers(){
-		
-		List<User> allUsers = this.userDao.getAllUsers();
-		
-		System.out.println(allUsers);
-		
-	}
+
 
 }
