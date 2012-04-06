@@ -8,10 +8,15 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+<<<<<<< HEAD
+=======
+import javax.persistence.Entity;
+
+>>>>>>> upstream/master
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class User implements Serializable {
+public class User implements Serializable, Gridable<User> {
 
 	private Long id;
 	private String name;
@@ -191,5 +196,18 @@ public class User implements Serializable {
 
 		return allPermissions;
 	}
+
+	public String getIdentifier() {
+		
+		return String.valueOf(this.getId());
+		
+	}
+
+	public User getInstance() {
+		
+		return this;
+		
+	}
+	
 
 }

@@ -1,6 +1,9 @@
 package br.com.umake.controller;
 
-import static br.com.caelum.vraptor.view.Results.json;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -9,6 +12,8 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
+import br.com.caelum.vraptor.serialization.xstream.XStreamJSONPSerialization;
+import br.com.caelum.vraptor.serialization.xstream.XStreamJSONSerialization;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.umake.dao.UserDao;
 import br.com.umake.interceptor.UserControl;
@@ -16,6 +21,10 @@ import br.com.umake.model.User;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.thoughtworks.xstream.XStream;
 
 @Resource
 public class UsersController { 
@@ -103,8 +112,8 @@ public class UsersController {
 		
 		System.out.println("entrou");
 		this.result.use(json()).from(this.userDao.getAllUsers()).serialize();	
-	}	
-	
+	}
+
 	@Post("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final User user) {
