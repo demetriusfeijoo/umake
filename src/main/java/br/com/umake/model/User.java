@@ -10,14 +10,11 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 
-import net.sf.trugger.validation.validator.Email;
-import net.sf.trugger.validation.validator.NotEmpty;
-
 import br.com.caelum.vraptor.ioc.Component;
 
 @Entity
 @Component
-public class User implements Serializable {
+public class User implements Serializable, Gridable<User> {
 
 	private Long id;
 	private String name;
@@ -195,5 +192,18 @@ public class User implements Serializable {
 
 		return allPermissions;
 	}
+
+	public String getIdentifier() {
+		
+		return String.valueOf(this.getId());
+		
+	}
+
+	public User getInstance() {
+		
+		return this;
+		
+	}
+	
 
 }
