@@ -1,6 +1,7 @@
 package br.com.umake.interceptor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.InterceptionException;
@@ -10,8 +11,10 @@ import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.AdministrationController;
-import br.com.umake.controller.UsersController;
+import br.com.umake.controller.UsersAdmController;
+import br.com.umake.dao.UserAdmDao;
 import br.com.umake.model.Permission;
+import br.com.umake.model.UserAdm;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -19,13 +22,16 @@ import br.com.umake.permissions.Restrictable;
 @Intercepts
 public class AutenticationInterceptor implements Interceptor {
 
-	private final UserControl user;
+	private final UserAdmControl user;
 	private final Result result;
+	private final UserAdmDao userDao;
 
-	public AutenticationInterceptor(UserControl user, Result result) {
+
+	public AutenticationInterceptor(UserAdmControl user, Result result, UserAdmDao uDao) {
 
 		this.result = result;
 		this.user = user;	
+		this.userDao = uDao;
 
 	}
 
@@ -43,9 +49,10 @@ public class AutenticationInterceptor implements Interceptor {
 				
 				stack.next(method, obj);
 				
+				
 			}else{
 								
-				if( this.user.getUser().hasAllNecessariesPermissions( this.recoveryNecessariesPermissions(method) ) ){
+				if( this.user.getUserAdm().hasAllNecessariesPermissions( this.recoveryNecessariesPermissions(method) ) ){
 					
 					stack.next(method, obj);
 					
@@ -57,9 +64,12 @@ public class AutenticationInterceptor implements Interceptor {
 				
 			}
 			
+			this.user.getUserAdm().setDateLastVisit(new Date());
+			System.out.println(this.userDao.updateLastDate(this.user.getUserAdm()));
+			
 		}else{
 			
-			this.result.redirectTo(UsersController.class).formLogin();
+			this.result.redirectTo(UsersAdmController.class).formLogin();
 			
 		}
 
@@ -118,8 +128,6 @@ public class AutenticationInterceptor implements Interceptor {
 			 
 		 }
 
-
-		
 		return false;
 	}
 

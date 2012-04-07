@@ -4,7 +4,7 @@
    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="br.com.umake.model.User" table="umake_users">
+	<class name="br.com.umake.model.UserAdm" table="umake_users">
 
 		<!-- Identificador da classe -->
 		<id name="id" column="id" type="long">
@@ -16,8 +16,8 @@
 		<property name="login" not-null="true" />
 		<property name="password" not-null="true" />
 		<property name="email" not-null="true" />
-		<property name="dateOfRegistration" update="false" />
-		<property name="dateLastVisit" update="false" />
+		<property name="dateOfRegistration" />
+		<property name="dateLastVisit" />
 		<property name="receiveEmail" not-null="true" />
 		<property name="userBlock" not-null="true" />
 
