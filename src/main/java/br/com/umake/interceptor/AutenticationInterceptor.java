@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.caelum.vraptor.InterceptionException;
 import br.com.caelum.vraptor.Intercepts;
+import br.com.caelum.vraptor.Lazy;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
@@ -14,12 +15,12 @@ import br.com.umake.controller.AdministrationController;
 import br.com.umake.controller.UsersAdmController;
 import br.com.umake.dao.UserAdmDao;
 import br.com.umake.model.Permission;
-import br.com.umake.model.UserAdm;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
 
 @Intercepts
+@Lazy
 public class AutenticationInterceptor implements Interceptor {
 
 	private final UserAdmControl user;

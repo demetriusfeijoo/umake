@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Entity;
-
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component

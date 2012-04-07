@@ -63,6 +63,7 @@ public class UserAdmDao {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<UserAdm> getAllUsersAdm(){
 		
 		return this.session.createCriteria(UserAdm.class).list();
