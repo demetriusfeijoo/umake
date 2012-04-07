@@ -21,7 +21,7 @@ public class Group{
 	private String name; 
 	private Date dateOfRegistration;
 	private Group parentGroup;
-	private Set<User> users;
+	private Set<UserAdm> users;
 	private Set<Permission> permissions;				
 	
 	public Group(){ 
@@ -62,7 +62,7 @@ public class Group{
 		return parentGroup;
 	}
 	
-	public Set<User> getUsers() {
+	public Set<UserAdm> getUsers() {
 		return users;
 	}
 
@@ -86,7 +86,7 @@ public class Group{
 		this.parentGroup = parentGroup;
 	}
 	
-	public void setUsers(Set<User> users) {
+	public void setUsers(Set<UserAdm> users) {
 		this.users = users;
 	}
 

@@ -16,7 +16,7 @@ public class Permission {
 	private String context;
 	private String type; 
 	private Date dateOfRegistration;
-	private Set<User> users ;
+	private Set<UserAdm> users ;
 	private Set<Group> groups ;
 
 	public Permission() {
@@ -59,7 +59,7 @@ public class Permission {
 		return groups;
 	}
 
-	public Set<User> getUsers() {
+	public Set<UserAdm> getUsers() {
 		return users;
 	}
 
@@ -83,7 +83,7 @@ public class Permission {
 		this.groups = groups;
 	}
 
-	public void setUsers(Set<User> users) {
+	public void setUsers(Set<UserAdm> users) {
 		this.users = users;
 	}
 	

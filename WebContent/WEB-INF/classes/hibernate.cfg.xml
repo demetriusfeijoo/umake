@@ -20,7 +20,7 @@
 		<property name="hibernate.cache.provider_class" >org.hibernate.cache.EhCacheProvider"</property>
 		<property name="hibernate.cache.use_query_cache">false</property> -->
 		
-		<mapping resource="User.hbm.xml"/>
+		<mapping resource="UserAdm.hbm.xml"/>
 		<mapping resource="Group.hbm.xml"/>
 		<mapping resource="Permission.hbm.xml"/>
 		

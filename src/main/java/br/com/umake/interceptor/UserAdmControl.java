@@ -2,21 +2,22 @@ package br.com.umake.interceptor;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.SessionScoped;
-import br.com.umake.model.User;
+import br.com.umake.model.UserAdm;
+
 
 @Component
 @SessionScoped
-public class UserControl {
+public class UserAdmControl {
 
-	private User user;
+	private UserAdm user;
 
-	public void login(User user) {
+	public void login(UserAdm user) {
 
 		this.user = user;
 
 	}
 
-	public User getUser() {
+	public UserAdm getUserAdm() {
 		
 		return this.user; 
 

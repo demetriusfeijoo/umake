@@ -8,15 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-<<<<<<< HEAD
-=======
 import javax.persistence.Entity;
 
->>>>>>> upstream/master
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class User implements Serializable, Gridable<User> {
+public class UserAdm implements Serializable, Gridable<UserAdm> {
 
 	private Long id;
 	private String name;
@@ -33,7 +30,7 @@ public class User implements Serializable, Gridable<User> {
 	private Set<Permission> permissions = new HashSet<Permission>();
 	private static final long serialVersionUID = 1L;
 
-	public User() {
+	public UserAdm() {
 		
 	}
 
@@ -54,7 +51,7 @@ public class User implements Serializable, Gridable<User> {
 	@Override
 	public boolean equals(Object o) {
 
-		User user2 = (User) o;
+		UserAdm user2 = (UserAdm) o;
 
 		return (!user2.getId().equals(null) && this.getId() == user2.getId() ? true
 				: false);
@@ -203,7 +200,7 @@ public class User implements Serializable, Gridable<User> {
 		
 	}
 
-	public User getInstance() {
+	public UserAdm getInstance() {
 		
 		return this;
 		

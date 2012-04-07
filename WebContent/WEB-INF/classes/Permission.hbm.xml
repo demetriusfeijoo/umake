@@ -24,7 +24,7 @@
 		
  		<set name="users" table="umake_users_permissions" lazy="false" cascade="none">
 			<key column="id_permission" />
-			<many-to-many column="id_user" class="br.com.umake.model.User" />
+			<many-to-many column="id_user" class="br.com.umake.model.UserAdm" />
 		</set> 
 		
 	</class>
