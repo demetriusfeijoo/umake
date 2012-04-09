@@ -91,7 +91,6 @@ public class UsersAdmController {
     	
 	}
 
-    
 	@Get("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW}) } ) 
 	public void list(){

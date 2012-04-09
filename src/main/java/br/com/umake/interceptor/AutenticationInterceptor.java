@@ -66,7 +66,7 @@ public class AutenticationInterceptor implements Interceptor {
 			}
 			
 			this.user.getUserAdm().setDateLastVisit(new Date());
-			System.out.println(this.userDao.updateLastDate(this.user.getUserAdm()));
+			this.userDao.updateLastDate(this.user.getUserAdm());
 			
 		}else{
 			
