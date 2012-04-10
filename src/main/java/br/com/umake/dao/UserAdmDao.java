@@ -100,10 +100,6 @@ public class UserAdmDao {
 		
 		return true;		
 	}
-	
-	public void updateInfoUserAdm(UserAdm user){
-	
-	}
 		
 	public UserAdm findUserAdm(UserAdm user) {
 		

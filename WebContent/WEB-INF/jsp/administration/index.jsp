@@ -12,7 +12,10 @@
 			<li><a href="/umake/adm/users">Listar Usuário</a></li>
 			<li><a href="/umake/adm/users">Editar Usuário</a></li>
 			<li><a href="/umake/adm/users">Excluir Usuário</a></li>
-			<li><a href="#">Grupo</a></li>
+			<li><a href="/umake/adm/groups/create">Criar Grupo</a></li>
+			<li><a href="/umake/adm/groups">Listar Grupos</a></li>
+			<li><a href="/umake/adm/groups">Editar Grupo</a></li>
+			<li><a href="/umake/adm/groups">Excluir Grupo</a></li>
 			<li><a href="#">Permissão</a></li>
 			
 		</ul>
