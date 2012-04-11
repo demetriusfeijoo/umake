@@ -85,23 +85,21 @@ public class AutenticationInterceptor implements Interceptor {
 		
 		for (PermissionAnnotation permissionAnnotation : permissionsOfRestrictable) {
 			
-			 if(permissionAnnotation.context().equals("") || permissionAnnotation.permissionsTypes().length == 0){
+			 if(!permissionAnnotation.context().equals("") && permissionAnnotation.permissionsTypes().length > 0){
 				 
-				 continue;
+				 String context = permissionAnnotation.context();
 				 
+				 for (PermissionType permissionType : permissionAnnotation.permissionsTypes()) {
+					 
+					 Permission permission = new Permission();
+					 permission.setContext(context);
+					 permission.setType(permissionType.name());
+					 
+					 permissions.add(permission);
+					 
+				 }				 
 			 }
 			 
-			 String context = permissionAnnotation.context();
-			 
-			 for (PermissionType permissionType : permissionAnnotation.permissionsTypes()) {
-				 
-				 Permission permission = new Permission();
-				 permission.setContext(context);
-				 permission.setType(permissionType.name());
-				 
-				 permissions.add(permission);
-				 
-			 }
 			 
 		}
 		

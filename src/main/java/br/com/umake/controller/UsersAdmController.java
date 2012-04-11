@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.UserAdmDao;
+import br.com.umake.helper.FlexiGridJson;
 import br.com.umake.interceptor.UserAdmControl;
 import br.com.umake.model.UserAdm;
 import br.com.umake.permissions.PermissionAnnotation;
@@ -100,7 +101,16 @@ public class UsersAdmController {
 	@Path("adm/users/json")
 	public void getAllUserAdmInJson(){
 		
-		System.out.println("entrou");
+		try {
+			
+			FlexiGridJson<UserAdm> flexi = new FlexiGridJson<UserAdm>(10, 10, this.userAdmDao.getAllUsersAdm());
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
 		this.result.use(Results.json()).from(this.userAdmDao.getAllUsersAdm()).serialize();	
 	}
 

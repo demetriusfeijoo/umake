@@ -9,18 +9,22 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.helper.Column;
 
 @Component
-public class UserAdm implements Serializable, Gridable<UserAdm> {
+public class UserAdm implements Serializable {
 
+	@Column(position=2)
 	private Long id;
+	@Column(position=1)
 	private String name;
 	private String login;
 	private String password;
-	
-	//@Email
+	@Column(position=3)
 	private String email;
+	@Column(position=4)
 	private Date dateOfRegistration;
+	@Column(position=5)
 	private Date dateLastVisit;
 	private Boolean receiveEmail;
 	private Boolean userBlock;
