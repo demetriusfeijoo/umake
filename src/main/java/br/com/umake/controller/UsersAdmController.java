@@ -1,5 +1,8 @@
 package br.com.umake.controller;
 
+import java.util.ArrayList;
+
+import antlr.collections.List;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -101,9 +104,11 @@ public class UsersAdmController {
 	@Path("adm/users/json")
 	public void getAllUserAdmInJson(){
 		
+		FlexiGridJson<UserAdm> flexi = null;
+		
 		try {
-			
-			FlexiGridJson<UserAdm> flexi = new FlexiGridJson<UserAdm>(10, 10, this.userAdmDao.getAllUsersAdm());
+
+			flexi = new FlexiGridJson<UserAdm>(10, 10, this.userAdmDao.getAllUsersAdm() );
 			
 		} catch (Exception e) {
 
@@ -111,7 +116,9 @@ public class UsersAdmController {
 			
 		}
 		
-		this.result.use(Results.json()).from(this.userAdmDao.getAllUsersAdm()).serialize();	
+		//this.result.use(Results.http()).body("{\"page\": 10,\"total\": 10,\"rows\": [{\"id\": \"1\",\"cell\": [\"5\",\"demetrius\"]}]}");
+		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
+		
 	}
 
 	@Post("adm/users")

@@ -1,18 +1,17 @@
 package br.com.umake.helper;
 
-import com.google.gson.Gson;
+import java.util.List;
 
-public class FlexiGridRow<T>{
+
+public class FlexiGridRow{
 
 	private  String id;
-	private	 String cell;
+	private	 List<String> cell;
 	
-	public FlexiGridRow(T grid) {
-		
-		Gson gson = new Gson();
-		
-		this.id = null;
-		this.cell = null;
+	public FlexiGridRow(String id, List<String> cell) {
+				
+		this.id = id;
+		this.cell = cell;
 		
 	}
 

@@ -17,9 +17,24 @@ public class FlexiGridJson<T>{
 		this.total = total;
 		
 		if( rows.size() > 0 ){
-			
+
 			List<String> allAttInOrder = this.getAttWillBeListed(rows);
 
+			for (T row : rows) {
+				
+				List<String> cell = new ArrayList<String>(); 
+				
+				for (String fieldStringInOrder : allAttInOrder) {
+																			
+					Field field = row.getClass().getDeclaredField(fieldStringInOrder);
+					field.setAccessible(true);
+					cell.add(field.get(row).toString() );
+
+				}
+				
+				this.rows.add(new FlexiGridRow("1", cell));
+				
+			}
 			
 		}else{
 			

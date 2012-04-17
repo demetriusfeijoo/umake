@@ -14,17 +14,15 @@ import br.com.umake.helper.Column;
 @Component
 public class UserAdm implements Serializable {
 
-	@Column(position=2)
-	private Long id;
 	@Column(position=1)
+	private Long id;
+	@Column(position=2)
 	private String name;
 	private String login;
 	private String password;
 	@Column(position=3)
 	private String email;
-	@Column(position=4)
 	private Date dateOfRegistration;
-	@Column(position=5)
 	private Date dateLastVisit;
 	private Boolean receiveEmail;
 	private Boolean userBlock;
