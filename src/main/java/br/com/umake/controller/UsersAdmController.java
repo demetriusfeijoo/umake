@@ -1,8 +1,5 @@
 package br.com.umake.controller;
 
-import java.util.ArrayList;
-
-import antlr.collections.List;
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;

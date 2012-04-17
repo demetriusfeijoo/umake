@@ -5,26 +5,19 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.Group;
-import br.com.umake.model.UserAdm;
 
 @Component
 public class GroupDao {
 	
-	AnnotationConfiguration configuration;
-	Session session;
-	
-	public GroupDao(){
+	private final Session session;
+
+	public GroupDao( Session session ) {
 		
-		configuration = new AnnotationConfiguration();
-		configuration.configure();
-		SessionFactory factory = configuration.buildSessionFactory();
-		session = factory.openSession();
-		
+		this.session = session;
+
 	}
 	
 	public Boolean insertGroup(Group group){
@@ -52,11 +45,9 @@ public class GroupDao {
 		
 	}
 	
-	public Group getAllGroups(){
+	public List<Group> getAllGroups(){
 		
-		Group allGroups = (Group) session.createQuery("FROM umake_groups");
-		
-		return allGroups;
+		return this.session.createCriteria(Group.class).list();
 		
 	}
 	

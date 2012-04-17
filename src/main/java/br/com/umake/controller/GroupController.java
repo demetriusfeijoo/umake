@@ -48,7 +48,7 @@ public class GroupController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formCreateGroup(){
     	
-		this.result.include("allGroup", this.groupDao.getAllGroups());
+		this.result.include("allGroups", this.groupDao.getAllGroups());
 
 	}
     
@@ -68,10 +68,10 @@ public class GroupController {
 	@Post("adm/groups")
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final Group group) {
-    	
-    	if(this.groupDao.insertGroup(group)){
+
+		if(this.groupDao.insertGroup(group)){
     		
-    		this.result.include("group", this.groupDao.getGroup(group));
+    		this.result.include("allGroups", this.groupDao.getGroup(group));
     	
     	}
     	 

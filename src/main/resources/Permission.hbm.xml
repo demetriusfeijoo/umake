@@ -17,12 +17,12 @@
 		<property name="dateOfRegistration" />
 
 		<!-- Relacionamento da classe -->
- 		<set name="groups" table="umake_groups_permissions" lazy="false" cascade="none">
+ 		<set name="groups" table="umake_groups_permissions" lazy="true" cascade="none">
 			<key column="id_permission" />
 			<many-to-many column="id_group" class="br.com.umake.model.Group" />
 		</set> 
 		
- 		<set name="users" table="umake_users_permissions" lazy="false" cascade="none">
+ 		<set name="users" table="umake_users_permissions" lazy="true" cascade="none">
 			<key column="id_permission" />
 			<many-to-many column="id_user" class="br.com.umake.model.UserAdm" />
 		</set> 

@@ -17,7 +17,7 @@
 		<property name="dateOfRegistration" not-null="true"/>
 
 		<!-- Relacionamento da classe -->
-		<many-to-one name="parentGroup" column="parentGroup" class="br.com.umake.model.Group"/>  
+		<many-to-one name="parentGroup" column="parentGroup"  class="br.com.umake.model.Group"/>  
 		
  		<set name="users" table="umake_users_groups" lazy="false" cascade="none" >
 			<key column="id_group" />
