@@ -63,18 +63,28 @@ public class GroupController {
 		
 		System.out.println("entrou");
 		this.result.use(Results.json()).from(this.groupDao.getAllGroup()).serialize();	
+		
+	}
+	
+	public Group getParentGroup(Long id){
+		
+		return groupDao.getParentGroup(id);
+		
 	}
     
 	@Post("adm/groups")
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final Group group) {
-    	
-    	if(this.groupDao.insertGroup(group)){
-    		
+		
+		group.setParentGroup(group.getParentGroupId().getId());
+		
+		if(this.groupDao.insertGroup(group)){
+			
+			//group.setParentGroupObj(this.getParentGroup(group.getParentGroup()));
     		this.result.include("group", this.groupDao.getGroup(group));
     	
     	}
-    	 
+
 		this.result.redirectTo(GroupController.class).formCreateGroup();
 
 	}
@@ -83,8 +93,9 @@ public class GroupController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.EDIT})}) 
 	public void editGroup(Group group){
 
-		Group oldGoup = this.groupDao.getGroup(group);
-		oldGoup.setName(group.getName());
+		Group oldGroup = this.groupDao.getGroup(group);
+		oldGroup.setName(group.getName());
+		oldGroup.setParentGroupId(group);
 		
 		this.groupDao.editGroup(group);
 

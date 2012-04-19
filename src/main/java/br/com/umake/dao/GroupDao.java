@@ -3,6 +3,7 @@ package br.com.umake.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,7 +11,6 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.Group;
-import br.com.umake.model.UserAdm;
 
 @Component
 public class GroupDao {
@@ -28,19 +28,20 @@ public class GroupDao {
 	}
 	
 	public Boolean insertGroup(Group group){
-
-		group.setDateOfRegistration(new Date());
 		
+		group.setDateOfRegistration(new Date());
+
 		try{
-			
-			this.session.save(group);
-			
+
+			//this.session.createSQLQuery("INSERT INTO umake_groups(name, dateOfRegistration, parentGroup) VALUES('opera','2012-03-10 12:12:12', 1)").executeUpdate();
+			this.session.saveOrUpdate(group);
+
 		}catch(HibernateException e){
-			
+			System.out.println(e.getCause());
 			return false;
 			
 		}
-		
+
 		return true;
 		
 	}
@@ -52,12 +53,38 @@ public class GroupDao {
 		
 	}
 	
-	public Group getAllGroups(){
+	public Group getParentGroup(Long id){
 		
-		Group allGroups = (Group) session.createQuery("FROM umake_groups");
+		Group parentGroup = null;
 		
-		return allGroups;
+		try{
+			
+			parentGroup = (Group) this.session.load(Group.class, new Long(id));
+			
+		}catch(HibernateException e ){
+			
+			System.out.println(e.getCause());
+			
+			return null;
+		}
 		
+		return parentGroup;
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Group> getAllGroups(){
+		
+		Criteria allGroups = this.session.createCriteria(Group.class);
+		List<Group> groupList = null;
+		
+		try{
+			groupList = allGroups.list();
+		}catch(HibernateException e){
+			System.out.println(e.getCause());
+		}
+		
+		return groupList;
 	}
 	
 	public Boolean editGroup( Group group ){

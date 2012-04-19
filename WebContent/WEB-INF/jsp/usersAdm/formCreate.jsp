@@ -1,6 +1,5 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
 
-
 <form action="<c:url value="/adm/users" />" method="post" id="formCreateUser">
 	<c:if test="${user != null}"><input name="user.id" type="hidden" value="${user.id}" /></c:if>	
 	<table>
