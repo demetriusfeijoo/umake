@@ -1,20 +1,17 @@
 package br.com.umake.helper;
 
-import br.com.umake.model.Gridable;
+import java.util.List;
 
-import com.google.gson.Gson;
 
 public class FlexiGridRow{
 
 	private  String id;
-	private	 String cell;
+	private	 List<String> cell;
 	
-	public FlexiGridRow(Gridable grid) {
-		
-		Gson gson = new Gson();
-		
-		this.id = grid.getIdentifier();
-		this.cell = gson.toJson(grid);
+	public FlexiGridRow(String id, List<String> cell) {
+				
+		this.id = id;
+		this.cell = cell;
 		
 	}
 

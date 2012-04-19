@@ -11,6 +11,7 @@ import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.UserAdmDao;
+import br.com.umake.helper.FlexiGridJson;
 import br.com.umake.interceptor.UserAdmControl;
 import br.com.umake.model.UserAdm;
 import br.com.umake.permissions.PermissionAnnotation;
@@ -100,8 +101,20 @@ public class UsersAdmController {
 	@Path("adm/users/json")
 	public void getAllUserAdmInJson(){
 		
-		System.out.println("entrou");
-		this.result.use(Results.json()).from(this.userAdmDao.getAllUsersAdm()).serialize();	
+		FlexiGridJson<UserAdm> flexi = null;
+		
+		try {
+			
+			flexi = new FlexiGridJson<UserAdm>(10, 10, this.userAdmDao.getAllUsersAdm() );
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
+		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
+		
 	}
 
 	@Post("adm/users")
@@ -122,15 +135,15 @@ public class UsersAdmController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.EDIT})}) 
 	public void editUserAdm(UserAdm user){
 
-		UserAdm oldUser = this.userAdmDao.getUserAdm(user);
-		oldUser.setName(user.getName());
-		oldUser.setEmail(user.getEmail());
-		oldUser.setLogin(user.getLogin());
-		oldUser.setPassword(user.getPassword());
-		oldUser.setReceiveEmail(user.getReceiveEmail());
-		oldUser.setUserBlock(user.getUserBlock());
+		UserAdm newUser = this.userAdmDao.getUserAdm(user);
+		newUser.setName(user.getName());
+		newUser.setEmail(user.getEmail());
+		newUser.setLogin(user.getLogin());
+		newUser.setPassword(user.getPassword());
+		newUser.setReceiveEmail(user.getReceiveEmail());
+		newUser.setUserBlock(user.getUserBlock());
 		
-		this.userAdmDao.editUserAdm(user);
+		this.userAdmDao.editUserAdm(newUser);
 
 		this.result.include("user", this.userAdmDao.getUserAdm(user));
 		

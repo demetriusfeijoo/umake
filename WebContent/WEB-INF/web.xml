@@ -5,16 +5,11 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>umake</display-name>
 
-    <context-param>  
-        <param-name>br.com.caelum.vraptor.encoding</param-name>  
-        <param-value>UTF-8</param-value>  
-    </context-param> 
-    
 	<context-param>
-	    <param-name>br.com.caelum.vraptor.packages</param-name>
-	    <param-value>br.com.caelum.vraptor.util.hibernate</param-value>
+		<param-name>br.com.caelum.vraptor.encoding</param-name>
+		<param-value>UTF-8</param-value>
 	</context-param>
-		
+
 	<filter>
 		<filter-name>vraptor</filter-name>
 		<filter-class>br.com.caelum.vraptor.VRaptor</filter-class>
@@ -26,5 +21,5 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	
+
 </web-app>

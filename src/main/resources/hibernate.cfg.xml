@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
 
-	<session-factory name="br.com.umake.components.FactorySessionFactory" >
+	<session-factory name="br.com.umake.components.FactorySessionFactory">
 
 		<property name="hibernate.connection.username">umakecom_db</property>
 		<property name="hibernate.connection.password">djsd1234</property>
@@ -15,16 +15,15 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
-		
-<!-- 	<property name="hibernate.cache.use_second_level_cache" >false</property>
+
+<!-- 		<property name="hibernate.cache.use_second_level_cache" >false</property>
 		<property name="hibernate.cache.provider_class" >org.hibernate.cache.EhCacheProvider"</property>
 		<property name="hibernate.cache.use_query_cache">false</property> -->
-		
+
 		<mapping resource="UserAdm.hbm.xml"/>
 		<mapping resource="Group.hbm.xml"/>
 		<mapping resource="Permission.hbm.xml"/>
-		
+
 	</session-factory>
 
 </hibernate-configuration>
-	

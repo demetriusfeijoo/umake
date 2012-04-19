@@ -12,6 +12,7 @@
 	<meta name="googlebot" content="nofollow" />
 	<meta name="description" content="" />
 	<meta http-equiv="content-language" content="pt-br" />
+<<<<<<< HEAD
 
 	<link href="<c:url value="/admin/css/flexigrid.pack.css" />" type="text/css" rel="stylesheet" />
 
@@ -20,6 +21,9 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<c:url value="/admin/js/functions.js" />" type="text/javascript"></script>
 
+=======
+	<link href="<c:url value="/admin/css/flexigrid.pack.css" />" type="text/css" rel="stylesheet" />
+>>>>>>> upstream/master
 <title>Administracao</title>
 </head>
 <body>

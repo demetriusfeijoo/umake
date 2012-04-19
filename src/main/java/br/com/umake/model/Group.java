@@ -13,8 +13,7 @@ public class Group{
 	private Long id;
 	private String name; 
 	private Date dateOfRegistration;
-	private Group parentGroupId;
-	private Long parentGroup;
+	private Group parentGroup;
 	private Set<UserAdm> users;
 	private Set<Permission> permissions;				
 	
@@ -52,8 +51,8 @@ public class Group{
 		return dateOfRegistration;
 	}
 
-	public Group getParentGroupId() {
-		return this.parentGroupId;
+	public Group getParentGroup() {
+		return parentGroup;
 	}
 	
 	public Set<UserAdm> getUsers() {
@@ -76,8 +75,8 @@ public class Group{
 		this.dateOfRegistration = dateOfRegistration;
 	}
 
-	public void setParentGroupId(Group parentGroupId) {
-		this.parentGroupId = parentGroupId;
+	public void setParentGroup(Group parentGroup) {
+		this.parentGroup = parentGroup;
 	}
 	
 	public void setUsers(Set<UserAdm> users) {
@@ -92,11 +91,4 @@ public class Group{
 		return this.equals(getParentGroup());
 	}
 
-	public void setParentGroup(Long parentGroup) {
-		this.parentGroup = parentGroup;
-	}
-
-	public Long getParentGroup() {
-		return parentGroup;
-	}
 }
