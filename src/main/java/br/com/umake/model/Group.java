@@ -88,6 +88,7 @@ public class Group{
 	}
 
 	public Boolean isParent(){
-		return this.equals(this.getParentGroup());
+		return this.equals(getParentGroup());
 	}
+
 }

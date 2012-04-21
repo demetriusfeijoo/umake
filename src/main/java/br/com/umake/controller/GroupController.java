@@ -63,18 +63,19 @@ public class GroupController {
 		
 		System.out.println("entrou");
 		this.result.use(Results.json()).from(this.groupDao.getAllGroup()).serialize();	
+		
 	}
     
 	@Post("adm/groups")
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final Group group) {
-
+				
 		if(this.groupDao.insertGroup(group)){
-    		
-    		this.result.include("allGroups", this.groupDao.getGroup(group));
-    	
+			
+    		this.result.include("group", this.groupDao.getGroup(group));
+
     	}
-    	 
+
 		this.result.redirectTo(GroupController.class).formCreateGroup();
 
 	}
@@ -82,12 +83,13 @@ public class GroupController {
 	@Put("adm/groups")
 	@Restrictable(permissions={ @PermissionAnnotation(context="GROUP", permissionsTypes = { PermissionType.EDIT})}) 
 	public void editGroup(Group group){
-
-		Group oldGoup = this.groupDao.getGroup(group);
-		oldGoup.setName(group.getName());
 		
-		this.groupDao.editGroup(group);
-
+		Group newGroup = this.groupDao.getGroup(group);
+		newGroup.setName(group.getName());
+		newGroup.setParentGroup(group.getParentGroup());
+		
+		this.groupDao.editGroup(newGroup);
+		
 		this.result.include("group", this.groupDao.getGroup(group));
 		
 		this.result.forwardTo(this).formCreateGroup();		
@@ -97,7 +99,7 @@ public class GroupController {
     @Delete("adm/groups")
     @Restrictable(permissions={@PermissionAnnotation(context="GROUP", permissionsTypes={ PermissionType.DELETE} )})
 	public Boolean delete(final Group group){
-
+    	
     	if(this.groupDao.deleteGroup(group)){
     		
         	this.result.forwardTo(this).list();
