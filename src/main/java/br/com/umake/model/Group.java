@@ -15,7 +15,7 @@ public class Group{
 	private Date dateOfRegistration;
 	private Group parentGroup;
 	private Set<UserAdm> users;
-	private Set<Permission> permissions;				
+	private Set<PermissionAdm> permissions;				
 	
 	public Group(){ 
 		
@@ -59,7 +59,7 @@ public class Group{
 		return users;
 	}
 
-	public Set<Permission> getPermissions() {
+	public Set<PermissionAdm> getPermissions() {
 		return permissions;
 	}
 
@@ -83,11 +83,12 @@ public class Group{
 		this.users = users;
 	}
 
-	public void setPermissions(Set<Permission> permissions) {
+	public void setPermissions(Set<PermissionAdm> permissions) {
 		this.permissions = permissions;
 	}
 
 	public Boolean isParent(){
-		return this.equals(this.getParentGroup());
+		return this.equals(getParentGroup());
 	}
+
 }

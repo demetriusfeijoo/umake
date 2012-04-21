@@ -21,19 +21,19 @@ public class GroupDao {
 	}
 	
 	public Boolean insertGroup(Group group){
-
-		group.setDateOfRegistration(new Date());
 		
+		group.setDateOfRegistration(new Date());
+
 		try{
-			
-			this.session.save(group);
-			
+
+			this.session.saveOrUpdate(group);
+
 		}catch(HibernateException e){
-			
+			System.out.println(e.getCause());
 			return false;
 			
 		}
-		
+
 		return true;
 		
 	}
@@ -45,10 +45,11 @@ public class GroupDao {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Group> getAllGroups(){
 		
 		return this.session.createCriteria(Group.class).list();
-		
+
 	}
 	
 	public Boolean editGroup( Group group ){
@@ -70,7 +71,7 @@ public class GroupDao {
 	public Boolean deleteGroup( Group group ){
 		
 		try{
-			
+
 			this.session.delete(group);
 
 		}catch(HibernateException e){
