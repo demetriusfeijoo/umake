@@ -27,7 +27,7 @@ public class UserAdm implements Serializable {
 	private Boolean receiveEmail;
 	private Boolean userBlock;
 	private Set<Group> groups = new HashSet<Group>();
-	private Set<Permission> permissions = new HashSet<Permission>();
+	private Set<PermissionAdm> permissions = new HashSet<PermissionAdm>();
 	private static final long serialVersionUID = 1L;
 
 	public UserAdm() {
@@ -98,7 +98,7 @@ public class UserAdm implements Serializable {
 		return groups;
 	}
 
-	public Set<Permission> getPermissions() {
+	public Set<PermissionAdm> getPermissions() {
 
 		return this.permissions;
 
@@ -144,17 +144,17 @@ public class UserAdm implements Serializable {
 		this.groups = groups;
 	}
 
-	public void setPermissions(Set<Permission> permissions) {
+	public void setPermissions(Set<PermissionAdm> permissions) {
 		this.permissions = permissions;
 	}
 
-	public Boolean hasAllNecessariesPermissions(List<Permission> recoveryNecessaryPermissions) { 
+	public Boolean hasAllNecessariesPermissions(List<PermissionAdm> recoveryNecessaryPermissions) { 
 
-		for (Permission permissaoNecessaria : recoveryNecessaryPermissions) {
+		for (PermissionAdm permissaoNecessaria : recoveryNecessaryPermissions) {
 
 			Boolean exists = false;
 
-			for (Permission perm : this.getAllPermissions()) {
+			for (PermissionAdm perm : this.getAllPermissions()) {
 								
 				if (permissaoNecessaria.equals(perm)){
 					
@@ -174,16 +174,16 @@ public class UserAdm implements Serializable {
 
 	}
 
-	private Set<Permission> getAllPermissions() {
+	private Set<PermissionAdm> getAllPermissions() {
 		
-		Set<Permission> allPermissions = new HashSet<Permission>( this.getPermissions().size() );
+		Set<PermissionAdm> allPermissions = new HashSet<PermissionAdm>( this.getPermissions().size() );
 		allPermissions.addAll(this.getPermissions());
 		
 		for (Group group : this.getGroups()) {
 
-			Set<Permission> groupPermissions = group.getPermissions();
+			Set<PermissionAdm> groupPermissions = group.getPermissions();
 
-			for (Permission permissions : groupPermissions) {
+			for (PermissionAdm permissions : groupPermissions) {
 
 				allPermissions.add(permissions);
 

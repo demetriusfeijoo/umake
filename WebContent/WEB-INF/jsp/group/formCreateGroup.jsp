@@ -9,6 +9,7 @@
 			<td><input type="text" name="group.name" value="${group.name}" id="name" maxlength="45" required autofocus /></td>
 		</tr>
 		<tr>
+			<td><label for="parentGroup">Grupo Pai: </label></td>
 			<td>
 				<select name="group.parentGroup.id">
 					<c:forEach var="group" items="${allGroups}">
@@ -19,9 +20,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${group.id == null}"><button name="_method" value="post">enviar</button></c:if>
+				<c:if test="${group.id == null}"><button name="_method" value="post">Criar</button></c:if>
 				<c:if test="${group.id != null}">
-					<button name="_method" value="put">enviar</button>
+					<button name="_method" value="put">Editar</button>
 					<button name="_method" value="delete">Deletar</button>
 				</c:if>
 			</td>

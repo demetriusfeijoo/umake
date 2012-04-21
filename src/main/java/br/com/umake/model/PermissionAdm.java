@@ -8,7 +8,7 @@ import java.util.Set;
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
-public class Permission {
+public class PermissionAdm {
 	
 	private Long id;
 	private String context;
@@ -17,7 +17,7 @@ public class Permission {
 	private Set<UserAdm> users ;
 	private Set<Group> groups ;
 
-	public Permission() {
+	public PermissionAdm() {
 		
 	}
 
@@ -35,7 +35,7 @@ public class Permission {
 	@Override
 	public boolean equals(Object o) {
 
-		Permission permission2 = (Permission) o;
+		PermissionAdm permission2 = (PermissionAdm) o;
 		
 		return (this.getContext().equals(permission2.getContext() ) && this.getType().equals(permission2.getType()) ? true : false);
 

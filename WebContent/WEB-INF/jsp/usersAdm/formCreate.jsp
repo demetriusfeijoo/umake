@@ -1,6 +1,5 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
 
-
 <form action="<c:url value="/adm/users" />" method="post" id="formCreateUser">
 	<c:if test="${user != null}"><input name="user.id" type="hidden" value="${user.id}" /></c:if>	
 	<table>
@@ -41,9 +40,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${user.id == null}"><button name="_method" value="post">enviar</button></c:if>
+				<c:if test="${user.id == null}"><button name="_method" value="post">Criar</button></c:if>
 				<c:if test="${user.id != null}">
-					<button name="_method" value="put">enviar</button>
+					<button name="_method" value="put">Editar</button>
 					<button name="_method" value="delete">Deletar</button>
 				</c:if>
 			</td>
