@@ -17,7 +17,7 @@ import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.AdministrationController;
 import br.com.umake.controller.UsersAdmController;
 import br.com.umake.dao.UserAdmDao;
-import br.com.umake.model.Permission;
+import br.com.umake.model.PermissionAdm;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -100,10 +100,10 @@ public class AutenticationInterceptor implements Interceptor {
 
 	}
 
-	private List<Permission> recoveryNecessariesPermissions(
+	private List<PermissionAdm> recoveryNecessariesPermissions(
 			ResourceMethod method) {
 
-		List<Permission> permissions = new ArrayList<Permission>(4);
+		List<PermissionAdm> permissions = new ArrayList<PermissionAdm>(4);
 
 		Restrictable restrictable = method.getMethod().getAnnotation(
 				Restrictable.class);
@@ -120,11 +120,11 @@ public class AutenticationInterceptor implements Interceptor {
 				for (PermissionType permissionType : permissionAnnotation
 						.permissionsTypes()) {
 
-					Permission permission = new Permission();
-					permission.setContext(context);
-					permission.setType(permissionType.name());
+					PermissionAdm permissionAdm = new PermissionAdm();
+					permissionAdm.setContext(context);
+					permissionAdm.setType(permissionType.name());
 
-					permissions.add(permission);
+					permissions.add(permissionAdm);
 
 				}
 			}
