@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -18,12 +17,9 @@ public class PermissionAdmDao {
 	AnnotationConfiguration configuration;
 	Session session;
 	
-	public PermissionAdmDao(){
+	public PermissionAdmDao(Session session){
 		
-		configuration = new AnnotationConfiguration();
-		configuration.configure();
-		SessionFactory factory = configuration.buildSessionFactory();
-		session = factory.openSession();
+		this.session = session;
 		
 	}
 	
@@ -33,11 +29,10 @@ public class PermissionAdmDao {
 
 		try{
 
-			//this.session.createSQLQuery("INSERT INTO umake_groups(name, dateOfRegistration, parentGroup) VALUES('opera','2012-03-10 12:12:12', 1)").executeUpdate();
-			this.session.saveOrUpdate(permissionAdm);
+			this.session.save(permissionAdm);
 
 		}catch(HibernateException e){
-			System.out.println(e.getCause());
+
 			return false;
 			
 		}
@@ -73,7 +68,7 @@ public class PermissionAdmDao {
 		try{
 			
 			this.session.merge(permissionAdm);
-			
+
 		}catch(HibernateException e){
 			
 			return false;
