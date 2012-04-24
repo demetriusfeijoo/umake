@@ -1,21 +1,42 @@
 $(function(){
-
+	
+	var urlOfSystem = "/umake";
+	
 	$("#listagem").flexigrid({
-		url: '/umake/adm/users/json',
+		url: urlOfSystem+"/adm/users/flexiJson",
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', id : 'id', width : 40, sortable : true, align: 'left'},
-			{display: 'Name', name : 'name', width : 180, sortable : true, align: 'left'},
-			{display: 'E-mail', name : 'email', width : 180, sortable : true, align: 'left'}
+			{display: 'Nome', name : 'name', width : 180, sortable : true, align: 'left'},
+			{display: 'E-Mail', name : 'email', width : 180, sortable : true, align: 'left'},
+			{display: 'Data do registro', name : 'dateOfRegistration', width : 180, sortable : true, align: 'left'}
 			],
+         buttons : [
+                    
+             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+            	 {  
+	            	 $('.trSelected', grid).each(function() {
+	            		 var id = $(this).attr('id');
+	            		 id = id.substring(id.lastIndexOf('row')+3); alert(id);
+	            		 window.location.href=urlOfSystem+"/adm/users/"+id;
+	            	 });
+            	 }},
+             {separator: true}
+            	 
+             ],
+         searchitems : [
+              {display: 'Nome', name : 'name'}
+              ],
 		sortname: "id",
 		sortorder: "asc",
 		usepager: true,
 		title: 'Usuários',
 		useRp: true,
-		rp: 15,
+		rp: 2,
+		resizable: false,
 		showTableToggleBtn: true,
-		width: 400,
+		singleSelect: true,
+		width: 580,
 		height: 200
 	}); 
 

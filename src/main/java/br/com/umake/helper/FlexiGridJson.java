@@ -8,7 +8,7 @@ public class FlexiGridJson<T>{
 
 	private final Integer page;
 	private final Integer total;
-	private final List<FlexiGridRow> rows = new ArrayList<FlexiGridRow>();
+	private List<FlexiGridRow> rows = new ArrayList<FlexiGridRow>();
 	
 	public FlexiGridJson(Integer page, Integer total, List<T> rows) throws Exception {
 		
@@ -36,16 +36,12 @@ public class FlexiGridJson<T>{
 				
 			}
 			
-		}else{
-			
-			throw new IllegalArgumentException("The List can't be empty");
-			
 		}
 
 
 	}
 	
-	private int getTotalFieldsAnnoted(Field[] fields){
+	private int getTotalFieldsAnnotedWithColumn(Field[] fields){
 		
 		int totalFieldsWithAnnotationColumn = 0;
 		
@@ -61,15 +57,14 @@ public class FlexiGridJson<T>{
 		
 	}
 	
-    private List<String> getAttWillBeListed(List rows) throws Exception{
+    private List<String> getAttWillBeListed(List<T> rows) throws Exception{
     	
-		Field[] fields = rows.get(0).getClass().getDeclaredFields();
-		
+		Field[] fields = ((T)rows.get(0)).getClass().getDeclaredFields();
 		List<String> fieldsMappeds = new ArrayList<String>();
 		
-		int totalFieldsWithAnnotationColumn = this.getTotalFieldsAnnoted(fields);
+		int totalFieldsWithAnnotationColumn = this.getTotalFieldsAnnotedWithColumn(fields);
 		
-		if(totalFieldsWithAnnotationColumn < 1)
+		if(totalFieldsWithAnnotationColumn < 1 )
 			throw new Exception("Annotation Column.class not exists");
 		
 		do{

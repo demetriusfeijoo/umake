@@ -42,8 +42,7 @@ public class UserAdmDao {
 	
 	public UserAdm getUserAdm(UserAdm user){
 		
-		UserAdm userLoaded = (UserAdm) this.session.load( UserAdm.class , new Long(user.getId()) );
-		return userLoaded;
+		return(UserAdm) this.session.load( UserAdm.class , new Long(user.getId()) );
 
 	}
 
@@ -67,6 +66,14 @@ public class UserAdmDao {
 	public List<UserAdm> getAllUsersAdm(){
 		
 		return this.session.createCriteria(UserAdm.class).list();
+		
+	}
+
+	public List<UserAdm> getUsersLimited(Integer offset, Integer largura, String sortname, String sortorder ){
+		
+		String HQL = String.format("from UserAdm order by %s %s", sortname, sortorder);
+		
+		return this.session.createQuery(HQL).setFirstResult(offset).setMaxResults(largura).list();
 		
 	}
 	

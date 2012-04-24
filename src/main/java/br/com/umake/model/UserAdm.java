@@ -22,6 +22,7 @@ public class UserAdm implements Serializable {
 	private String password;
 	@Column(position=3)
 	private String email;
+	@Column(position=4)
 	private Date dateOfRegistration;
 	private Date dateLastVisit;
 	private Boolean receiveEmail;
@@ -197,12 +198,6 @@ public class UserAdm implements Serializable {
 	public String getIdentifier() {
 		
 		return String.valueOf(this.getId());
-		
-	}
-
-	public UserAdm getInstance() {
-		
-		return this;
 		
 	}
 	

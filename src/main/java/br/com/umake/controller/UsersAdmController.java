@@ -1,5 +1,7 @@
 package br.com.umake.controller;
 
+import java.util.List;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -79,9 +81,20 @@ public class UsersAdmController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getUserAdm( UserAdm user ){
 		
-		this.result.include("user", this.userAdmDao.getUserAdm(user));
+		UserAdm userRecovered = this.userAdmDao.getUserAdm(user);
 		
-		this.result.forwardTo(this).formCreate();
+		if( userRecovered.getId() != null ){
+			
+			this.result.include("user", userRecovered);
+			
+			this.result.forwardTo(this).formCreate();	
+			
+		}else{
+			
+			this.result.redirectTo(this).list();
+			
+		}
+
 				
 	}
 
@@ -96,25 +109,6 @@ public class UsersAdmController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW}) } ) 
 	public void list(){
 						
-	}
-
-	@Path("adm/users/json")
-	public void getAllUserAdmInJson(){
-		
-		FlexiGridJson<UserAdm> flexi = null;
-		
-		try {
-			
-			flexi = new FlexiGridJson<UserAdm>(10, 10, this.userAdmDao.getAllUsersAdm() );
-			
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			
-		}
-		
-		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
-		
 	}
 
 	@Post("adm/users")
@@ -170,5 +164,26 @@ public class UsersAdmController {
     	
 	}
 
+	@Path("adm/users/flexiJson")
+	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
+	public void getAllUserAdmInFlexiJson(Integer page, Integer rp, String sortname, String sortorder){
+		
+		FlexiGridJson<UserAdm> flexi = null;
+		
+		try {
+			
+			Integer offset = page == 1 ? 0 : (page * rp) - rp;
+			List<UserAdm> flexiListUser = this.userAdmDao.getUsersLimited( offset , rp, sortname, sortorder );
+			flexi = new FlexiGridJson<UserAdm>(page, 7, flexiListUser );
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
+		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
+		
+	}
 
 }
