@@ -11,6 +11,7 @@
 		<tr>
 			<td><label for="parentGroup">Grupo Pai: </label></td>
 			<td>
+				${group.parentGroup.name}
 				<select name="group.parentGroup.id">
 					<c:forEach var="group" items="${allGroups}">
 						<option value="${group.id}">${group.name}</option>

@@ -8,7 +8,6 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
-import br.com.umake.dao.GroupDao;
 import br.com.umake.dao.PermissionAdmDao;
 import br.com.umake.model.PermissionAdm;
 import br.com.umake.permissions.PermissionAnnotation;
@@ -32,33 +31,35 @@ public class PermissionAdmController {
 		
 	}
 	
-	@Get("adm/groups/{permission.id}")
+	@Get("adm/permissions/{permissionAdm.id}")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getPermissionAdm( PermissionAdm permissionAdm ){
 		
-		this.result.include("permission", this.permissionAdmDao.getPermissionAdm(permissionAdm));
+		this.result.include("permissionAdm", this.permissionAdmDao.getPermissionAdm(permissionAdm));
 		
 		this.result.forwardTo(this).formCreatePermissionAdm();
 				
 	}
 	
     @Get("adm/permissions/create")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.CREATE})}) 
 	public void formCreatePermissionAdm(){
-    	
-		this.result.include("allGroups", this.permissionAdmDao.getAllPermissionAdm());
 
 	}
     
 	@Get("adm/permissions")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.VIEW})}) 
 	public void list(){
 						
 	}
     
 	@Post("adm/permissions")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.CREATE})}) 
 	public void create(final PermissionAdm permissionAdm) {
 				
 		if(this.permissionAdmDao.insertPermissionAdm(permissionAdm)){
 			
-    		this.result.include("permission", this.permissionAdmDao.getPermissionAdm(permissionAdm));
+    		this.result.include("permissionAdm", this.permissionAdmDao.getPermissionAdm(permissionAdm));
 
     	}
 
@@ -67,21 +68,23 @@ public class PermissionAdmController {
 	}
 	
 	@Put("adm/permissions")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.EDIT})}) 
 	public void editPermissionAdm(PermissionAdm permissionAdm){
-		
+
 		PermissionAdm newPermissionAdm = this.permissionAdmDao.getPermissionAdm(permissionAdm);
 		newPermissionAdm.setContext(permissionAdm.getContext());
 		newPermissionAdm.setType(permissionAdm.getType());
-		
+
 		this.permissionAdmDao.editPermissionAdm(newPermissionAdm);
 		
-		this.result.include("permission", this.permissionAdmDao.getPermissionAdm(permissionAdm));
+		this.result.include("permissionAdm", this.permissionAdmDao.getPermissionAdm(permissionAdm));
 		
 		this.result.forwardTo(this).formCreatePermissionAdm();		
 		
 	}
 	
     @Delete("adm/permissions")
+    @Restrictable(permissions={ @PermissionAnnotation(context="PERMISSION", permissionsTypes = { PermissionType.DELETE})}) 
 	public Boolean delete(final PermissionAdm permissionAdm){
     	
     	if(this.permissionAdmDao.deletePermissionAdm(permissionAdm)){
@@ -90,7 +93,7 @@ public class PermissionAdmController {
     		
     	}else{
     		
-    		this.result.include("permission", permissionAdm);
+    		this.result.include("permissionAdm", permissionAdm);
         	this.result.forwardTo(this).formCreatePermissionAdm();
     		
     	}

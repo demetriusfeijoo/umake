@@ -16,7 +16,8 @@
 			<li><a href="/umake/adm/groups">Listar Grupos</a></li>
 			<li><a href="/umake/adm/groups">Editar Grupo</a></li>
 			<li><a href="/umake/adm/groups">Excluir Grupo</a></li>
-			<li><a href="#">Permissão</a></li>
+			<li><a href="/umake/adm/permissions/create">Criar Permissão</a></li>
+			<li><a href="/umake/adm/permissions">Listar Permissões</a></li>
 			
 		</ul>
 	
