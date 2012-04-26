@@ -166,15 +166,23 @@ public class UsersAdmController {
 
 	@Path("adm/users/flexiJson")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
-	public void getAllUserAdmInFlexiJson(Integer page, Integer rp, String sortname, String sortorder){
+	public void getAllUserAdmInFlexiJson(int page, int rp, String sortname, String sortorder, String query, String qtype){
 		
 		FlexiGridJson<UserAdm> flexi = null;
-		
+	
 		try {
 			
-			Integer offset = page == 1 ? 0 : (page * rp) - rp;
-			List<UserAdm> flexiListUser = this.userAdmDao.getUsersLimited( offset , rp, sortname, sortorder );
-			flexi = new FlexiGridJson<UserAdm>(page, 7, flexiListUser );
+			int offset = page == 1 ? 0 : (page * rp) - rp;
+			List<UserAdm> flexiListUser;
+			
+			if( query == null || query == "" )
+				
+				flexiListUser = this.userAdmDao.getUsersLimited( offset , rp, sortname, sortorder );
+			else
+				
+				flexiListUser = this.userAdmDao.getUserByPropertyName(qtype, query);
+			
+			flexi = new FlexiGridJson<UserAdm>(page, this.userAdmDao.getAllUsersAdm().size(), flexiListUser );
 			
 		} catch (Exception e) {
 

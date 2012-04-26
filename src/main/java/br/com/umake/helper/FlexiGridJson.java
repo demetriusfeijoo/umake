@@ -19,6 +19,7 @@ public class FlexiGridJson<T>{
 		if( rows.size() > 0 ){
 
 			List<String> allAttInOrder = this.getAttWillBeListed(rows);
+			String columnId = this.getNameColumnId(rows);
 
 			for (T row : rows) {
 				
@@ -32,7 +33,22 @@ public class FlexiGridJson<T>{
 
 				}
 				
-				this.rows.add(new FlexiGridRow("1", cell));
+				String valueId;
+				
+				try{
+					
+					Field fieldId = row.getClass().getDeclaredField(columnId);
+					fieldId.setAccessible(true);	
+					valueId = fieldId.get(row).toString();
+					
+				}catch(NullPointerException ex){
+					
+					valueId = "";
+					
+				}
+
+				
+				this.rows.add(new FlexiGridRow(valueId, cell));
 				
 			}
 			
@@ -55,6 +71,21 @@ public class FlexiGridJson<T>{
 	
 		return totalFieldsWithAnnotationColumn;
 		
+	}
+	
+	private String getNameColumnId(List<T> rows){
+		
+		Field[] fields = ((T)rows.get(0)).getClass().getDeclaredFields();
+		
+		for (Field field : fields) {
+			
+			if(field.isAnnotationPresent(br.com.umake.helper.Id.class)){
+				
+				return field.getName();
+			}
+		}
+		
+		return "";
 	}
 	
     private List<String> getAttWillBeListed(List<T> rows) throws Exception{

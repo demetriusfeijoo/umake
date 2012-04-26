@@ -10,11 +10,13 @@ import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.helper.Column;
+import br.com.umake.helper.Id;
 
 @Component
 public class UserAdm implements Serializable {
 
 	@Column(position=1)
+	@Id 
 	private Long id;
 	@Column(position=2)
 	private String name;

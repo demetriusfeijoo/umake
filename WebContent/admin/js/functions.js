@@ -17,7 +17,7 @@ $(function(){
             	 {  
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
-	            		 id = id.substring(id.lastIndexOf('row')+3); alert(id);
+	            		 id = id.substring(id.lastIndexOf('row')+3); 
 	            		 window.location.href=urlOfSystem+"/adm/users/"+id;
 	            	 });
             	 }},
@@ -25,7 +25,8 @@ $(function(){
             	 
              ],
          searchitems : [
-              {display: 'Nome', name : 'name'}
+              {display: 'Nome', name : 'name'},
+              {display: 'E-Mail', name : 'email'}
               ],
 		sortname: "id",
 		sortorder: "asc",

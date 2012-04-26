@@ -1,5 +1,6 @@
 package br.com.umake.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -69,12 +70,27 @@ public class UserAdmDao {
 		
 	}
 
-	public List<UserAdm> getUsersLimited(Integer offset, Integer largura, String sortname, String sortorder ){
+	public List<UserAdm> getUsersLimited(int offset, Integer largura, String sortname, String sortorder ){
 		
-		String HQL = String.format("from UserAdm order by %s %s", sortname, sortorder);
+		String HQL;
+		
+		if( sortname != null && sortorder != null )
+			HQL = String.format("from UserAdm order by %s %s", sortname, sortorder);
+		else if(sortname != null && sortorder == null)
+			HQL = String.format("from UserAdm order by %s ", sortname);
+		else
+			HQL = String.format("from UserAdm");
 		
 		return this.session.createQuery(HQL).setFirstResult(offset).setMaxResults(largura).list();
 		
+	}
+	
+	public List<UserAdm> getUserByPropertyName(String propertyName, String value){
+	
+		if( !propertyName.isEmpty() && !value.isEmpty() )
+			return this.session.createCriteria(UserAdm.class).add(Restrictions.ilike(propertyName, value)).list();
+		
+		return new ArrayList<UserAdm>();
 	}
 	
 	public Boolean editUserAdm( UserAdm user ){
