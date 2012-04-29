@@ -1,5 +1,7 @@
 package br.com.umake.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +24,15 @@ public class UserAdmDao {
 	}
 	
 	public Boolean insertUserAdm(UserAdm user){
-
+		
+		//passar dateLastVisit zerada, nao est'a passando certo ainda
+		SimpleDateFormat data = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		user.setDateOfRegistration(new Date());
-		user.setDateLastVisit(new Date());
+		try {
+			user.setDateLastVisit(data.parse("0000-00-00 00:00:00"));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 		
 		try{
 			
@@ -75,14 +83,15 @@ public class UserAdmDao {
 		try{
 			
 			this.session.merge(user);
+			throw new Exception("erro");
+		}catch(Exception e){
 			
-		}catch(HibernateException e){
-			
+			e.getMessage();
 			return false;
 			
 		}
 		
-		return true;
+		//return true;
 
 	}
 	

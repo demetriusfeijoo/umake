@@ -1,5 +1,8 @@
 package br.com.umake.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
@@ -10,9 +13,13 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.Validator;
 import br.com.caelum.vraptor.validator.ValidationMessage;
 import br.com.caelum.vraptor.view.Results;
+import br.com.umake.dao.GroupDao;
+import br.com.umake.dao.PermissionAdmDao;
 import br.com.umake.dao.UserAdmDao;
 import br.com.umake.helper.FlexiGridJson;
 import br.com.umake.interceptor.UserAdmControl;
+import br.com.umake.model.Group;
+import br.com.umake.model.PermissionAdm;
 import br.com.umake.model.UserAdm;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
@@ -23,13 +30,17 @@ public class UsersAdmController {
 
 	private UserAdmControl userAdmControl;
 	private UserAdmDao userAdmDao;
+	private GroupDao groupDao;
+	private PermissionAdmDao permissionDao;
 	private Result result;
 	private Validator validator;
 	
-	public UsersAdmController(UserAdmControl userControl, UserAdmDao userDao, Result result, Validator validator) {
+	public UsersAdmController(UserAdmControl userControl, UserAdmDao userDao, GroupDao groupDao, PermissionAdmDao permissionDao, Result result, Validator validator) {
 	
 		this.userAdmControl = userControl;
 		this.userAdmDao = userDao;
+		this.groupDao = groupDao;
+		this.permissionDao = permissionDao;
 		this.result = result;
 		this.validator = validator;
 		
@@ -73,8 +84,6 @@ public class UsersAdmController {
 
 	}
 	
-	
-    
 	@Get("adm/users/{user.id}")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getUserAdm( UserAdm user ){
@@ -84,11 +93,13 @@ public class UsersAdmController {
 		this.result.forwardTo(this).formCreate();
 				
 	}
-
 	
     @Get("adm/users/create")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.VIEW})}) 
-	public void formCreate() {
+	public void formCreate(){
+    	
+    	this.result.include("group", this.groupDao.getAllGroups());
+    	this.result.include("permission", this.permissionDao.getAllPermissionAdm());
     	
 	}
 
@@ -119,8 +130,16 @@ public class UsersAdmController {
 
 	@Post("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.CREATE }) }) 
-	public void create(final UserAdm user) {
+	public void create(final UserAdm user, List<Group> groups, List<PermissionAdm> permissions){
     	
+		if(groups != null){
+			user.getGroups().addAll(groups);
+		}
+		
+		if(permissions != null){
+			user.getPermissions().addAll(permissions);
+		}
+		
     	if(this.userAdmDao.insertUserAdm(user)){
     		
     		this.result.include("user", this.userAdmDao.getUserAdm(user));
@@ -133,17 +152,26 @@ public class UsersAdmController {
 	
 	@Put("adm/users")
 	@Restrictable(permissions={ @PermissionAnnotation(context="USER", permissionsTypes = { PermissionType.EDIT})}) 
-	public void editUserAdm(UserAdm user){
+	public void editUserAdm(UserAdm user, List<Group> groups, List<PermissionAdm> permissions){
 
 		UserAdm newUser = this.userAdmDao.getUserAdm(user);
-		newUser.setName(user.getName());
-		newUser.setEmail(user.getEmail());
+		user.setDateLastVisit(newUser.getDateLastVisit());
+		/*newUser.setEmail(user.getEmail());
 		newUser.setLogin(user.getLogin());
 		newUser.setPassword(user.getPassword());
 		newUser.setReceiveEmail(user.getReceiveEmail());
 		newUser.setUserBlock(user.getUserBlock());
+		newUser.setDateLastVisit(new Date());*/
+
+		if(groups != null){
+			user.getGroups().addAll(groups);
+		}
 		
-		this.userAdmDao.editUserAdm(newUser);
+		if(permissions != null){
+			user.getPermissions().addAll(permissions);
+		}
+		    
+		this.userAdmDao.editUserAdm(user);
 
 		this.result.include("user", this.userAdmDao.getUserAdm(user));
 		
@@ -169,6 +197,5 @@ public class UsersAdmController {
     	return true;
     	
 	}
-
 
 }

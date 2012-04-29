@@ -1,7 +1,9 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
 
 <form action="<c:url value="/adm/users" />" method="post" id="formCreateUser">
-	<c:if test="${user != null}"><input name="user.id" type="hidden" value="${user.id}" /></c:if>	
+	<c:if test="${user != null}">
+		<input name="user.id" type="hidden" value="${user.id}" />
+	</c:if>	
 	<table>
 	
 		<tr>
@@ -34,8 +36,27 @@
 			<label for="receiveEmailFalse">Não</label><input type="radio" name="user.receiveEmail" class="receiveEmail" id="receiveEmailFalse" value="0"<c:if test="${user.receiveEmail == false}">checked="checked"</c:if> />
 			</td>
 		</tr>
+		<tr></tr>
 		<tr>
+			<td>
+				<label>Grupos:</label>
+				<br />
+				<c:forEach var="group" items="${group}" begin="0" varStatus="count">
+					<label>${group.name}</label>
+					<input type="checkbox" name="groups[${count.index}].id" value="${group.id}"/>
+				</c:forEach>			
+			</td>
 			<td></td>
+		</tr>
+		<tr>
+			<td>
+				<label>Permissoes:</label>
+				<br />
+				<c:forEach var="permission" items="${permission}" begin="0" varStatus="count">
+					<label>${permission.context}</label>
+					<input type="checkbox" name="permissions[${count.index}].id" value="${permission.id}" />
+				</c:forEach>			
+			</td>
 			<td></td>
 		</tr>
 		<tr>
@@ -47,6 +68,7 @@
 				</c:if>
 			</td>
 		</tr>
+		
 							
 	</table>
 
