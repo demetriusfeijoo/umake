@@ -33,20 +33,15 @@ public class FlexiGridJson<T>{
 
 				}
 				
-				String valueId;
+				String valueId = "";
 				
-				try{
+				if( !columnId.equals("") ){
 					
 					Field fieldId = row.getClass().getDeclaredField(columnId);
 					fieldId.setAccessible(true);	
-					valueId = fieldId.get(row).toString();
-					
-				}catch(NullPointerException ex){
-					
-					valueId = "";
+					valueId = fieldId.get(row).toString();	
 					
 				}
-
 				
 				this.rows.add(new FlexiGridRow(valueId, cell));
 				
@@ -82,6 +77,7 @@ public class FlexiGridJson<T>{
 			if(field.isAnnotationPresent(br.com.umake.helper.Id.class)){
 				
 				return field.getName();
+				
 			}
 		}
 		
@@ -96,9 +92,11 @@ public class FlexiGridJson<T>{
 		int totalFieldsWithAnnotationColumn = this.getTotalFieldsAnnotedWithColumn(fields);
 		
 		if(totalFieldsWithAnnotationColumn < 1 )
+			
 			throw new Exception("Annotation Column.class not exists");
 		
 		do{
+			
 			String fieldName = "";
 			
 			int minOfTheLoop = Integer.MAX_VALUE;

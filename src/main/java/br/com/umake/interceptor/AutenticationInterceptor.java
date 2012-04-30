@@ -15,9 +15,9 @@ import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
 import br.com.umake.controller.AdministrationController;
-import br.com.umake.controller.UsersAdmController;
-import br.com.umake.dao.UserAdmDao;
-import br.com.umake.model.PermissionAdm;
+import br.com.umake.controller.AdmUserController;
+import br.com.umake.dao.AdmUserDao;
+import br.com.umake.model.AdmPermission;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -26,13 +26,13 @@ import br.com.umake.permissions.Restrictable;
 @Lazy
 public class AutenticationInterceptor implements Interceptor {
 
-	private final UserAdmControl user;
+	private final AdmUserControl user;
 	private final Result result;
-	private final UserAdmDao userDao;
+	private final AdmUserDao userDao;
 	private final Session session;
 
-	public AutenticationInterceptor(UserAdmControl user, Result result,
-			UserAdmDao uDao, Session session) {
+	public AutenticationInterceptor(AdmUserControl user, Result result,
+			AdmUserDao uDao, Session session) {
 
 		this.result = result;
 		this.user = user;
@@ -80,8 +80,8 @@ public class AutenticationInterceptor implements Interceptor {
 				this.userDao.updateLastDate(this.user.getUserAdm());
 
 			} else {
-
-				this.result.redirectTo(UsersAdmController.class).formLogin();
+				
+				this.result.redirectTo(AdmUserController.class).formLogin();
 
 			}
 
@@ -100,10 +100,10 @@ public class AutenticationInterceptor implements Interceptor {
 
 	}
 
-	private List<PermissionAdm> recoveryNecessariesPermissions(
+	private List<AdmPermission> recoveryNecessariesPermissions(
 			ResourceMethod method) {
 
-		List<PermissionAdm> permissions = new ArrayList<PermissionAdm>(4);
+		List<AdmPermission> permissions = new ArrayList<AdmPermission>(4);
 
 		Restrictable restrictable = method.getMethod().getAnnotation(
 				Restrictable.class);
@@ -120,7 +120,7 @@ public class AutenticationInterceptor implements Interceptor {
 				for (PermissionType permissionType : permissionAnnotation
 						.permissionsTypes()) {
 
-					PermissionAdm permissionAdm = new PermissionAdm();
+					AdmPermission permissionAdm = new AdmPermission();
 					permissionAdm.setContext(context);
 					permissionAdm.setType(permissionType.name());
 

@@ -6,3 +6,4 @@ $ cat .gitignore
 # Use curingas como
 #*~
 *.class
+hibernate.cfg.xml

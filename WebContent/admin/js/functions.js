@@ -3,7 +3,7 @@ $(function(){
 	var urlOfSystem = "/umake";
 	
 	$("#listagem").flexigrid({
-		url: urlOfSystem+"/adm/users/flexiJson",
+		url: urlOfSystem+"/adm/user/flexi",
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', id : 'id', width : 40, sortable : true, align: 'left'},
@@ -18,7 +18,7 @@ $(function(){
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
 	            		 id = id.substring(id.lastIndexOf('row')+3); 
-	            		 window.location.href=urlOfSystem+"/adm/users/"+id;
+	            		 window.location.href=urlOfSystem+"/adm/user/"+id;
 	            	 });
             	 }},
              {separator: true}

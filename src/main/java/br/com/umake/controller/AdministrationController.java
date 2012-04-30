@@ -11,7 +11,7 @@ import br.com.umake.permissions.Restrictable;
 public class AdministrationController {
 	
 	
-	@Get @Path("/")
+	@Get("")
 	@Restrictable
 	public void index(){
 			

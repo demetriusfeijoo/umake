@@ -17,10 +17,9 @@
 		<property name="format_sql">true</property>
 		<!-- <property name="hibernate.cache.provider_class" >org.hibernate.cache.EhCacheProvider</property> -->
 
-
-		<mapping resource="UserAdm.hbm.xml"/>
-		<mapping resource="Group.hbm.xml"/>
-		<mapping resource="PermissionAdm.hbm.xml"/>
+		<mapping resource="umake_adm_users.hbm.xml"/>
+		<mapping resource="umake_adm_groups.hbm.xml"/>
+		<mapping resource="umake_adm_permissions.hbm.xml"/>
 
 	</session-factory>
 
