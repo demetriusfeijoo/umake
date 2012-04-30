@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.umake.model.AdmUser" table="umake_adm_users">
+
+		<!-- Identificador da classe -->
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+
+		<!-- Propriedades da classe -->
+		<property name="name" not-null="true"/>
+		<property name="login" not-null="true" />
+		<property name="password" not-null="true" />
+		<property name="email" not-null="true" />
+		<property name="dateOfRegistration" update="false" />
+		<property name="dateLastVisit" not-null="true"/>
+		<property name="receiveEmail" not-null="true" />
+		<property name="userBlock" not-null="true" />
+
+		<!-- Relacionamento da classe -->
+ 		<set name="admGroups" table="umake_adm_users_adm_groups" lazy="true" cascade="none" >
+			<key column="id_adm_user" />
+			<many-to-many column="id_adm_group" class="br.com.umake.model.AdmGroup" not-found="ignore"/>
+		</set> 
+		
+ 		<set name="admPermissions" table="umake_adm_users_adm_permissions" lazy="true" cascade="none">
+			<key column="id_adm_user" />			
+			<many-to-many column="id_adm_permission" class="br.com.umake.model.AdmPermission" not-found="ignore"/>
+		</set> 
+		
+	</class>
+</hibernate-mapping> 

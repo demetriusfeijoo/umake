@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="br.com.umake.model.AdmPermission" table="umake_adm_permissions">
+
+		<!-- Identificador da classe -->
+		<id name="id" column="id" type="long">
+			<generator class="native" />
+		</id>
+
+		<!-- Propriedades da classe -->
+		<property name="context" not-null="true"/>
+		<property name="type" not-null="true"/> 
+		<property name="dateOfRegistration" update="false" />
+
+		<!-- Relacionamento da classe -->
+ 		<set name="admGroups" table="umake_adm_groups_adm_permissions" lazy="true" cascade="none">
+			<key column="id_adm_permission" />
+			<many-to-many column="id_adm_group" class="br.com.umake.model.AdmGroup" not-found="ignore" />
+		</set> 
+		
+ 		<set name="admUsers" table="umake_adm_users_adm_permissions" lazy="true" cascade="none">
+			<key column="id_adm_permission" />
+			<many-to-many column="id_adm_user" class="br.com.umake.model.AdmUser" not-found="ignore" />
+		</set> 
+		
+	</class>
+</hibernate-mapping> 
