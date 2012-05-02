@@ -47,7 +47,6 @@ public class AdmUserController {
 		
 	}
 	
-	
 	@Get("adm/user/login")
 	public void formLogin() {
 		
@@ -57,7 +56,6 @@ public class AdmUserController {
 					
 	}
     
-	
 	@Post("adm/user/login")
 	public void login(final AdmUser admUser) { 
 		
@@ -91,9 +89,10 @@ public class AdmUserController {
 	public void getAdmUser( AdmUser admUser ){
 		
 		AdmUser admUserRecovered = this.admUserDao.get(admUser);
-
+		
 		this.result.include("admUser", admUserRecovered);
-			
+		//this.result.include("userGroups", admUserRecovered.getAdmGroups());
+
 		this.result.forwardTo(this).formAdmUser();	
 					
 	}
@@ -224,5 +223,7 @@ public class AdmUserController {
 		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
 		
 	}
+	
+
 
 }
