@@ -42,8 +42,21 @@
 				<label>Grupos:</label>
 				<br />
 				<c:forEach var="admGroup" items="${admGroups}" begin="0" varStatus="count">
+				
 					<label>${admGroup.name}</label>
-					<input type="checkbox" name="admGroups[${count.index}].id" value="${admGroup.id}"/>
+					
+					<% String ifChecked = ""; %>	
+					
+					<c:forEach var="userGroups" items="${admUser.admGroups}">
+													
+						<c:if test="${userGroups.id == admGroup.id}">
+							<% ifChecked = "checked='checked'"; %>
+						</c:if>
+						
+					</c:forEach>
+					
+					<input type="checkbox" name="admGroups[${count.index}].id" <% out.print(ifChecked); %> value="${admGroup.id}"/>
+														
 				</c:forEach>			
 			</td>
 			<td></td>
@@ -53,8 +66,20 @@
 				<label>Permissoes:</label>
 				<br />
 				<c:forEach var="admPermission" items="${admPermissions}" begin="0" varStatus="count">
+					
 					<label>${admPermission.context}</label>
-					<input type="checkbox" name="admPermissions[${count.index}].id" value="${admPermission.id}" />
+					
+					<% String ifChecked = ""; %>
+					
+					<c:forEach var="userPermissions" items="${admUser.admPermissions}">
+													
+						<c:if test="${userPermissions.id == admPermission.id}">
+							<% ifChecked = "checked='checked'"; %>
+						</c:if>
+						
+					</c:forEach>
+					
+					<input type="checkbox" name="admPermissions[${count.index}].id" <% out.print(ifChecked); %> value="${admPermission.id}" />
 				</c:forEach>			
 			</td>
 			<td></td>

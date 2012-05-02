@@ -11,8 +11,8 @@
 		<tr>
 			<td><label for="parentGroup">Grupo Pai: </label></td>
 			<td>
-				${admGroup.parentGroup.name}
-				<select name="admGroup.parentGroup.id">
+				${admGroup.parentAdmGroup.name}
+				<select name="admGroup.parentAdmGroup.id">
 					<c:forEach var="admGroup" items="${allAdmGroups}">
 						<option value="${admGroup.id}">${admGroup.name}</option>
 					</c:forEach>
