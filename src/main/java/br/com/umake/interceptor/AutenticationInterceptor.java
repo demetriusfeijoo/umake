@@ -69,8 +69,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 					} else {
 
-						this.result.redirectTo(AdministrationController.class)
-								.index();
+						this.result.redirectTo(AdministrationController.class).index();
 
 					}
 

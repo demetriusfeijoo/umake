@@ -52,8 +52,12 @@ public class AdmGroupController {
 	@Post("adm/group")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final AdmGroup admGroup) {
-				
+		
 		if(this.groupAdmDao.insert(admGroup)){
+			
+			AdmGroup newGroup = this.groupAdmDao.get(admGroup.getParentAdmGroup());
+			
+			admGroup.getParentAdmGroup().setName(newGroup.getName());
 			
     		this.result.include("admGroup", admGroup);
 
@@ -72,6 +76,10 @@ public class AdmGroupController {
 		newAdmGroup.setParentAdmGroup(admGroup.getParentAdmGroup());
 		
 		this.groupAdmDao.edit(newAdmGroup);
+		
+		AdmGroup newGroup = this.groupAdmDao.get(newAdmGroup.getParentAdmGroup());
+		
+		admGroup.getParentAdmGroup().setName(newGroup.getName());
 		
 		this.result.include("admGroup", this.groupAdmDao.get(admGroup));
 		
