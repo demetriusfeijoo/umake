@@ -6,7 +6,7 @@
 	
 		<tr>
 			<td><label for="name">Name: </label></td>
-			<td><input type="text" name="admGroup.name" value="${admGroup.name}" id="name" maxlength="45" required autofocus /></td>
+			<td><input type="text" name="admGroup.name" value="${admGroup.name}" id="name" maxlength="45" autofocus /></td>
 		</tr>
 		<tr>
 			<td><label for="parentGroup">Grupo Pai: </label></td>
