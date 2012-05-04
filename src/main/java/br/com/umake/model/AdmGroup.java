@@ -6,11 +6,16 @@ import java.util.Date;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.helper.Column;
+import br.com.umake.helper.Id;
 
 @Component
 public class AdmGroup{
 
+	@Column(position=1)
+	@Id
 	private Long id;
+	@Column(position=2)
 	private String name; 
 	private Date dateOfRegistration;
 	private AdmGroup parentAdmGroup;

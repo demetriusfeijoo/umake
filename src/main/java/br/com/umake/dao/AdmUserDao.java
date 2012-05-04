@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -38,9 +40,9 @@ public class AdmUserDao {
 	}
 	
 	public AdmUser get(AdmUser admUser){
-		
-		return (AdmUser) this.session.load( AdmUser.class , new Long(admUser.getId()) );
-
+					
+		return (AdmUser) this.session.createCriteria(AdmUser.class).add(Restrictions.eq("id", admUser.getId())).uniqueResult();
+			
 	}
 
 	public Boolean delete( AdmUser admUser ){
@@ -50,7 +52,7 @@ public class AdmUserDao {
 			this.session.delete(admUser);
 
 		}catch(HibernateException e){
-			System.out.println(e.getMessage());
+
 			return false;
 			
 		}
@@ -94,8 +96,8 @@ public class AdmUserDao {
 	
 		if( !propertyName.isEmpty() && !search.isEmpty() ){
 			
-			return this.session.createCriteria(AdmUser.class).add(Restrictions.ilike(propertyName, search)).list();
-			
+			return this.session.createQuery("from AdmUser where "+propertyName+" LIKE '%"+search+"%'").list();
+		
 		}
 		
 		return new ArrayList<AdmUser>();

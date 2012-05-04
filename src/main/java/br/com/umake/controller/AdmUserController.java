@@ -92,9 +92,16 @@ public class AdmUserController {
 		
 		AdmUser admUserRecovered = this.admUserDao.get(admUser);
 
-		this.result.include("admUser", admUserRecovered);
+		if(admUserRecovered != null ){
 			
-		this.result.forwardTo(this).formAdmUser();	
+			this.result.include("admUser", admUserRecovered);
+			this.result.forwardTo(this).formAdmUser();	
+			
+		}else{
+			
+			this.result.redirectTo(this).list();
+			
+		}
 					
 	}
 	

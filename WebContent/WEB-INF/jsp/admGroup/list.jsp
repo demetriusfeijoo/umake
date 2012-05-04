@@ -1,5 +1,5 @@
 <%@include file="../../../admin/header.jsp" %>
 
-<div id="listagemUser"></div>
+<div id="listagemGroup"></div>
 
 <%@include file="../../../admin/footer.jsp" %>
