@@ -20,7 +20,7 @@
   ${error.message}<br />
 </c:forEach>
 <div>
-	<form method="post" action="<c:url value="/adm/user/login" />">
+	<form method="post" action="<c:url value="/adm/user/login" />" id="formLogin">
 		<label for="login" >Login: </label>
 		<input name="admUser.login" id="login" required autofocus /><br />
 		<label for="pwd">Password: </label>
