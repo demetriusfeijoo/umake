@@ -1,5 +1,11 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
-
+<style>
+#formAdmUser label.error {
+	margin-left: 10px;
+	width: auto;
+	display: inline;
+}
+</style>
 <form action="<c:url value="/adm/user" />" method="post" id="formAdmUser">
 	<c:if test="${admUser != null}">
 		<input name="admUser.id" type="hidden" value="${admUser.id}" />
@@ -8,19 +14,19 @@
 	
 		<tr>
 			<td><label for="name">Name: </label></td>
-			<td><input type="text" name="admUser.name" value="${admUser.name}" id="name" maxlength="45" required autofocus /></td>
+			<td><input type="text" name="admUser.name" value="${admUser.name}" id="name" maxlength="45" autofocus /></td>
 		</tr>
 		<tr>
 			<td><label for="email">E-mail: </label></td>
-			<td><input type="email" name="admUser.email" value="${admUser.email}" id="email" maxlength="80" required /></td>
+			<td><input type="text" name="admUser.email" value="${admUser.email}" id="email" maxlength="80"  /></td>
 		</tr>
 		<tr>
 			<td><label for="login">Login: </label></td>
-			<td><input type="text" name="admUser.login" value="${admUser.login}" id="login" maxlength="45" required/></td>
+			<td><input type="text" name="admUser.login" value="${admUser.login}" id="login" maxlength="45" /></td>
 		</tr>
 		<tr>
 			<td><label for="password">Password: </label></td>
-			<td><input type="password" name="admUser.password" value="${admUser.password}" id="password" maxlength="45" required/></td>
+			<td><input type="password" name="admUser.password" value="${admUser.password}" id="password" maxlength="45" /></td>
 		</tr>	
 		<tr>
 			<td><label for="userBlock">Bloqueado: </label></td>
@@ -42,8 +48,21 @@
 				<label>Grupos:</label>
 				<br />
 				<c:forEach var="admGroup" items="${admGroups}" begin="0" varStatus="count">
+				
 					<label>${admGroup.name}</label>
-					<input type="checkbox" name="admGroups[${count.index}].id" value="${admGroup.id}"/>
+					
+					<% String ifChecked = ""; %>	
+					
+					<c:forEach var="userGroups" items="${admUser.admGroups}">
+													
+						<c:if test="${userGroups.id == admGroup.id}">
+							<% ifChecked = "checked='checked'"; %>
+						</c:if>
+						
+					</c:forEach>
+					
+					<input type="checkbox" name="admGroups[${count.index}].id" <% out.print(ifChecked); %> value="${admGroup.id}"/>
+														
 				</c:forEach>			
 			</td>
 			<td></td>
@@ -53,8 +72,20 @@
 				<label>Permissoes:</label>
 				<br />
 				<c:forEach var="admPermission" items="${admPermissions}" begin="0" varStatus="count">
+					
 					<label>${admPermission.context}</label>
-					<input type="checkbox" name="admPermissions[${count.index}].id" value="${admPermission.id}" />
+					
+					<% String ifChecked = ""; %>
+					
+					<c:forEach var="userPermissions" items="${admUser.admPermissions}">
+													
+						<c:if test="${userPermissions.id == admPermission.id}">
+							<% ifChecked = "checked='checked'"; %>
+						</c:if>
+						
+					</c:forEach>
+					
+					<input type="checkbox" name="admPermissions[${count.index}].id" <% out.print(ifChecked); %> value="${admPermission.id}" />
 				</c:forEach>			
 			</td>
 			<td></td>

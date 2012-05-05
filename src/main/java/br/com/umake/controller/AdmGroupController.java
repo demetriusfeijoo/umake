@@ -60,6 +60,10 @@ public class AdmGroupController {
 				
 		if(this.admGroupDao.insert(admGroup)){
 			
+			AdmGroup newGroup = this.admGroupDao.get(admGroup.getParentAdmGroup());
+			
+			admGroup.getParentAdmGroup().setName(newGroup.getName());
+			
     		this.result.include("admGroup", admGroup);
 
     	}

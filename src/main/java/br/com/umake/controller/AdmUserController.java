@@ -47,7 +47,6 @@ public class AdmUserController {
 		
 	}
 	
-	
 	@Get("adm/user/login")
 	public void formLogin() {
 		
@@ -57,7 +56,6 @@ public class AdmUserController {
 					
 	}
     
-	
 	@Post("adm/user/login")
 	public void login(final AdmUser admUser) { 
 		
@@ -231,5 +229,7 @@ public class AdmUserController {
 		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
 		
 	}
+	
+
 
 }
