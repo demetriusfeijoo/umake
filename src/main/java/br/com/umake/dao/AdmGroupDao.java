@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.AdmGroup;
-import br.com.umake.model.AdmUser;
 
 @Component
 public class AdmGroupDao {
@@ -41,10 +41,8 @@ public class AdmGroupDao {
 	}
 	
 	public AdmGroup get(AdmGroup admGroup){
-		
-		AdmGroup admGroupLoaded = (AdmGroup) this.session.load( AdmGroup.class , new Long(admGroup.getId()) );
-		
-		return admGroupLoaded;
+				
+		return (AdmGroup) this.session.createCriteria(AdmGroup.class).add(Restrictions.eq("id", admGroup.getId())).uniqueResult();
 		
 	}
 	

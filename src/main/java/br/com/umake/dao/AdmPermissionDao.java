@@ -1,5 +1,6 @@
 package br.com.umake.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,6 +51,41 @@ public class AdmPermissionDao {
 		
 		return this.session.createCriteria(AdmPermission.class).list();
 
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<AdmPermission> getAllLimitedAndOrdered(int offset, Integer length, String propertyName, String propertySortName ){
+		
+		String HQL;
+		
+		if( propertyName != null && propertySortName != null ){
+			
+			HQL = String.format("from AdmPermission order by %s %s", propertyName, propertySortName);
+			
+		}else if(propertyName != null && propertySortName == null){
+			
+			HQL = String.format("from AdmPermission order by %s ", propertyName);			
+			
+		}else{
+			
+			HQL = String.format("from AdmPermission");			
+			
+		}
+		
+		return this.session.createQuery(HQL).setFirstResult(offset).setMaxResults(length).list();
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AdmPermission> getAllByPropertyName(String propertyName, String search){
+	
+		if( !propertyName.isEmpty() && !search.isEmpty() ){
+			
+			return this.session.createQuery("from AdmPermission where "+propertyName+" LIKE '%"+search+"%'").list();
+		
+		}
+		
+		return new ArrayList<AdmPermission>();
 	}
 	
 	public Boolean edit( AdmPermission admPermission ){

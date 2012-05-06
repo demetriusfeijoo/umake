@@ -34,9 +34,18 @@ public class AdmGroupController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getAdmGroup( AdmGroup admGroup ){
 		
-		this.result.include("admGroup", this.admGroupDao.get(admGroup));
+		AdmGroup admGroupRecovered = this.admGroupDao.get(admGroup);		
 		
-		this.result.forwardTo(this).formAdmGroup();
+		if(admGroupRecovered != null ){
+			
+			this.result.include("admGroup", admGroupRecovered);
+			this.result.forwardTo(this).formAdmGroup();
+			
+		}else{
+			
+			this.result.redirectTo(this).list();
+			
+		}
 				
 	}
 	
@@ -115,19 +124,19 @@ public class AdmGroupController {
 			
 			int offset = page == 1 ? 0 : ((page - 1) * rp) ;
 			
-			List<AdmGroup> flexiListAdmUser;
+			List<AdmGroup> flexiListAdmGroup;
 			
 			if( query == null || query == "" ){
 				
-				flexiListAdmUser = this.admGroupDao.getAllLimitedAndOrdered( offset , rp, sortname, sortorder );
+				flexiListAdmGroup = this.admGroupDao.getAllLimitedAndOrdered( offset , rp, sortname, sortorder );
 
 			}else{
 				
-				flexiListAdmUser = this.admGroupDao.getAllByPropertyName(qtype, query);
+				flexiListAdmGroup = this.admGroupDao.getAllByPropertyName(qtype, query);
 				
 			}
 							
-			flexi = new FlexiGridJson<AdmGroup>( page, this.admGroupDao.getAll().size(), flexiListAdmUser );
+			flexi = new FlexiGridJson<AdmGroup>( page, this.admGroupDao.getAll().size(), flexiListAdmGroup );
 			
 		} catch (Exception e) {
 
