@@ -36,7 +36,7 @@ public class AdmPermissionController {
 	}
 	
     @Get("adm/permission/create")
-    @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.CREATE})}) 
+    @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formAdmPermission(){
 
 	}

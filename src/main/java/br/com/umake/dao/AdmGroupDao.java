@@ -25,10 +25,12 @@ public class AdmGroupDao {
 	public Boolean insert(AdmGroup admGroup){
 		
 		admGroup.setDateOfRegistration(new Date());
-
+		
 		try{
 
 			this.session.save(admGroup);
+			
+			this.session.merge(admGroup);
 
 		}catch(HibernateException e){
 

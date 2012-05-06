@@ -17,7 +17,7 @@
 		<property name="dateOfRegistration" update="false" />
 
 		<!-- Relacionamento da classe -->
-		<many-to-one name="parentAdmGroup" column="parentAdmGroup" class="br.com.umake.model.AdmGroup" cascade="none"/>  
+		<many-to-one name="parentAdmGroup" column="parentAdmGroup" class="br.com.umake.model.AdmGroup" not-found="ignore" cascade="none"/>  
 
  		<set name="admUsers" table="umake_adm_users_adm_groups" lazy="true" cascade="none" >
 			<key column="id_adm_group" />

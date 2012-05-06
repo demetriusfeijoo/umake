@@ -57,7 +57,7 @@ public class AdmGroupController {
 	@Post("adm/group")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final AdmGroup admGroup) {
-				
+		
 		if(this.admGroupDao.insert(admGroup)){
 			
 			AdmGroup newGroup = this.admGroupDao.get(admGroup.getParentAdmGroup());

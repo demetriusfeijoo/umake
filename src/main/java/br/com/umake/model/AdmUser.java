@@ -152,7 +152,7 @@ public class AdmUser implements Serializable {
 	}
 
 	public Boolean hasAllNecessariesPermissions(List<AdmPermission> recoveryNecessaryAdmPermissions) { 
-
+		
 		for (AdmPermission necessaryPermission : recoveryNecessaryAdmPermissions) {
 
 			Boolean exists = false;
@@ -164,11 +164,11 @@ public class AdmUser implements Serializable {
 					exists = true;
 					
 				}
-					
-
+				
 			}
 
 			if (!exists) {
+				
 				return false;
 			}
 		}
