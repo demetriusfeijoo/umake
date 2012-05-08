@@ -6,12 +6,18 @@ import java.util.Date;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.helper.Column;
+import br.com.umake.helper.Id;
 
 @Component
 public class AdmPermission {
 	
+	@Column(position=1)
+	@Id
 	private Long id;
+	@Column(position=2)
 	private String context;
+	@Column(position=3)
 	private String type; 
 	private Date dateOfRegistration;
 	private Set<AdmUser> admUsers ;
