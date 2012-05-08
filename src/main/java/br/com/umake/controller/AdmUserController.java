@@ -138,13 +138,11 @@ public class AdmUserController {
 		
 		admUser.setDateOfRegistration(dateInsert);
 		admUser.setDateLastVisit(dateInsert);
-
-    	if(this.admUserDao.insert(admUser)){
-    		
-    		this.result.include("admUser", admUser);
-    	
-    	}
     	 
+		this.result.include("retorno", this.admUserDao.insert(admUser) );
+		this.result.include("tipoSubmit", "cadastrado" );
+		this.result.include("admUser", admUser);
+		
 		this.result.redirectTo(AdmUserController.class).formAdmUser();
 
 	}
@@ -168,9 +166,9 @@ public class AdmUserController {
 			admUser.getAdmPermissions().addAll(admPermissions);
 			
 		}
-		    
-		this.admUserDao.edit(admUser);
-
+		
+		this.result.include("retorno", this.admUserDao.edit(admUser) );
+		this.result.include("tipoSubmit", "editado" );
 		this.result.include("admUser", this.admUserDao.get(admUser) );
 		
 		this.result.forwardTo(this).formAdmUser();		

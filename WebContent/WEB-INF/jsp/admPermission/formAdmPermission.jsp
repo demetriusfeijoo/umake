@@ -11,12 +11,11 @@
 		<tr>
 			<td><label for="type">Tipo: </label></td>
 			<td>
-				${admPermission.type}
 				<select name="admPermission.type">
-					<option value="CREATE">CREATE</option>
-					<option value="EDIT">EDIT</option>
-					<option value="VIEW">VIEW</option>
-					<option value="DELETE">DELETE</option>
+					<option value="CREATE" <c:if test="${admPermission.type == 'CREATE'}">selected="selected"</c:if> >CREATE</option>
+					<option value="EDIT" <c:if test="${admPermission.type == 'EDIT'}">selected="selected"</c:if> >EDIT</option>
+					<option value="VIEW" <c:if test="${admPermission.type == 'VIEW'}">selected="selected"</c:if> >VIEW</option>
+					<option value="DELETE" <c:if test="${admPermission.type == 'DELETE'}">selected="selected"</c:if> >DELETE</option>
 				</select>
 			</td>
 		</tr>

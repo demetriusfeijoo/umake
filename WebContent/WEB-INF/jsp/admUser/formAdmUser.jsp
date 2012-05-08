@@ -6,6 +6,16 @@
 	display: inline;
 }
 </style>
+<c:if test="${retorno == true}">
+
+	<p>Usuário ${tipoSubmit} com sucesso!</p>
+
+</c:if>
+<c:if test="${retorno == false}">
+
+	<p>ERRO! Usuário näo foi ${tipoSubmit}.</p>
+
+</c:if>
 <form action="<c:url value="/adm/user" />" method="post" id="formAdmUser">
 	<c:if test="${admUser != null}">
 		<input name="admUser.id" type="hidden" value="${admUser.id}" />
@@ -49,7 +59,7 @@
 				<br />
 				<c:forEach var="admGroup" items="${admGroups}" begin="0" varStatus="count">
 				
-					<label>${admGroup.name}</label>
+					<label for="group_${admGroup.id}">${admGroup.name}</label>
 					
 					<% String ifChecked = ""; %>	
 					
@@ -61,7 +71,7 @@
 						
 					</c:forEach>
 					
-					<input type="checkbox" name="admGroups[${count.index}].id" <% out.print(ifChecked); %> value="${admGroup.id}"/>
+					<input type="checkbox" id="group_${admGroup.id}" name="admGroups[${count.index}].id" <% out.print(ifChecked); %> value="${admGroup.id}"/>
 														
 				</c:forEach>			
 			</td>
@@ -73,7 +83,7 @@
 				<br />
 				<c:forEach var="admPermission" items="${admPermissions}" begin="0" varStatus="count">
 					
-					<label>${admPermission.context}</label>
+					<label for="permission_${admPermission.id}">${admPermission.context}</label>
 					
 					<% String ifChecked = ""; %>
 					
@@ -85,17 +95,17 @@
 						
 					</c:forEach>
 					
-					<input type="checkbox" name="admPermissions[${count.index}].id" <% out.print(ifChecked); %> value="${admPermission.id}" />
+					<input type="checkbox"  id="permission_${admPermission.id}" name="admPermissions[${count.index}].id" <% out.print(ifChecked); %> value="${admPermission.id}" />
 				</c:forEach>			
 			</td>
 			<td></td>
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${admUser.id == null}"><button name="_method" value="post">Criar</button></c:if>
+				<c:if test="${admUser.id == null}"><button name="_method" class="submit" value="post">Criar</button></c:if>
 				<c:if test="${admUser.id != null}">
-					<button name="_method" value="put">Editar</button>
-					<button name="_method" value="delete">Deletar</button>
+					<button name="_method" class="submit" value="put">Editar</button>
+					<button name="_method" class="submit" value="delete">Deletar</button>
 				</c:if>
 			</td>
 		</tr>

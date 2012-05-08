@@ -6,7 +6,7 @@ $(function(){
 		url: urlOfSystem+"/adm/user/flexi",
 		dataType: 'json',
 		colModel : [
-			{display: 'Id', id : 'id', width : 40, sortable : true, align: 'left'},
+			{display: 'Id', name : 'id', width : 40, sortable : true, align: 'left'},
 			{display: 'Nome', name : 'name', width : 180, sortable : true, align: 'left'},
 			{display: 'E-Mail', name : 'email', width : 180, sortable : true, align: 'left'},
 			{display: 'Data do registro', name : 'dateOfRegistration', width : 180, sortable : true, align: 'left'}
@@ -46,7 +46,7 @@ $(function(){
 		url: urlOfSystem+"/adm/group/flexi",
 		dataType: 'json',
 		colModel : [
-			{display: 'Id', id : 'id', width : 40, sortable : true, align: 'left'},
+			{display: 'Id', name : 'id', width : 40, sortable : true, align: 'left'},
 			{display: 'Nome', name : 'name', width : 180, sortable : true, align: 'left'}
 			],
          buttons : [
@@ -78,7 +78,47 @@ $(function(){
 		width: 580,
 		height: 200
 	});
-	
+
+
+	$("#listagemPermission").flexigrid({
+		url: urlOfSystem+"/adm/permission/flexi",
+		dataType: 'json',
+		colModel : [
+			{display: 'Id', name : 'id', width : 45, sortable : true, align: 'left'},
+			{display: 'Context', name : 'context', width : 210, sortable : true, align: 'left'},
+			{display: 'Type', name : 'type', width : 210, sortable : true, align: 'left'}
+			],
+         buttons : [
+                    
+             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+            	 {  
+	            	 $('.trSelected', grid).each(function() {
+	            		 var id = $(this).attr('id');
+	            		 id = id.substring(id.lastIndexOf('row')+3); 
+	            		 window.location.href=urlOfSystem+"/adm/permission/"+id;
+	            	 });
+            	 }},
+             {separator: true}
+            	 
+             ],
+         searchitems : [
+              {display: 'Id', name : 'id'},
+              {display: 'Context', name : 'context'},
+              {display: 'Type', name : 'type'}
+              ],
+		sortname: "id",
+		sortorder: "asc",
+		usepager: true,
+		title: 'Permissões',
+		useRp: true,
+		rp: 10,
+		resizable: false,
+		showTableToggleBtn: true,
+		singleSelect: true,
+		width: 520,
+		height: 200
+	});
+
 	$("#formLogin").validate({
 		rules: {
 			

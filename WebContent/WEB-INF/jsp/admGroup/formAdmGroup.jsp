@@ -11,11 +11,10 @@
 		<tr>
 			<td><label for="parentGroup">Grupo Pai: </label></td>
 			<td>
-				${admGroup.parentAdmGroup.name}
 				<select name="admGroup.parentAdmGroup.id">
 					    <option value="${$admGroup.id}">Nenhum</option>
-					<c:forEach var="admGroup" items="${allAdmGroups}">
-						<option value="${admGroup.id}">${admGroup.name}</option>
+					<c:forEach var="admGroupList" items="${allAdmGroups}">
+						<option value="${admGroupList.id}" <c:if test="${admGroup.parentAdmGroup.id == admGroupList.id }">selected="selected"</c:if> >${admGroupList.name}</option>
 					</c:forEach>
 				</select>
 			</td>

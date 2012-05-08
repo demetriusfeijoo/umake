@@ -1,12 +1,17 @@
 package br.com.umake.controller;
 
+import java.util.List;
+
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
+import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.AdmPermissionDao;
+import br.com.umake.helper.FlexiGridJson;
 import br.com.umake.model.AdmPermission;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
@@ -93,5 +98,38 @@ public class AdmPermissionController {
     	}
     	    	
 	}
+    
+	@Path("adm/permission/flexi")
+	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.VIEW } ) }) 
+	public void getAllAdmUserInFlexiJson( int page, int rp, String sortname, String sortorder, String query, String qtype ){
+		
+		FlexiGridJson<AdmPermission> flexi = null;
+	
+		try {
+			
+			int offset = page == 1 ? 0 : ((page - 1) * rp) ;
+			
+			List<AdmPermission> flexiListAdmGroup;
+			
+			if( query == null || query == "" ){
+				
+				flexiListAdmGroup = this.admPermissionDao.getAllLimitedAndOrdered( offset , rp, sortname, sortorder );
 
+			}else{
+				
+				flexiListAdmGroup = this.admPermissionDao.getAllByPropertyName(qtype, query);
+				
+			}
+							
+			flexi = new FlexiGridJson<AdmPermission>( page, this.admPermissionDao.getAll().size(), flexiListAdmGroup );
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
+		this.result.use(Results.json()).withoutRoot().from(flexi).recursive().serialize();
+		
+	}
 }
