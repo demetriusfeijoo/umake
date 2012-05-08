@@ -9,7 +9,6 @@ import org.hibernate.Session;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.AdmGroup;
-import br.com.umake.model.AdmUser;
 
 @Component
 public class AdmGroupDao {

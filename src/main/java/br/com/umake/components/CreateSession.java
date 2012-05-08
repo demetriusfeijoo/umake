@@ -1,7 +1,6 @@
 package br.com.umake.components;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
