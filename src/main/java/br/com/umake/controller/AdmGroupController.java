@@ -66,16 +66,20 @@ public class AdmGroupController {
 	@Post("adm/group")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
 	public void create(final AdmGroup admGroup) {
-		
-		if(this.admGroupDao.insert(admGroup)){
-			
-			AdmGroup newGroup = this.admGroupDao.get(admGroup.getParentAdmGroup());
-			
-			admGroup.getParentAdmGroup().setName(newGroup.getName());
-			
-    		this.result.include("admGroup", admGroup);
 
-    	}
+		if(admGroup.getParentAdmGroup().getId() == null){
+
+			admGroup.setParentAdmGroup(admGroup);
+			
+		}
+		
+		this.result.include("retorno", this.admGroupDao.insert(admGroup));
+		this.result.include("tipoSubmit", "cadastrado" );		
+		
+		AdmGroup newGroup = this.admGroupDao.get(admGroup.getParentAdmGroup());
+		admGroup.getParentAdmGroup().setName(newGroup.getName());
+			
+    	this.result.include("admGroup", admGroup);
 
 		this.result.redirectTo(AdmGroupController.class).formAdmGroup();
 
@@ -89,8 +93,8 @@ public class AdmGroupController {
 		newAdmGroup.setName(admGroup.getName());
 		newAdmGroup.setParentAdmGroup(admGroup.getParentAdmGroup());
 		
-		this.admGroupDao.edit(newAdmGroup);
-		
+		this.result.include("retorno", this.admGroupDao.edit(admGroup) );
+		this.result.include("tipoSubmit", "editado" );
 		this.result.include("admGroup", this.admGroupDao.get(admGroup));
 		
 		this.result.forwardTo(this).formAdmGroup();		

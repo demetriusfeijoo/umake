@@ -1,11 +1,5 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
-<style>
-#formAdmUser label.error {
-	margin-left: 10px;
-	width: auto;
-	display: inline;
-}
-</style>
+
 <c:if test="${retorno == true}">
 
 	<p>Usuário ${tipoSubmit} com sucesso!</p>
@@ -16,6 +10,11 @@
 	<p>ERRO! Usuário näo foi ${tipoSubmit}.</p>
 
 </c:if>
+
+	<div id="dialog-confirm">
+	   <p>Você realmente deseja excluir esse usuário?</p>
+	</div>
+
 <form action="<c:url value="/adm/user" />" method="post" id="formAdmUser">
 	<c:if test="${admUser != null}">
 		<input name="admUser.id" type="hidden" value="${admUser.id}" />
@@ -105,7 +104,8 @@
 				<c:if test="${admUser.id == null}"><button name="_method" class="submit" value="post">Criar</button></c:if>
 				<c:if test="${admUser.id != null}">
 					<button name="_method" class="submit" value="put">Editar</button>
-					<button name="_method" class="submit" value="delete">Deletar</button>
+					<input name="submitDelete" id="submitDelete" type="button" value="Deletar"  />
+					<input name="_method" value="delete" type="hidden" />
 				</c:if>
 			</td>
 		</tr>

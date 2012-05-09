@@ -30,8 +30,6 @@ public class AdmGroupDao {
 
 			this.session.save(admGroup);
 			
-			this.session.merge(admGroup);
-
 		}catch(HibernateException e){
 
 			return false;

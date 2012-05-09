@@ -56,11 +56,10 @@ public class AdmPermissionController {
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.CREATE})}) 
 	public void create(final AdmPermission admPermission) {
 				
-		if(this.admPermissionDao.insert(admPermission)){
-			
-    		this.result.include("admPermission", admPermission);
-
-    	}
+		this.result.include("retorno", this.admPermissionDao.insert(admPermission) );
+		this.result.include("tipoSubmit", "cadastrada");
+		
+    	this.result.include("admPermission", admPermission);
 
 		this.result.redirectTo(this).formAdmPermission();
 
@@ -74,8 +73,8 @@ public class AdmPermissionController {
 		newAdmPermission.setContext(admPermission.getContext());
 		newAdmPermission.setType(admPermission.getType());
 
-		this.admPermissionDao.edit(newAdmPermission);
-		
+		this.result.include("retorno", this.admPermissionDao.edit(admPermission) );
+		this.result.include("tipoSubmit", "editada" );		
 		this.result.include("admPermission", this.admPermissionDao.get(admPermission));
 		
 		this.result.forwardTo(this).formAdmPermission();		
