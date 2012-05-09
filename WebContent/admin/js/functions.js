@@ -142,137 +142,167 @@ $(function(){
 		
 	});
 	
-	
-	$("#formAdmUser").validate({
+	$("#formAdmUser button").click(function(){
 		
-		rules: { 
-			
-			"admUser.name": {
-				
-				required: true,
-				minlength: 2,
-				maxlength: 45
-				
-			},
-			
-			"admUser.email": {
-				
-				required: true,
-				email: true,
-				maxlength: 80
-				
-			},
-			
-			"admUser.login": {
-				
-				required: true,
-				minlength: 2,
-				maxlength: 45
-				
-			},
-			
-			"admUser.password": {
-				
-				required: true,
-				minlength: 6,
-				maxlength: 45
-				
-			}
-			
-		},
+		$(this).parent("form").validate({
 		
-		messages: {
-			
-			"admUser.name": {
+			rules: { 
 				
-				required: "Preencha o nome",
-				minlength: "O nome necessita conter no mínimo 2 caracteres",
-				maxlength: "O nome necessita conter no máximo 45 caracteres"
+				"admUser.name": {
+					
+					required: true,
+					minlength: 2,
+					maxlength: 45
+					
+				},
+				
+				"admUser.email": {
+					
+					required: true,
+					email: true,
+					maxlength: 80
+					
+				},
+				
+				"admUser.login": {
+					
+					required: true,
+					minlength: 2,
+					maxlength: 45
+					
+				},
+				
+				"admUser.password": {
+					
+					required: true,
+					minlength: 6,
+					maxlength: 45
+					
+				}
 				
 			},
 			
-			"admUser.email": {
+			messages: {
 				
-				required: "Preencha o email",
-				maxlength: "O e-mail necessita conter no máximo 80 caracteres",
-				email: "Preencha com um email válido"
+				"admUser.name": {
+					
+					required: "Preencha o nome",
+					minlength: "O nome necessita conter no mínimo 2 caracteres",
+					maxlength: "O nome necessita conter no máximo 45 caracteres"
+					
+				},
 				
-			},
+				"admUser.email": {
+					
+					required: "Preencha o email",
+					maxlength: "O e-mail necessita conter no máximo 80 caracteres",
+					email: "Preencha com um email válido"
+					
+				},
+				
+				"admUser.login": {
+					
+					required: "Preencha o login",
+					minlength: "O login necessita conter no mínimo 2 caracteres",
+					maxlength: "O login necessita conter no máximo 45 caracteres"
+					
+				},
+				
+				"admUser.password": {
+					
+					required: "Preencha o password",
+					minlength: "O password necessita ter no mínimo 6 caracteres",
+					maxlength: "O password necessita ter no máximo 45 caracteres"
+					
+				}
+				
+			} 
 			
-			"admUser.login": {
-				
-				required: "Preencha o login",
-				minlength: "O login necessita conter no mínimo 2 caracteres",
-				maxlength: "O login necessita conter no máximo 45 caracteres"
-				
-			},
-			
-			"admUser.password": {
-				
-				required: "Preencha o password",
-				minlength: "O password necessita ter no mínimo 6 caracteres",
-				maxlength: "O password necessita ter no máximo 45 caracteres"
-				
-			}
-			
-		} 
+		});
 		
 	});
 	
-	$("#formAdmGroup").validate({
+	$("#formAdmGroup button").click(function(){
 		
-		rules: {
+		$(this).parent("form").validate({
 			
-			"admGroup.name": {
+			rules: {
 				
-				required: true,
-				minlength: 2,
-				maxlength: 45
+				"admGroup.name": {
+					
+					required: true,
+					minlength: 2,
+					maxlength: 45
+					
+				}	
+		
+			},
+		
+			messages: {
 				
-			}	
-	
-		},
-	
-		messages: {
-			
-			"admGroup.name": {
-				
-				required: "Preencha o nome",
-				minlength: "O nome necessita ter no mínimo 2 caracteres",
-				maxlength: "O nome necessita ter no máximo 45 caracteres"
+				"admGroup.name": {
+					
+					required: "Preencha o nome",
+					minlength: "O nome necessita ter no mínimo 2 caracteres",
+					maxlength: "O nome necessita ter no máximo 45 caracteres"
+					
+				}
 				
 			}
 			
-		}
+		});
 		
 	});
 	
-	$("#formAdmPermission").validate({
+	$("#formAdmPermission button").click(function(){
 		
-		rules: {
-			
-			"admPermission.context": {
+		$(this).parent("form").validate({
+		
+			rules: {
 				
-				required: true,
-				minlength: 2,
-				maxlength: 45
+				"admPermission.context": {
+					
+					required: true,
+					minlength: 2,
+					maxlength: 45
+					
+				}	
+		
+			},
+		
+			messages: {
 				
-			}	
-	
-		},
-	
-		messages: {
-			
-			"admPermission.context": {
-				
-				required: "Preencha o contexto",
-				minlength: "O contexto necessita ter no mínimo 2 caracteres",
-				maxlength: "O contexto necessita ter no máximo 45 caracteres"
+				"admPermission.context": {
+					
+					required: "Preencha o contexto",
+					minlength: "O contexto necessita ter no mínimo 2 caracteres",
+					maxlength: "O contexto necessita ter no máximo 45 caracteres"
+					
+				}
 				
 			}
-			
-		}
 		
+		});
+		
+	});
+	
+	$("#submitDelete").click(function(){
+		$("#dialog-confirm").dialog({
+			resizable: false,
+			height: 220,
+			title: "Alerta!",
+			modal: true,
+			buttons: {
+				"Confirmar": function() {
+					$( this ).dialog( "close" );
+					$("#formAdmUser, #formAdmGroup, #formAdmPermission").submit();
+				},
+				Fechar: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+		return false;		
 	});
 
 });

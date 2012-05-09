@@ -1,5 +1,20 @@
 <%@include file="../../../admin/header.jsp" %>
 
+<c:if test="${retorno == true}">
+
+	<p>Permissão ${tipoSubmit} com sucesso!</p>
+
+</c:if>
+<c:if test="${retorno == false}">
+
+	<p>ERRO! Permissão näo foi ${tipoSubmit}.</p>
+
+</c:if>
+
+	<div id="dialog-confirm">
+	   <p>Você realmente deseja excluir essa permissão?</p>
+	</div>
+	
 <form action="<c:url value="/adm/permission" />" method="post" id="formAdmPermission">
 	<c:if test="${admPermission != null}"><input name="admPermission.id" type="hidden" value="${admPermission.id}" /></c:if>	
 	<table>
@@ -21,10 +36,11 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${admPermission.id == null}"><button name="_method" value="post">Criar</button></c:if>
+				<c:if test="${admPermission == null}"><button name="_method" class="submit" value="post">Criar</button></c:if>
 				<c:if test="${admPermission.id != null}">
-					<button name="_method" value="put">Editar</button>
-					<button name="_method" value="delete">Deletar</button>
+					<button name="_method" class="submit" value="put">Editar</button>
+					<input name="submitDelete" id="submitDelete" type="button" value="Deletar"  />
+					<input name="_method" value="delete" type="hidden" />
 				</c:if>
 			</td>
 		</tr>

@@ -31,8 +31,7 @@ public class AutenticationInterceptor implements Interceptor {
 	private final AdmUserDao userDao;
 	private final Session session;
 
-	public AutenticationInterceptor(AdmUserControl user, Result result,
-			AdmUserDao uDao, Session session) {
+	public AutenticationInterceptor(AdmUserControl user, Result result, AdmUserDao uDao, Session session) {
 
 		this.result = result;
 		this.user = user;
@@ -47,8 +46,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 	}
 
-	public void intercept(InterceptorStack stack, ResourceMethod method,
-			Object obj) throws InterceptionException {
+	public void intercept(InterceptorStack stack, ResourceMethod method, Object obj) throws InterceptionException {
 
 		Transaction tx = this.session.beginTransaction();
 
@@ -68,7 +66,8 @@ public class AutenticationInterceptor implements Interceptor {
 						stack.next(method, obj);
 
 					} else {
-
+						
+						this.result.include("errorPermissions", this.recoveryNecessariesPermissions(method));
 						this.result.redirectTo(AdministrationController.class).index();
 
 					}
@@ -99,8 +98,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 	}
 
-	private List<AdmPermission> recoveryNecessariesPermissions(
-			ResourceMethod method) {
+	private List<AdmPermission> recoveryNecessariesPermissions(ResourceMethod method) {
 
 		List<AdmPermission> permissions = new ArrayList<AdmPermission>(4);
 
@@ -136,16 +134,13 @@ public class AutenticationInterceptor implements Interceptor {
 
 	private Boolean onlyRestrictable(ResourceMethod method) {
 
-		Restrictable restrictable = method.getMethod().getAnnotation(
-				Restrictable.class);
+		Restrictable restrictable = method.getMethod().getAnnotation(Restrictable.class);
 
-		br.com.umake.permissions.PermissionAnnotation[] permissions = restrictable
-				.permissions();
+		br.com.umake.permissions.PermissionAnnotation[] permissions = restrictable.permissions();
 
 		if (permissions.length == 1) {
 
-			if (permissions[0].context().equals("")
-					|| permissions[0].permissionsTypes().length == 0) {
+			if (permissions[0].context().equals("") || permissions[0].permissionsTypes().length == 0) {
 
 				return true;
 
@@ -158,6 +153,7 @@ public class AutenticationInterceptor implements Interceptor {
 		}
 
 		return false;
+	
 	}
 
 }

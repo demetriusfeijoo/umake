@@ -1,6 +1,21 @@
 ﻿<%@include file="../../../admin/header.jsp" %>
 <header>
 
+	<div>
+	
+		<c:if test="${errorPermissions.size() > 0}">
+			<h3>Essa ação necessita da(s) permissão(es) com</br> 
+			
+				<c:forEach var="errorPermission" items="${errorPermissions}">
+				
+					Contexto: ${ errorPermission.context } - Tipo: ${ errorPermission.type }
+					</br>	
+				</c:forEach>
+			
+			</h3>
+		</c:if>
+	</div>
+	
 	<nav>
 		
 		<ul>
