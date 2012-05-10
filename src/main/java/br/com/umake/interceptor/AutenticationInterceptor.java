@@ -14,7 +14,7 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.core.InterceptorStack;
 import br.com.caelum.vraptor.interceptor.Interceptor;
 import br.com.caelum.vraptor.resource.ResourceMethod;
-import br.com.umake.controller.AdministrationController;
+import br.com.umake.controller.AdmController;
 import br.com.umake.controller.AdmUserController;
 import br.com.umake.dao.AdmUserDao;
 import br.com.umake.model.AdmPermission;
@@ -53,9 +53,12 @@ public class AutenticationInterceptor implements Interceptor {
 		try {
 
 			if (this.user.isLogged()) {
+				
+				//Update user session
+				this.user.updateUser(this.userDao.get(this.user.getUserAdm()));
 
 				if (this.onlyRestrictable(method)) {
-
+					
 					stack.next(method, obj);
 
 				} else {
@@ -68,7 +71,7 @@ public class AutenticationInterceptor implements Interceptor {
 					} else {
 						
 						this.result.include("errorPermissions", this.recoveryNecessariesPermissions(method));
-						this.result.redirectTo(AdministrationController.class).index();
+						this.result.redirectTo(AdmController.class).index();
 
 					}
 

@@ -52,6 +52,38 @@ public class AdmPermissionDao {
 		return this.session.createCriteria(AdmPermission.class).list();
 
 	}
+	
+	public Boolean edit( AdmPermission admPermission ){
+		
+		try{
+			
+			this.session.merge(admPermission);
+
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
+		return true;
+
+	}
+	
+	public Boolean delete( AdmPermission admPermission ){
+		
+		try{
+			
+			this.session.delete(admPermission);
+
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
+		return true;
+		
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<AdmPermission> getAllLimitedAndOrdered(int offset, Integer length, String propertyName, String propertySortName ){
@@ -87,37 +119,4 @@ public class AdmPermissionDao {
 		
 		return new ArrayList<AdmPermission>();
 	}
-	
-	public Boolean edit( AdmPermission admPermission ){
-		
-		try{
-			
-			this.session.merge(admPermission);
-
-		}catch(HibernateException e){
-			
-			return false;
-			
-		}
-		
-		return true;
-
-	}
-	
-	public Boolean delete( AdmPermission admPermission ){
-		
-		try{
-			
-			this.session.delete(admPermission);
-
-		}catch(HibernateException e){
-			
-			return false;
-			
-		}
-		
-		return true;
-		
-	}
-
 }

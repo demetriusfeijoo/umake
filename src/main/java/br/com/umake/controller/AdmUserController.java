@@ -52,7 +52,7 @@ public class AdmUserController {
 		
 		if( this.admUserControl.isLogged() ) 
 			
-			this.result.redirectTo(AdministrationController.class).index();
+			this.result.redirectTo(AdmController.class).index();
 					
 	}
     
@@ -71,7 +71,7 @@ public class AdmUserController {
 
 		validator.onErrorUsePageOf(this).formLogin();
 		
-		result.redirectTo(AdministrationController.class).index();
+		result.redirectTo(AdmController.class).index();
 
 	}
 

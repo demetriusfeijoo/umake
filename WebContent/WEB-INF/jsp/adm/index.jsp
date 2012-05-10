@@ -3,7 +3,7 @@
 
 	<div>
 	
-		<c:if test="${errorPermissions.size() > 0}">
+		<c:if test="${errorPermissions != null }">
 			<h3>Essa ação necessita da(s) permissão(es) com</br> 
 			
 				<c:forEach var="errorPermission" items="${errorPermissions}">
@@ -27,6 +27,8 @@
 			<li><a href="<c:url value="/adm/group" />">Listar Grupos</a></li>
 			<li><a href="<c:url value="/adm/permission/create" />">Criar Permissão</a></li>
 			<li><a href="<c:url value="/adm/permission" />">Listar Permissões</a></li>
+			<li><a href="<c:url value="/adm/page/create" />">Criar página</a></li>
+			<li><a href="<c:url value="/adm/page" />">Listar página</a></li>
 			
 		</ul>
 	

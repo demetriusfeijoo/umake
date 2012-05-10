@@ -53,6 +53,38 @@ public class AdmGroupDao {
 
 	}
 	
+	public Boolean edit( AdmGroup admGroup ){
+		
+		try{
+			
+			this.session.merge(admGroup);
+			
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
+		return true;
+
+	}
+	
+	public Boolean delete( AdmGroup admGroup ){
+		
+		try{
+
+			this.session.delete(admGroup);
+
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
+		return true;
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<AdmGroup> getAllLimitedAndOrdered(int offset, Integer length, String propertyName, String propertySortName ){
 		
@@ -86,38 +118,6 @@ public class AdmGroupDao {
 		}
 		
 		return new ArrayList<AdmGroup>();
-	}
-	
-	public Boolean edit( AdmGroup admGroup ){
-		
-		try{
-			
-			this.session.merge(admGroup);
-			
-		}catch(HibernateException e){
-			
-			return false;
-			
-		}
-		
-		return true;
-
-	}
-	
-	public Boolean delete( AdmGroup admGroup ){
-		
-		try{
-
-			this.session.delete(admGroup);
-
-		}catch(HibernateException e){
-			
-			return false;
-			
-		}
-		
-		return true;
-		
 	}
 
 }

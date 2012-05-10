@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+   
+<hibernate-mapping>
+    
+    <class name="br.com.umake.model.Page" table="umake_pages">
+        
+    	<id name="id" column="id" type="long">    
+    	    <generator class="native" /> 
+    	</id>   
+    	
+    	<!-- Propriedades da classe -->
+        <property name="dateOfRegistration" update="false"></property>
+        
+    </class>
+    
+</hibernate-mapping>

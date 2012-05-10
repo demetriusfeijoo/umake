@@ -42,6 +42,29 @@ public class AdmUserDao {
 		return (AdmUser) this.session.createCriteria(AdmUser.class).add(Restrictions.eq("id", admUser.getId())).uniqueResult();
 			
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AdmUser> getAll(){
+		
+		return this.session.createCriteria(AdmUser.class).list();
+		
+	}
+	
+	public Boolean edit( AdmUser admUser ){
+		
+		try{
+			
+			this.session.merge(admUser);
+			
+		}catch(HibernateException hibernateException ){
+			
+			return false;
+			
+		}
+		
+		return true;
+
+	}
 
 	public Boolean delete( AdmUser admUser ){
 		
@@ -59,10 +82,29 @@ public class AdmUserDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
-	public List<AdmUser> getAll(){
+	public boolean updateLastDate(AdmUser admUser){
 		
-		return this.session.createCriteria(AdmUser.class).list();
+		try{
+			
+			this.session.update(admUser);
+			
+		}catch(HibernateException e){
+			
+			return false;
+			
+		}
+		
+		return true;		
+	}
+		
+	public AdmUser findAdmUser(AdmUser admUser) {
+		
+		AdmUser userFound = (AdmUser) session.createCriteria(AdmUser.class)
+				.add(Restrictions.eq("login", admUser.getLogin()))
+				.add(Restrictions.eq("password", admUser.getPassword()))
+				.add(Restrictions.eq("userBlock", false)).uniqueResult();
+		
+		return userFound;
 		
 	}
 
@@ -99,48 +141,6 @@ public class AdmUserDao {
 		}
 		
 		return new ArrayList<AdmUser>();
-	}
-	
-	public Boolean edit( AdmUser admUser ){
-		
-		try{
-			
-			this.session.merge(admUser);
-			
-		}catch(HibernateException hibernateException ){
-			
-			return false;
-			
-		}
-		
-		return true;
-
-	}
-	
-	public boolean updateLastDate(AdmUser admUser){
-		
-		try{
-			
-			this.session.update(admUser);
-			
-		}catch(HibernateException e){
-			
-			return false;
-			
-		}
-		
-		return true;		
-	}
-		
-	public AdmUser findAdmUser(AdmUser admUser) {
-		
-		AdmUser userFound = (AdmUser) session.createCriteria(AdmUser.class)
-				.add(Restrictions.eq("login", admUser.getLogin()))
-				.add(Restrictions.eq("password", admUser.getPassword()))
-				.add(Restrictions.eq("userBlock", false)).uniqueResult();
-		
-		return userFound;
-		
 	}
 
 }

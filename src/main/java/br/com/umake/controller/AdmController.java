@@ -1,6 +1,5 @@
 package br.com.umake.controller;
 
-import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
 import br.com.umake.permissions.Restrictable;
@@ -8,10 +7,10 @@ import br.com.umake.permissions.Restrictable;
 
 @Resource
 @Path("adm")
-public class AdministrationController {
+public class AdmController {
 	
 	
-	@Get("")
+	@Path(value="", priority=Path.HIGH)
 	@Restrictable
 	public void index(){
 			

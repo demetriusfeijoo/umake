@@ -16,6 +16,12 @@ public class AdmUserControl {
 		this.user = user;
 
 	}
+	
+	public void updateUser(AdmUser user){
+		
+		this.login(user);
+		
+	}
 
 	public AdmUser getUserAdm() {
 		
