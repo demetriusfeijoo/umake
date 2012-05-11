@@ -1,5 +1,6 @@
 package br.com.umake.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.caelum.vraptor.Delete;
@@ -9,24 +10,29 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.PageDao;
 import br.com.umake.helper.FlexiGridJson;
+import br.com.umake.interceptor.AdmUserControl;
 import br.com.umake.model.Page;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
 
 @Resource
+@RequestScoped
 public class PageController {
 
 	private final Result result;
 	private final PageDao pageDao;
+	private final AdmUserControl admUserControl;
 	
-	public PageController(Result result, PageDao pageDao){
+	public PageController(Result result, PageDao pageDao, AdmUserControl admUserControl){
 		
 		this.result = result;
 		this.pageDao = pageDao;
+		this.admUserControl = admUserControl;
 		
 	}
 	
@@ -53,8 +59,6 @@ public class PageController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formPage(){
     	
-		this.result.include("page", this.pageDao.getAll());
-
     }
     
 	@Get("adm/page")
@@ -65,8 +69,12 @@ public class PageController {
     
 	@Post("adm/page")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.CREATE }) }) 
-	public void create(final Page page) {
+	public void create(Page page) {
 		
+		page.setDateOfRegistration( new Date() );
+		page.setAuthor(this.admUserControl.getUserAdm().getName());
+		
+		System.out.println(page.getAuthor()+page.getContent()+page.getTitle()+page.getDateOfRegistration()+page.getStatus());
 		this.result.include("retorno", this.pageDao.insert(page) );
 		this.result.include("tipoSubmit", "cadastrado" );		
 			

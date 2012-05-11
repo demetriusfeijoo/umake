@@ -13,6 +13,10 @@
     	
     	<!-- Propriedades da classe -->
         <property name="dateOfRegistration" update="false"></property>
+        <property name="status"></property>
+        <property name="title"></property>
+        <property name="author"></property>
+        <property name="content"></property>
         
     </class>
     
