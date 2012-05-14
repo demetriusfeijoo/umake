@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.umake.helper.Column;
-import br.com.umake.helper.Id;
+import br.com.umake.helper.flexigrid.Column;
+import br.com.umake.helper.flexigrid.Id;
 
 @Component
 public class AdmPermission {

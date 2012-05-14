@@ -5,8 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.umake.helper.Column;
-import br.com.umake.helper.Id;
+import br.com.umake.helper.flexigrid.Column;
+import br.com.umake.helper.flexigrid.Id;
 
 @Component
 public class Page {
@@ -14,11 +14,13 @@ public class Page {
 	@Column(position=1)
 	@Id
 	private Long id;
-	@Column(position=3)
+	@Column(position=4)
 	private Date dateOfRegistration;
 	private Boolean status;
-	private String title;
 	@Column(position=2)
+	private String title;
+	private String slug;
+	@Column(position=3)
 	private String author;
 	private String content;
 	
@@ -68,6 +70,14 @@ public class Page {
 		
 	}
 	
+	public String getSlug(){
+		
+	
+		return this.slug;
+		
+	}
+	
+	
 	public String getAuthor(){
 		
 		return this.author;
@@ -101,6 +111,12 @@ public class Page {
 	public void setTitle( String title ){
 		
 		this.title = title;
+				
+	}
+	
+	public void setSlug(String slug){
+		
+		this.slug = slug;
 		
 	}
 	

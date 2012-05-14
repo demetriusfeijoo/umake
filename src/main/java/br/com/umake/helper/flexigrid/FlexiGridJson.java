@@ -1,4 +1,4 @@
-package br.com.umake.helper;
+package br.com.umake.helper.flexigrid;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class FlexiGridJson<T>{
 		
 		for (Field field : fields){
 			
-			if(field.isAnnotationPresent(br.com.umake.helper.Column.class))					
+			if(field.isAnnotationPresent(br.com.umake.helper.flexigrid.Column.class))					
 				totalFieldsWithAnnotationColumn++;	
 			
 		}
@@ -74,7 +74,7 @@ public class FlexiGridJson<T>{
 		
 		for (Field field : fields) {
 			
-			if(field.isAnnotationPresent(br.com.umake.helper.Id.class)){
+			if(field.isAnnotationPresent(br.com.umake.helper.flexigrid.Id.class)){
 				
 				return field.getName();
 				
@@ -103,9 +103,9 @@ public class FlexiGridJson<T>{
 			
 			for (Field field : fields){
 				
-				if(field.isAnnotationPresent(br.com.umake.helper.Column.class)){
+				if(field.isAnnotationPresent(br.com.umake.helper.flexigrid.Column.class)){
 				
-					Column column = field.getAnnotation(br.com.umake.helper.Column.class);
+					Column column = field.getAnnotation(br.com.umake.helper.flexigrid.Column.class);
 					
 					if( column.position() <= minOfTheLoop && !fieldsMappeds.contains(field.getName()) ){
 

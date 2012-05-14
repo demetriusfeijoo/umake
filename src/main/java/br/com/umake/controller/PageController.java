@@ -13,7 +13,8 @@ import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.PageDao;
-import br.com.umake.helper.FlexiGridJson;
+import br.com.umake.helper.flexigrid.FlexiGridJson;
+import br.com.umake.helper.utils.TextHelper;
 import br.com.umake.interceptor.AdmUserControl;
 import br.com.umake.model.Page;
 import br.com.umake.permissions.PermissionAnnotation;
@@ -73,12 +74,11 @@ public class PageController {
 		
 		page.setDateOfRegistration( new Date() );
 		page.setAuthor(this.admUserControl.getUserAdm().getName());
+		page.setSlug(TextHelper.createSlug(page.getTitle()));
 		
-		System.out.println(page.getAuthor()+page.getContent()+page.getTitle()+page.getDateOfRegistration()+page.getStatus());
 		this.result.include("retorno", this.pageDao.insert(page) );
 		this.result.include("tipoSubmit", "cadastrado" );		
-			
-    	this.result.include("page", page);
+		this.result.include("page", page);
 
 		this.result.redirectTo(this).formPage();
 
@@ -86,8 +86,10 @@ public class PageController {
 	
 	@Put("adm/page")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.EDIT})}) 
-	public void editAdmGroup(final Page page){
-				
+	public void edit(final Page page){
+		
+		page.setSlug(TextHelper.createSlug(page.getTitle()));
+		
 		this.result.include("retorno", this.pageDao.edit(page) );
 		this.result.include("tipoSubmit", "editado" );
 		this.result.include("page", this.pageDao.get(page));

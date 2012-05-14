@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.umake.helper.Column;
-import br.com.umake.helper.Id;
+import br.com.umake.helper.flexigrid.Column;
+import br.com.umake.helper.flexigrid.Id;
 
 @Component
 public class AdmUser implements Serializable {

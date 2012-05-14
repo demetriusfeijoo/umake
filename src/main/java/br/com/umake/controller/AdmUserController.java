@@ -17,7 +17,7 @@ import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.AdmGroupDao;
 import br.com.umake.dao.AdmPermissionDao;
 import br.com.umake.dao.AdmUserDao;
-import br.com.umake.helper.FlexiGridJson;
+import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.interceptor.AdmUserControl;
 import br.com.umake.model.AdmGroup;
 import br.com.umake.model.AdmPermission;

@@ -1,4 +1,4 @@
-package br.com.umake.helper;
+package br.com.umake.helper.flexigrid;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

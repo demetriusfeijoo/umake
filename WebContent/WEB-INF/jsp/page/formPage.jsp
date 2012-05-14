@@ -20,7 +20,9 @@
 	<table>
 		<tr>
 			<td>Status: </td>
-			<td><label for="ativado">Ativado:</label><input type="radio" name="page.status" id="ativado" value="1" /> <label for="desativado">Desativado:</label><input type="radio" name="page.status" id="desativado" value="0" /> </td>
+			<td>
+				<label for="ativado">Ativado:</label><input type="radio" name="page.status" id="ativado" <c:if test="${page.status || page.status == null }">checked="checked"</c:if> value="1" /> 
+				<label for="desativado">Desativado:</label><input type="radio" name="page.status" id="desativado" <c:if test="${ !page.status || page.status == null }">checked="checked"</c:if> value="0" /> </td>
 		</tr>
 		<tr>
 			<td>Título: </td>

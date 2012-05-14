@@ -125,6 +125,7 @@ $(function(){
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', name : 'id', width : 45, sortable : true, align: 'left'},
+			{display: 'Título', name : 'title', width : 210, sortable : true, align: 'left'},
 			{display: 'Autor', name : 'author', width : 210, sortable : true, align: 'left'},
 			{display: 'Data do registro', name : 'dateOfRegistration', width : 210, sortable : true, align: 'left'}
 			],
@@ -143,6 +144,7 @@ $(function(){
              ],
          searchitems : [
               {display: 'Id', name : 'id'},
+              {display: 'Título', name : 'title'},
               {display: 'Autor', name : 'author'}
               ],
 		sortname: "id",
@@ -154,7 +156,7 @@ $(function(){
 		resizable: false,
 		showTableToggleBtn: true,
 		singleSelect: true,
-		width: 520,
+		width: 730,
 		height: 200
 	});
 	

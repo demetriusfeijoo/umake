@@ -15,7 +15,8 @@
         <property name="dateOfRegistration" update="false"></property>
         <property name="status"></property>
         <property name="title"></property>
-        <property name="author"></property>
+        <property name="slug"></property>
+        <property name="author" update="false"></property>
         <property name="content"></property>
         
     </class>

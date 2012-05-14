@@ -5,6 +5,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.model.Application;
+import br.com.umake.model.Page;
 
 @Resource
 public class IndexController {
@@ -19,20 +20,20 @@ public class IndexController {
 		
 	}
 
-	//@Get("/")
-	public void index(){
+	@Get("/")
+	public void index(String pageOrCategory, String complement ){
 		
 		//this.result.forwardTo("/WEB-INF/jsp/index.jsp");
-		this.result.use(Results.http()).body("inicial");
+		this.result.use(Results.http()).body(pageOrCategory+" - "+complement);
 
 		
 	}
 	
-	//@Get({"/{namePage}", "/{namePage}/{teste}"})
-	public void page(String namePage, String teste ){
-	
-		this.result.use(Results.http()).body(namePage+" "+teste);
+	@Get("/{page.slug}")
+	public void page(Page page){
+
+		this.result.use(Results.http()).body(page.getSlug());
 		
 	}
-	
+
 }
