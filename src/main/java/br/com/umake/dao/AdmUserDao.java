@@ -70,7 +70,7 @@ public class AdmUserDao {
 		
 		try{
 			
-			this.session.delete(admUser);
+			this.session.createQuery("DELETE FROM AdmUser WHERE id="+admUser.getId()).executeUpdate();
 
 		}catch(HibernateException e){
 

@@ -11,8 +11,10 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.AdmGroupDao;
+import br.com.umake.dao.AdmPermissionDao;
 import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.model.AdmGroup;
+import br.com.umake.model.AdmPermission;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -21,11 +23,13 @@ import br.com.umake.permissions.Restrictable;
 public class AdmGroupController {
 	
 	private AdmGroupDao admGroupDao;
+	private AdmPermissionDao admPermissionDao;
 	private Result result;
 	
-	public AdmGroupController( AdmGroupDao admGroupDao, Result result ) {
+	public AdmGroupController( AdmGroupDao admGroupDao, AdmPermissionDao admPermissionDao,  Result result ) {
 	
 		this.admGroupDao = admGroupDao;
+		this.admPermissionDao = admPermissionDao;
 		this.result = result;
 		
 	}
@@ -54,6 +58,8 @@ public class AdmGroupController {
 	public void formAdmGroup(){
     	
 		this.result.include("allAdmGroups", this.admGroupDao.getAll());
+    	this.result.include("permissions", this.admPermissionDao.getAll());
+
 
 	}
     
@@ -65,7 +71,7 @@ public class AdmGroupController {
     
 	@Post("adm/group")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.CREATE }) }) 
-	public void create(final AdmGroup admGroup) {
+	public void create(final AdmGroup admGroup, List<AdmPermission> permissions) {
 
 		if(admGroup.getParentAdmGroup().getId() == null){
 
@@ -73,46 +79,60 @@ public class AdmGroupController {
 			
 		}
 		
-		this.result.include("retorno", this.admGroupDao.insert(admGroup));
-		this.result.include("tipoSubmit", "cadastrado" );		
-		
-		AdmGroup newGroup = this.admGroupDao.get(admGroup.getParentAdmGroup());
-		admGroup.getParentAdmGroup().setName(newGroup.getName());
+		if(permissions != null){
 			
-    	this.result.include("admGroup", admGroup);
+			admGroup.getAdmPermissions().addAll(permissions); 		
+			
+		}
+			
+		Boolean feedbackInsert = this.admGroupDao.insert(admGroup);
+		
+		this.result.include("retorno",feedbackInsert );
+		this.result.include("tipoSubmit", "cadastrado" );		
 
-		this.result.redirectTo(AdmGroupController.class).formAdmGroup();
+		if(!feedbackInsert){
+			
+			this.result.include("admGroup", admGroup);
+			this.result.redirectTo(this).formAdmGroup();	
+			
+		}else{
+		
+			this.result.redirectTo(this).getAdmGroup(admGroup);
+			
+		}
 
 	}
 	
 	@Put("adm/group")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.EDIT})}) 
-	public void editAdmGroup(AdmGroup admGroup){
+	public void edit(AdmGroup admGroup, List<AdmPermission> permissions){
 		
-		AdmGroup newAdmGroup = this.admGroupDao.get(admGroup);
-		newAdmGroup.setName(admGroup.getName());
-		newAdmGroup.setParentAdmGroup(admGroup.getParentAdmGroup());
+		if(permissions != null){
+
+			admGroup.getAdmPermissions().addAll(permissions); 		
+			
+		}
 		
-		this.result.include("retorno", this.admGroupDao.edit(admGroup) );
+		Boolean feedbackUpdate = this.admGroupDao.edit(admGroup);
+		
+		this.result.include("retorno", feedbackUpdate );
 		this.result.include("tipoSubmit", "editado" );
-		this.result.include("admGroup", this.admGroupDao.get(admGroup));
 		
-		this.result.forwardTo(this).formAdmGroup();		
+		this.result.redirectTo(this).getAdmGroup(admGroup);
 		
 	}
 	
-    @Delete("adm/group")
+    @Delete("adm/group/{admGroup.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_GROUP", permissionsTypes={ PermissionType.DELETE} )})
-	public void delete(final AdmGroup admGroup){
+	public void delete(AdmGroup admGroup){
     	
     	if(this.admGroupDao.delete(admGroup)){
     		
-        	this.result.forwardTo(this).list();
+        	this.result.redirectTo(this).list();
     		
     	}else{
     		
-    		this.result.include("admGroup", admGroup);
-        	this.result.forwardTo(this).formAdmGroup();
+        	this.result.redirectTo(this).getAdmGroup(admGroup);
     		
     	}
     	    	

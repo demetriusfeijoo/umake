@@ -36,11 +36,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${admPermission == null}"><button name="_method" class="submit" value="post">Criar</button></c:if>
+				<c:if test="${admPermission == null}"><button name="_method" class="submit" value="post">Cadastrar</button></c:if>
 				<c:if test="${admPermission.id != null}">
 					<button name="_method" class="submit" value="put">Editar</button>
-					<input name="submitDelete" id="submitDelete" type="button" value="Deletar"  />
-					<input name="_method" value="delete" type="hidden" />
 				</c:if>
 			</td>
 		</tr>
@@ -48,5 +46,14 @@
 	</table>
 
 </form>
+
+<c:if test="${admPermission != null}">
+
+	<form method="post" action="<c:url value="/adm/permission/${admPermission.id}" />" id="formDeleteAdmPermission">
+		<input name="btnDeleteAdmPermission" id="btnDeleteAdmPermission" value="Deletar" type="button" />
+		<input name="_method" id="_method" value="delete" type="hidden" />
+	</form>
+	
+</c:if>
 
 <%@include file="../../../admin/footer.jsp" %>

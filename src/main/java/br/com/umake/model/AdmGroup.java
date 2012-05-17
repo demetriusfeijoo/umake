@@ -3,6 +3,7 @@ package br.com.umake.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -19,8 +20,7 @@ public class AdmGroup{
 	private String name; 
 	private Date dateOfRegistration;
 	private AdmGroup parentAdmGroup;
-	private Set<AdmUser> admUsers;
-	private Set<AdmPermission> admPermissions;				
+	private Set<AdmPermission> admPermissions = new HashSet<AdmPermission>();				
 	
 	public AdmGroup(){ 
 		
@@ -59,10 +59,6 @@ public class AdmGroup{
 	public AdmGroup getParentAdmGroup() {
 		return parentAdmGroup;
 	}
-	
-	public Set<AdmUser> getAdmUsers() {
-		return admUsers;
-	}
 
 	public Set<AdmPermission> getAdmPermissions() {
 		return admPermissions;
@@ -82,10 +78,6 @@ public class AdmGroup{
 
 	public void setParentAdmGroup(AdmGroup parentAdmGroup) {
 		this.parentAdmGroup = parentAdmGroup;
-	}
-	
-	public void setAdmUsers(Set<AdmUser> admUsers) {
-		this.admUsers = admUsers;
 	}
 
 	public void setAdmPermissions(Set<AdmPermission> admPermissions) {

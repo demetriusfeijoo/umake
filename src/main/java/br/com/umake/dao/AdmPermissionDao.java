@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.AdmPermission;
@@ -41,8 +42,7 @@ public class AdmPermissionDao {
 	
 	public AdmPermission get(AdmPermission admPermission){
 		
-		AdmPermission admPermissionLoaded = (AdmPermission) this.session.load( AdmPermission.class , new Long(admPermission.getId()) );
-		return admPermissionLoaded;
+		return (AdmPermission) this.session.createCriteria(AdmPermission.class).add(Restrictions.eq("id", admPermission.getId())).uniqueResult();
 		
 	}
 	
@@ -72,8 +72,8 @@ public class AdmPermissionDao {
 	public Boolean delete( AdmPermission admPermission ){
 		
 		try{
-			
-			this.session.delete(admPermission);
+
+			this.session.createQuery("DELETE FROM AdmPermission WHERE id="+admPermission.getId()).executeUpdate();
 
 		}catch(HibernateException e){
 			

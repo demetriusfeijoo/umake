@@ -184,14 +184,14 @@ public class AdmUser implements Serializable {
 		
 		for (AdmGroup admGroup : this.getAdmGroups()) {
 
-			Set<AdmPermission> admGroupPermissions = admGroup.getAdmPermissions();
-
-			for (AdmPermission admPermissions : admGroupPermissions) {
-
-				allAdmPermissions.add(admPermissions);
-
+			allAdmPermissions.addAll(admGroup.getAdmPermissions());
+			
+			if(admGroup.getParentAdmGroup() != null ){ 
+			
+				allAdmPermissions.addAll(admGroup.getParentAdmGroup().getAdmPermissions());
+				
 			}
-
+			
 		}
 
 		return allAdmPermissions;

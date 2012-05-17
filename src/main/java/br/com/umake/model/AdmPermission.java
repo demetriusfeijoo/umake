@@ -3,7 +3,6 @@ package br.com.umake.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.helper.flexigrid.Column;
@@ -20,8 +19,6 @@ public class AdmPermission {
 	@Column(position=3)
 	private String type; 
 	private Date dateOfRegistration;
-	private Set<AdmUser> admUsers ;
-	private Set<AdmGroup> admGroups ;
 
 	public AdmPermission() {
 		
@@ -59,14 +56,6 @@ public class AdmPermission {
 		return dateOfRegistration;
 	}
 
-	public Set<AdmGroup> getAdmGroups() {
-		return admGroups;
-	}
-
-	public Set<AdmUser> getAdmUsers() {
-		return admUsers;
-	}
-
 	public void setType(String type) {
 		this.type = type.toUpperCase();
 	}
@@ -81,14 +70,6 @@ public class AdmPermission {
 
 	public void setDateOfRegistration(Date dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
-	}
-
-	public void setAdmGroups(Set<AdmGroup> admGroups) {
-		this.admGroups = admGroups;
-	}
-
-	public void setAdmUsers(Set<AdmUser> admUsers) {
-		this.admUsers = admUsers;
 	}
 	
 	public String getType(){

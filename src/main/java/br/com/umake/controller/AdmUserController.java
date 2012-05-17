@@ -65,12 +65,13 @@ public class AdmUserController {
 
 			validator.add(new ValidationMessage("Login e/ou senha inválidos",""));
 
+		}else{
+			
+			this.admUserControl.login(recovery);			
+			
 		}
 		
-		this.admUserControl.login(recovery);
-
 		validator.onErrorUsePageOf(this).formLogin();
-		
 		result.redirectTo(AdmController.class).index();
 
 	}
@@ -138,18 +139,28 @@ public class AdmUserController {
 		
 		admUser.setDateOfRegistration(dateInsert);
 		admUser.setDateLastVisit(dateInsert);
-    	 
-		this.result.include("retorno", this.admUserDao.insert(admUser) );
-		this.result.include("tipoSubmit", "cadastrado" );
-		this.result.include("admUser", admUser);
+    	
+		Boolean feedbackInsert =  this.admUserDao.insert(admUser);
 		
-		this.result.redirectTo(AdmUserController.class).formAdmUser();
-
+		this.result.include("retorno", feedbackInsert );
+		this.result.include("tipoSubmit", "cadastrado" );
+		
+		if(!feedbackInsert){
+			
+			this.result.include("admUser", admUser);
+			this.result.redirectTo(this).formAdmUser();	
+			
+		}else{
+		
+			this.result.redirectTo(this).getAdmUser(admUser);
+			
+		}
+		
 	}
 	
 	@Put("adm/user")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_USER", permissionsTypes = { PermissionType.EDIT})}) 
-	public void editAdmUser(AdmUser admUser, List<AdmGroup> admGroups, List<AdmPermission> admPermissions){
+	public void edit(AdmUser admUser, List<AdmGroup> admGroups, List<AdmPermission> admPermissions){
 
 		AdmUser oldAdmUser = this.admUserDao.get(admUser);
 		admUser.setDateLastVisit(oldAdmUser.getDateLastVisit());
@@ -167,28 +178,28 @@ public class AdmUserController {
 			
 		}
 		
-		this.result.include("retorno", this.admUserDao.edit(admUser) );
+		Boolean feedbackUpdate = this.admUserDao.edit(admUser);
+
+		this.result.include("retorno", feedbackUpdate );
 		this.result.include("tipoSubmit", "editado" );
-		this.result.include("admUser", this.admUserDao.get(admUser) );
 		
-		this.result.forwardTo(this).formAdmUser();		
+		this.result.redirectTo(this).getAdmUser(admUser);		
 		
 	}
 	
-    @Delete("adm/user")
+    @Delete("adm/user/{admUser.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_USER", permissionsTypes={ PermissionType.DELETE} )})
-	public void delete(final AdmUser admUser){
+	public void delete(AdmUser admUser){
 
 		admUser.setDateLastVisit(new Date());
 		
     	if(this.admUserDao.delete(admUser)){
     		
-        	this.result.forwardTo(this).list();
+        	this.result.redirectTo(this).list();
     		
     	}else{
     		
-    		this.result.include("admUser", admUser);
-        	this.result.forwardTo(this).formAdmUser();
+        	this.result.redirectTo(this).getAdmUser(admUser);
     		
     	}
     	    	

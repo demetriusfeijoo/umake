@@ -54,7 +54,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 			if (this.user.isLogged()) {
 				
-				//Update user session
+				//Update user's session
 				this.user.updateUser(this.userDao.get(this.user.getUserAdm()));
 
 				if (this.onlyRestrictable(method)) {

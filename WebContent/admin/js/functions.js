@@ -183,9 +183,7 @@ $(function(){
 		
 	});
 	
-	$("#formAdmUser button").click(function(){
-		
-		$(this).parent("form").validate({
+	$("#formAdmUser").validate({
 		
 			rules: { 
 				
@@ -259,13 +257,9 @@ $(function(){
 				
 			} 
 			
-		});
-		
 	});
 	
-	$("#formAdmGroup button").click(function(){
-		
-		$(this).parent("form").validate({
+	$("#formAdmGroup").validate({
 			
 			rules: {
 				
@@ -291,14 +285,10 @@ $(function(){
 				
 			}
 			
-		});
-		
 	});
-	
-	$("#formAdmPermission button").click(function(){
-		
-		$(this).parent("form").validate({
-		
+				
+	$("#formAdmPermission").validate({
+			
 			rules: {
 				
 				"admPermission.context": {
@@ -323,11 +313,12 @@ $(function(){
 				
 			}
 		
-		});
-		
 	});
 	
-	$("#submitDelete").click(function(){
+	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission").click(function(event){
+		
+		event.preventDefault();
+		
 		$("#dialog-confirm").dialog({
 			resizable: false,
 			height: 220,
@@ -336,14 +327,14 @@ $(function(){
 			buttons: {
 				"Confirmar": function() {
 					$( this ).dialog( "close" );
-					$("#formAdmUser, #formAdmGroup, #formAdmPermission").submit();
+					$("#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission").submit();
 				},
 				Fechar: function() {
 					$( this ).dialog( "close" );
 				}
 			}
-		});
-		return false;		
+		});	
+				
 	});
 
 	tinyMCE.init({
