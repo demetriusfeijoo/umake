@@ -30,7 +30,8 @@
 			<li><a href="<c:url value="/adm/permission" />">Listar Permissões</a></li>
 			<li><a href="<c:url value="/adm/page/create" />">Criar página</a></li>
 			<li><a href="<c:url value="/adm/page" />">Listar páginas</a></li>
-			
+			<li><a href="<c:url value="/adm/config" />">Configuracao</a></li>
+
 		</ul>
 	
 	</nav>
