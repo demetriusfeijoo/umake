@@ -104,8 +104,6 @@
 				<c:if test="${admUser.id == null}"><button name="_method" class="submit" value="post">Criar</button></c:if>
 				<c:if test="${admUser.id != null}">
 					<button name="_method" class="submit" value="put">Editar</button>
-					<input name="submitDelete" id="submitDelete" type="button" value="Deletar"  />
-					<input name="_method" value="delete" type="hidden" />
 				</c:if>
 			</td>
 		</tr>
@@ -114,5 +112,14 @@
 	</table>
 
 </form>
+
+<c:if test="${admUser != null}">
+
+	<form method="post" action="<c:url value="/adm/user/${admUser.id}" />" id="formDeleteAdmUser">
+		<input name="btnDeleteAdmUser" id="btnDeleteAdmUser" value="Deletar" type="button" />
+		<input name="_method" id="_method" value="delete" type="hidden" />
+	</form>
+	
+</c:if>
 
 <%@include file="../../../admin/footer.jsp" %>

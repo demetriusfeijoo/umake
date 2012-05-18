@@ -73,10 +73,10 @@ public class AdmGroupDao {
 		
 		try{
 
-			this.session.delete(admGroup);
+			this.session.createQuery("DELETE FROM AdmGroup WHERE id="+admGroup.getId()).executeUpdate();
 
 		}catch(HibernateException e){
-			
+
 			return false;
 			
 		}

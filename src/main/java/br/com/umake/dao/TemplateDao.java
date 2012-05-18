@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.umake.model.Template;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
 public class TemplateDao {
 

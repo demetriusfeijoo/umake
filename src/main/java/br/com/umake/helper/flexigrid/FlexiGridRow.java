@@ -1,4 +1,4 @@
-package br.com.umake.helper;
+package br.com.umake.helper.flexigrid;
 
 import java.util.List;
 

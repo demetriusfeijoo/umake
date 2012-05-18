@@ -11,7 +11,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.AdmPermissionDao;
-import br.com.umake.helper.FlexiGridJson;
+import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.model.AdmPermission;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
@@ -33,10 +33,19 @@ public class AdmPermissionController {
 	@Get("adm/permission/{admPermission.id}")
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.VIEW})}) 
 	public void getAdmPermission( AdmPermission admPermission ){
-		
-		this.result.include("admPermission", this.admPermissionDao.get(admPermission));
-		
-		this.result.forwardTo(this).formAdmPermission();
+						
+		AdmPermission admPermissionRecovered = this.admPermissionDao.get(admPermission);
+
+		if(admPermissionRecovered != null ){
+			
+			this.result.include("admPermission", admPermissionRecovered);
+			this.result.forwardTo(this).formAdmPermission();	
+			
+		}else{
+			
+			this.result.redirectTo(this).list();
+			
+		}
 				
 	}
 	
@@ -56,18 +65,27 @@ public class AdmPermissionController {
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.CREATE})}) 
 	public void create(final AdmPermission admPermission) {
 				
-		this.result.include("retorno", this.admPermissionDao.insert(admPermission) );
+		Boolean feedbackInsert =  this.admPermissionDao.insert(admPermission);
+		
+		this.result.include("retorno", feedbackInsert  );
 		this.result.include("tipoSubmit", "cadastrada");
 		
-    	this.result.include("admPermission", admPermission);
-
-		this.result.redirectTo(this).formAdmPermission();
+		if(!feedbackInsert){
+			
+	    	this.result.include("admPermission", admPermission);
+			this.result.redirectTo(this).formAdmPermission();
+			
+		}else{
+		
+			this.result.redirectTo(this).getAdmPermission(admPermission);
+			
+		}
 
 	}
 	
 	@Put("adm/permission")
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.EDIT})}) 
-	public void editAdmPermission(AdmPermission admPermission){
+	public void edit(AdmPermission admPermission){
 
 		AdmPermission newAdmPermission = this.admPermissionDao.get(admPermission);
 		newAdmPermission.setContext(admPermission.getContext());
@@ -75,24 +93,22 @@ public class AdmPermissionController {
 
 		this.result.include("retorno", this.admPermissionDao.edit(admPermission) );
 		this.result.include("tipoSubmit", "editada" );		
-		this.result.include("admPermission", this.admPermissionDao.get(admPermission));
 		
-		this.result.forwardTo(this).formAdmPermission();		
+		this.result.redirectTo(this).getAdmPermission(admPermission);	
 		
 	}
 	
-    @Delete("adm/permission")
+    @Delete("adm/permission/{admPermission.id}")
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.DELETE})}) 
-	public void delete(final AdmPermission admPermission){
-    	
+	public void delete(AdmPermission admPermission){
+    	    	
     	if(this.admPermissionDao.delete(admPermission)){
     		
-        	this.result.forwardTo(this).list();
+        	this.result.redirectTo(this).list();
     		
     	}else{
     		
-    		this.result.include("admPermission", admPermission);
-        	this.result.forwardTo(this).formAdmPermission();
+        	this.result.redirectTo(this).getAdmPermission(admPermission);
     		
     	}
     	    	
