@@ -1,5 +1,7 @@
 package br.com.umake.controller;
 
+import java.util.Calendar;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -21,11 +23,10 @@ public class IndexController {
 	}
 
 	@Get("/")
-	public void index(String pageOrCategory, String complement ){
+	public void index(){
 		
-		//this.result.forwardTo("/WEB-INF/jsp/index.jsp");
-		this.result.use(Results.http()).body(pageOrCategory+" - "+complement);
-
+		this.result.include(this.application);
+		this.result.forwardTo("/WEB-INF/jsp/index.jsp");
 		
 	}
 	

@@ -31,18 +31,14 @@ public class Page {
 	@Override
 	public String toString(){ 
 
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		String dateRegForm = df.format(this.getDateOfRegistration());
-
-		return String.format("Page %s, cadastrada no dia %s", "", dateRegForm);
+		return this.content;
 		
 	}
 	
 	@Override
 	public boolean equals( Object o ){
 		
-		Page page2 = (Page) o;
-		return (this.getId() == page2.getId() ? true : false);
+		return (this.getSlug().equals( o.toString()) );
 		
 	}
 

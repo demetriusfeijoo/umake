@@ -1,31 +1,64 @@
 package br.com.umake.model;
 
+import java.util.List;
 
+import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.dao.PageDao;
+
+
+@Component
 public class Application{
 
-	private static Application applicationInstance = null;
+	private PageDao pageDao;
+	private List<Page> pages;
 	
-	private Application(){
-				
-	}
-
-	
-	public void init(){
-		System.out.println("Inicializou");
-	}
-
-	public static Application getInstance() {
+	public Application(PageDao pageDao){
 		
-		if(Application.applicationInstance == null){
-			
-			Application.applicationInstance = new Application();
-			Application.applicationInstance.init();
-			
-			return Application.applicationInstance; 
+		this.pageDao = pageDao;
+		
+		this.pages = this.pageDao.getAll();
+		
+	}
+	
+	public List<Page> getPages(){
+		
+		return this.pages;
+		
+	}
+	
+	/**
+	 * This method return the current page. If you want to get a specific page you can use the overload method getPage( String slug ).
+	 * 
+	 * */
+	public Page getPage(){
+		
+		return null;
+		
+	}
+	
+	public Page getPage(String slug) { 
+	
+		Page pageTemp = null;
+		
+		for (Page page : this.pages) {
+		
+			if( page.getSlug().equals(slug)){
+				
+				pageTemp = page;
+				break;
+				
+			}
 			
 		}
 		
-		return Application.applicationInstance;
+		if(pageTemp == null ){
 		
+			
+			
+		}
+		
+		return pageTemp;
+									
 	}
+	
 }

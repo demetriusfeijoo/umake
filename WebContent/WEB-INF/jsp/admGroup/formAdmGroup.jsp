@@ -1,4 +1,4 @@
-<%@include file="../../../admin/header.jsp" %>
+<c:import url="admin/header.jsp" />
 
 <c:if test="${retorno == true}">
 
@@ -85,5 +85,4 @@
 	</form>
 	
 </c:if>
-
-<%@include file="../../../admin/footer.jsp" %>
+<c:import url="admin/footer.jsp" />
