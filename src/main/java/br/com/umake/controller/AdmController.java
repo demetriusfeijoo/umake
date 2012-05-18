@@ -13,7 +13,7 @@ public class AdmController {
 	@Path(value="", priority=Path.HIGH)
 	@Restrictable
 	public void index(){
-			
+					
 	}
 
 

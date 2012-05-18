@@ -315,6 +315,34 @@ $(function(){
 		
 	});
 	
+	$("#formConfig").validate({
+		
+		rules: {
+			
+			"config.title": {
+				
+				required: true,
+				minlength: 2,
+				maxlength: 45
+				
+			}	
+	
+		},
+	
+		messages: {
+			
+			"config.title": {
+				
+				required: "Preencha o titulo",
+				minlength: "O titulo necessita ter no mínimo 2 caracteres",
+				maxlength: "O titulo necessita ter no máximo 45 caracteres"
+				
+			}
+			
+		}
+		
+	});
+	
 	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission").click(function(event){
 		
 		event.preventDefault();
