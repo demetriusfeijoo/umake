@@ -1,0 +1,22 @@
+/* -------------------------------- CONFIGURAÇÕES GERAIS ---------------------------------------- */
+body {margin:0px; padding:0px; background-color:#2C2C2C; font-family:calibri;}
+a {color:#000; font-size:1em; text-decoration: none;}
+a img {border:none; padding:0; margin:0;}
+form {margin:0px;}
+ul, li, ol {list-style-type:none; margin:0; padding:0;}
+h1, h2, h3, h4, h5, h6, p, span, div {padding:0px; margin:0px 0px 0px 0px; font-size:100%;}
+
+section#content{width:1000px; height:100%; left:50%; margin-left:-500px; box-shadow:0 10px 8px #000; position:relative; float:left;}
+section#content section{margin:auto; min-height:800px; float:left;}
+header{height:250px;}
+aside{width:200px; height:auto; float:left;}
+aside nav{border-right:2px solid #d2d2d2;}
+aside nav ul li{margin:10px; text-align:right;}
+aside nav ul li a{font-size:20px; color:#E6FE80;}
+aside nav ul li a:hover{color:#fff;}
+article{width:700px; height:auto; float:left; text-align:justify; margin-left:50px; color:#F5FFCE;}
+footer{width:1000px; height:150px; float:left; position:relative; margin:20px 0 0 0; border-top:2px solid #d2d2d2;}
+footer nav ul li{float:left; margin:10px; color:;}
+footer nav ul li a{font-size:16px; color:#E6FE80;}
+footer nav ul li a:hover{color:#fff;}
+#poweredUmake{position:absolute; bottom:10px; right:10px; color:#9acd32;}

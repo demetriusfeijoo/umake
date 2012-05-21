@@ -47,6 +47,12 @@ public class PageDao {
 		
 	}
 	
+	public Page get(String propertyName, String value){
+		
+		return (Page) this.session.createCriteria(Page.class).add(Restrictions.eq(propertyName, value)).uniqueResult();
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Page> getAll(){
 		

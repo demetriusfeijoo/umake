@@ -3,62 +3,89 @@ package br.com.umake.model;
 import java.util.List;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.dao.ConfigDao;
 import br.com.umake.dao.PageDao;
 
 
 @Component
 public class Application{
-
-	private PageDao pageDao;
-	private List<Page> pages;
 	
-	public Application(PageDao pageDao){
+	private Page currentPage;
+	private Template currentTemplate;
+	private List<Page> allPages;
+	private final ConfigManager configManager;
+	private final ConfigDao configDao;
+	private final PageDao pageDao;
+	private static final String SLUG_CONFIG_CURRENT_TEMPLATE = "current-template";
+	public static final String APPLICATION_VERSION = "Umake Beta"; 
+	
+	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, Template currentTemplate ){
 		
+		this.configManager = configManager;
+		this.configDao = configDao;
 		this.pageDao = pageDao;
+		this.currentTemplate = currentTemplate;
 		
-		this.pages = this.pageDao.getAll();
+		this.configManager.setConfigs( this.configDao.getAll() );
+		this.allPages = this.pageDao.getAll();
 		
-	}
-	
-	public List<Page> getPages(){
-		
-		return this.pages;
-		
-	}
-	
-	/**
-	 * This method return the current page. If you want to get a specific page you can use the overload method getPage( String slug ).
-	 * 
-	 * */
-	public Page getPage(){
-		
-		return null;
-		
-	}
-	
-	public Page getPage(String slug) { 
-	
-		Page pageTemp = null;
-		
-		for (Page page : this.pages) {
-		
-			if( page.getSlug().equals(slug)){
-				
-				pageTemp = page;
-				break;
-				
-			}
+		try{
+			
+			this.currentTemplate.setName(this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue());	
+			this.currentTemplate.init();
+
+		}catch(NullPointerException nullPointerException){
+			
+			System.out.println(nullPointerException.getMessage());
+			
+		}catch(IllegalStateException illegalStateException){
+			
+			System.out.println(illegalStateException.getMessage());
 			
 		}
+				
+	}
+
+	public Page getCurrentPage() {
 		
-		if(pageTemp == null ){
+		return currentPage;
 		
-			
-			
-		}
+	}
+
+	public void setCurrentPage(Page page) {
 		
-		return pageTemp;
-									
+		this.currentPage = page;
+		
+	}
+
+	public Template getCurrentTemplate() {
+		
+		return currentTemplate;
+		
+	}
+
+	public void setCurrentTemplate(Template template) {
+		
+		this.currentTemplate = template;
+		
 	}
 	
+	public List<Page> getAllPages(){
+		
+		return this.allPages;
+		
+	}
+	
+	public void setAllPages(List<Page> pages){
+		
+		this.allPages = pages;
+		
+	}
+	
+	public ConfigManager getConfigManager(){
+		
+		return this.configManager;
+		
+	}
+		
 }

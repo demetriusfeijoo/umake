@@ -1,7 +1,5 @@
 package br.com.umake.model;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import br.com.caelum.vraptor.ioc.Component;
