@@ -1,5 +1,7 @@
 package br.com.umake.controller;
 
+import java.util.ArrayList;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
@@ -28,7 +30,7 @@ public class IndexController {
 				
 		this.initJspDependencies();
 
-		this.result.forwardTo(this.application.getCurrentTemplate().getPathIndex());		
+		this.result.forwardTo(this.application.getCurrentTemplate().getIndexFileName());		
 		
 	}
 	
@@ -52,7 +54,7 @@ public class IndexController {
 
 				this.initJspDependencies(currentPage);
 				
-				this.result.forwardTo(this.application.getCurrentTemplate().getPathPage());	
+				this.result.forwardTo(this.application.getCurrentTemplate().getPageFileName());	
 				
 			}			
 			
@@ -69,8 +71,8 @@ public class IndexController {
 		
 		this.result.include("UApplication", this.application);
 		this.result.include("currentPage", this.application.getCurrentPage());
-		this.result.include("templatePathFolder", this.application.getCurrentTemplate().getPathFolder());
-		this.result.include("cssPaths", this.application.getCurrentTemplate().getAllCssPaths() );
+		this.result.include("templatePathFolder", "/templates/default");
+		this.result.include("cssPaths", new ArrayList<String>().add("css/style.css") );
 		this.result.include("siteTitle", ( siteTitle != null ? siteTitle.getValue() : "" ) );
 		this.result.include("siteEmail", ( siteEmail != null ? siteEmail.getValue() : "" ) );
 		this.result.include("siteDescription", ( siteDescription != null ? siteDescription.getValue() : "" ) );

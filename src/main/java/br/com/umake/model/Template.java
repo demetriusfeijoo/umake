@@ -1,64 +1,32 @@
 package br.com.umake.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.caelum.vraptor.ioc.Component;
 
 @Component
 public class Template {
 
 	private String name;
-	private static final String PATH_INDEX_FILE_NAME = "index.jsp";
-	private static final String PATH_PAGE_FILE_NAME = "page.jsp";
-	private static final String PATH_TEMPLATE_FOLDER_NAME = "/themes/";
-	private static final String []PATHS_CSS_FILES_NAMES = {"css/style.css"};
+	private String author;
+	private String authorEmail;
+	private String authorWebsite;
+	private String description;
+	private String indexFileName = "index.jsp";
+	private String pageFileName = "page.jsp";
+	private List<Css> cssFiles = new ArrayList<Template.Css>();
 
 	public Template(){
 		
 	}
+	
+	public String toString(){
+		
+		return this.getName();
+		
+	}	
 
-	/**
-	 * Start a template with template configurations. Need to have a name setted name.
-	 * @param templateConfig <span>A Config with data of the current template</span>
-	 * @throws IllegalStateException
-	 * 
-	 */
-	public void init(Config templateConfig){
-	
-		String templateName = templateConfig.getValue();
-		this.init(templateName);
-		
-	}
-
-	/**
-	 * Start a template with template configurations. Need to have a name setted name.
-	 * @param templateName <span>The same name of the template's name</span>
-	 * @throws IllegalStateException
-	 * 
-	 */
-	public void init(String templateName){
-	
-		//Load 
-		
-	}
-	
-	/**
-	 * Start a template with template configurations. Need to have a name setted name.
-	 * @throws IllegalStateException
-	 * 
-	 */
-	public void init() throws IllegalStateException{
-		
-		if( this.getName().isEmpty() ){
-			
-			throw new IllegalStateException("A template need to have a name. Please set it!");
-			
-		}else{
-			
-			this.init(this.getName());
-			
-		}
-		
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -66,58 +34,98 @@ public class Template {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	public String getPathFolder(){
-	
-		return Template.PATH_TEMPLATE_FOLDER_NAME+this.getName(); 
-		
+
+	public String getAuthor() {
+		return author;
 	}
-	
-	public String getPathIndex(){
-				
-		return this.getPathFolder()+"/"+this.getPathIndexFileName();
-		
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
-	
-	public String getPathPage(){
-		
-		return this.getPathFolder()+"/"+this.getPathPageFileName();
-		
+
+	public String getAuthorEmail() {
+		return authorEmail;
 	}
-	
-	public String[] getAllCssPaths(){
-	
-		String[] returnAllPaths = new String[this.getPathCssFilesNames().length];
+
+	public void setAuthorEmail(String authorEmail) {
+		this.authorEmail = authorEmail;
+	}
+
+	public String getAuthorWebsite() {
+		return authorWebsite;
+	}
+
+	public void setAuthorWebsite(String authorWebsite) {
+		this.authorWebsite = authorWebsite;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getIndexFileName() {
+		return indexFileName;
+	}
+
+	public void setIndexFileName(String indexFileName) {
+		this.indexFileName = indexFileName;
+	}
+
+	public String getPageFileName() {
+		return pageFileName;
+	}
+
+	public void setPageFileName(String pageFileName) {
+		this.pageFileName = pageFileName;
+	}
+
+	public List<Css> getCssFiles() {
+		return cssFiles;
+	}
+
+	public void setCssFiles(List<Css> cssFiles) {
+		this.cssFiles = cssFiles;
+	}
+
+	private class Css{
 		
-		int count = 0;
+		private String fileName;
+		private String media;
 		
-		for (String cssPath : this.getPathCssFilesNames()) {
-		
-			returnAllPaths[count] = this.getPathFolder()+"/"+cssPath;
-			count++;
+		public String toString(){
+			
+			return fileName;
+			
+		}
+
+		public String getFileName() {
+			
+			return fileName;
+			
+		}
+
+		public void setFileName(String fileName) {
+			
+			this.fileName = fileName;
+			
+		}
+
+		public String getMedia() {
+			
+			return media;
+			
+		}
+
+		public void setMedia(String media) {
+			
+			this.media = media;
 			
 		}
 		
-		return returnAllPaths;
-		
-	}
-	
-	public String getPathIndexFileName(){
-		
-		return Template.PATH_INDEX_FILE_NAME;
-		
-	}
-	
-	public String getPathPageFileName(){
-		
-		return Template.PATH_PAGE_FILE_NAME;		
-		
-	}
-	
-	public String[] getPathCssFilesNames(){
-		
-		return Template.PATHS_CSS_FILES_NAMES;
 		
 	}
 	

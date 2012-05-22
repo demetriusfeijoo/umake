@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<template>
+
+    <name>Umake</name>
+    <author>Umake Author</author>
+    <authorEmail>contato@umake.com.br</authorEmail>
+    <autorWebsite>www.umake.com.br</authorWebsite>
+    <description>default template</description>
+    <indexFileName>index.jsp</indexFileName>
+    <pageFileName>page.jsp</pageFileName>
+
+    <cssFiles>
+        <css>
+            <fileName>css/style.css</fileName>
+            <media>screen</media>
+        </css> 
+    </cssFiles>
+
+</template>

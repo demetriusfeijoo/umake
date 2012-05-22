@@ -32,7 +32,6 @@ public class Application{
 		try{
 			
 			this.currentTemplate.setName(this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue());	
-			this.currentTemplate.init();
 
 		}catch(NullPointerException nullPointerException){
 			
