@@ -18,7 +18,7 @@
         <property name="slug"></property>
         <property name="author" update="false"></property>
         <property name="content"></property>
-        <property name="order"></property>
+<!--         <property name="order"></property> -->
         
     </class>
     

@@ -88,7 +88,7 @@
 	                        <li><a href="#">quem somos</a></li>
 	                        <li><a href="#">fale conosco</a></li>
 	                        <li><a href="#">cadastro</a></li>
-	                        <li><a href="#">portifolio</a></li>
+	                        <li><a href="#">portfolio</a></li>
 	
 	                    </ul>
 	

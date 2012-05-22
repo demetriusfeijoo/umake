@@ -3,8 +3,6 @@ package br.com.umake.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
@@ -14,6 +12,7 @@ import br.com.umake.model.Config;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
+
 
 @Resource
 public class SettingsController {
