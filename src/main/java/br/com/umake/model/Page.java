@@ -21,6 +21,7 @@ public class Page {
 	@Column(position=3)
 	private String author;
 	private String content;
+	private int order;
 	
 	public Page(){
 		
@@ -84,6 +85,12 @@ public class Page {
 		
 	}
 	
+	public int getOrder(){
+		
+		return this.order;
+		
+	}
+	
 	public void setId(Long id){
 		
 		this.id = id;
@@ -123,6 +130,12 @@ public class Page {
 	public void setContent( String content ){
 		
 		this.content = content;
+		
+	}
+	
+	public void setOrder( int order ){
+		
+		this.order = order;
 		
 	}
 }
