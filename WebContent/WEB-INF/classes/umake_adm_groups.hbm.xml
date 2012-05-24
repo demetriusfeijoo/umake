@@ -24,11 +24,9 @@
 			<many-to-many column="id_adm_permission" class="br.com.umake.model.AdmPermission" not-found="ignore"/>
 		</set> 
 		
-		<!-- 
  		<set name="admUsers" table="umake_adm_users_adm_groups" lazy="true" cascade="none" >
 			<key column="id_adm_group" />
 			<many-to-many column="id_adm_user" class="br.com.umake.model.AdmUser" not-found="ignore"/>
 		</set>
-		 --> 
 	</class>
 </hibernate-mapping> 

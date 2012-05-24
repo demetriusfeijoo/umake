@@ -2,7 +2,7 @@
 
 <section id="content">
 
-<h1>Listar Permissão</h1>
+<h1>Listar Permissões</h1>
 
 <div id="listagemPermission"></div>
 

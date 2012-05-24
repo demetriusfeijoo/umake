@@ -73,7 +73,7 @@ public class AdmPermissionDao {
 		
 		try{
 
-			this.session.createQuery("DELETE FROM AdmPermission WHERE id="+admPermission.getId()).executeUpdate();
+			this.session.delete(admPermission);
 
 		}catch(HibernateException e){
 			

@@ -3,6 +3,8 @@ package br.com.umake.model;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.helper.flexigrid.Column;
@@ -19,7 +21,9 @@ public class AdmPermission {
 	@Column(position=3)
 	private String type; 
 	private Date dateOfRegistration;
-
+	private Set<AdmGroup> admGroups = new HashSet<AdmGroup>();				
+	private Set<AdmUser> admUsers = new HashSet<AdmUser>();	
+	
 	public AdmPermission() {
 		
 	}
@@ -51,13 +55,21 @@ public class AdmPermission {
 	public String getContext() {
 		return context;
 	}
+	
+	public String getType(){
+		return this.type;
+	}
 
 	public Date getDateOfRegistration() {
 		return dateOfRegistration;
 	}
 
-	public void setType(String type) {
-		this.type = type.toUpperCase();
+	public Set<AdmGroup> getAdmGroups() {
+		return admGroups;
+	}
+
+	public Set<AdmUser> getAdmUsers() {
+		return admUsers;
 	}
 	
 	public void setId(Long id) {
@@ -68,12 +80,21 @@ public class AdmPermission {
 		this.context = context.toUpperCase();
 	}
 
+	public void setType(String type) {
+		this.type = type.toUpperCase();
+	}
+	
 	public void setDateOfRegistration(Date dateOfRegistration) {
 		this.dateOfRegistration = dateOfRegistration;
 	}
 	
-	public String getType(){
-		return this.type;
+	public void setAdmGroups(Set<AdmGroup> admGroups) {
+		this.admGroups = admGroups;
 	}
 
+
+	public void setAdmUsers(Set<AdmUser> admUsers) {
+		this.admUsers = admUsers;
+	}
+	
 }

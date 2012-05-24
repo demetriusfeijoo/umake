@@ -190,10 +190,11 @@ public class AdmUserController {
     @Delete("adm/user/{admUser.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_USER", permissionsTypes={ PermissionType.DELETE} )})
 	public void delete(AdmUser admUser){
-
-		admUser.setDateLastVisit(new Date());
 		
-    	if(this.admUserDao.delete(admUser)){
+		AdmUser admUserTemp = this.admUserDao.get(admUser);
+		admUserTemp.setDateLastVisit(new Date());
+		
+    	if(this.admUserDao.delete(admUserTemp)){
     		
         	this.result.redirectTo(this).list();
     		

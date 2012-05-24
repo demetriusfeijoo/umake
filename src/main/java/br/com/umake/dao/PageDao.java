@@ -87,10 +87,11 @@ public class PageDao {
 		
 		try{
 
-			this.session.createQuery("DELETE FROM umake_pages WHERE id="+page.getId()).executeUpdate();
+			this.session.createQuery("DELETE FROM Page WHERE id="+page.getId()).executeUpdate();
 
 		}catch(HibernateException e){
 			
+			e.printStackTrace();
 			return false;
 			
 		}

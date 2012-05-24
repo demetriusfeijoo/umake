@@ -21,6 +21,7 @@ public class AdmGroup{
 	private Date dateOfRegistration;
 	private AdmGroup parentAdmGroup;
 	private Set<AdmPermission> admPermissions = new HashSet<AdmPermission>();				
+	private Set<AdmUser> admUsers = new HashSet<AdmUser>();				
 	
 	public AdmGroup(){ 
 		
@@ -63,6 +64,10 @@ public class AdmGroup{
 	public Set<AdmPermission> getAdmPermissions() {
 		return admPermissions;
 	}
+	
+	public Set<AdmUser> getAdmUsers() {
+		return admUsers;
+	}
 
 	public void setId(Long id) {
 		this.id = id;
@@ -83,6 +88,11 @@ public class AdmGroup{
 	public void setAdmPermissions(Set<AdmPermission> admPermissions) {
 		this.admPermissions = admPermissions;
 	}
+
+	public void setAdmUsers(Set<AdmUser> admUsers) {
+		this.admUsers = admUsers;
+	}
+
 
 	public Boolean isParent(){
 		return this.equals(getParentAdmGroup());

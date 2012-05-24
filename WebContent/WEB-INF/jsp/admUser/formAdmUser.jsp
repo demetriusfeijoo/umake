@@ -6,7 +6,8 @@
 	<p>Você realmente deseja excluir esse usuário?</p>
 </div>
 
-<h1>Cadastrar Usuário</h1>
+<c:if test="${admUser == null}"><h1>Cadastrar Usuário</h1></c:if>
+<c:if test="${admUser != null}"><h1>Editar Usuário</h1></c:if>
 
 <form action="<c:url value="/adm/user" />" method="post" id="formAdmUser">
 

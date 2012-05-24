@@ -6,8 +6,8 @@
 	   <p>Você realmente deseja excluir essa permissão?</p>
 	</div>
 	
-	<h1>Cadastrar Permissão</h1>
-	
+<c:if test="${admPermission == null}"><h1>Cadastrar Permissão</h1></c:if>
+<c:if test="${admPermission != null}"><h1>Editar Permissão</h1></c:if>	
 <form action="<c:url value="/adm/permission" />" method="post" id="formAdmPermission">
 
 	<div id="mensagens">
