@@ -151,7 +151,7 @@ public class Page implements Menuable {
 		
 		if( !slug.startsWith("/", 0)){
 			
-			slug = "/umake/"+slug;
+			slug = "/"+slug;
 			
 		}
 		

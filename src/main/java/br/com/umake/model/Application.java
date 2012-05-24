@@ -1,11 +1,8 @@
-/*package br.com.umake.model;
+package br.com.umake.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.jpamodelgen.util.StringUtil;
-
-import antlr.StringUtils;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.dao.ConfigDao;
 import br.com.umake.dao.PageDao;
@@ -48,7 +45,7 @@ public class Application{
 		List<Menuable> menuElements = new ArrayList<Menuable>(1);
 		
 		Page pageHome = new Page();
-		pageHome.setSlug("/umake");
+		pageHome.setSlug("/");
 		pageHome.setTitle("Home");
 		pageHome.setOrdered(0);
 		
@@ -145,4 +142,3 @@ public class Application{
 	}
 	
 }
-*/
