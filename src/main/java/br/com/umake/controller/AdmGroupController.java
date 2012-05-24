@@ -107,6 +107,9 @@ public class AdmGroupController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_GROUP", permissionsTypes = { PermissionType.EDIT})}) 
 	public void edit(AdmGroup admGroup, List<AdmPermission> permissions){
 		
+		AdmGroup oldAdmGroup = this.admGroupDao.get(admGroup);
+		admGroup.setAdmUsers(oldAdmGroup.getAdmUsers());
+		
 		if(permissions != null){
 
 			admGroup.getAdmPermissions().addAll(permissions); 		
@@ -126,7 +129,9 @@ public class AdmGroupController {
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_GROUP", permissionsTypes={ PermissionType.DELETE} )})
 	public void delete(AdmGroup admGroup){
     	
-    	if(this.admGroupDao.delete(admGroup)){
+    	AdmGroup admRecovered = this.admGroupDao.get(admGroup);
+    	
+    	if(this.admGroupDao.delete(admRecovered)){
     		
         	this.result.redirectTo(this).list();
     		

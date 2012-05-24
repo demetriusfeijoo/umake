@@ -1,30 +1,39 @@
 <%@include file="../../../admin/header.jsp" %>
-
-<c:if test="${retorno == true}">
-
-	<p>Configuracao ${tipoSubmit} com sucesso!</p>
-
-</c:if>
-<c:if test="${retorno == false}">
-
-	<p>ERRO! Configuracao näo foi ${tipoSubmit}.</p>
-
-</c:if>
+<section id="content">
 
 	<div id="dialog-confirm">
 	   <p>Você realmente deseja deletar essa configuracao?</p>
 	</div>
 	
 <form action="<c:url value="/adm/settings" />" method="post" id="formSettings">
+
+	<div id="mensagens">
+		
+		<c:if test="${retorno == true}">
+		
+			<div id="sucesso">
+				<p>Configurações ${tipoSubmit} com sucesso!</p>
+			</div>
+
+		</c:if>
+		<c:if test="${retorno == false}">
+		
+			<div id="erro">
+				<p>ERRO! Não foi possível ${tipoSubmit} as Configurações.</p>
+			</div>
+			
+		</c:if>
+
+	</div>
 	<table>
 		<c:forEach var="config" items="${configs}">
 			<tr>
-				<td>${config.name}: </td>
-				<td><input name="${config.slug}" id="${config.slug}" value="${config.value}" /></td>
+				<td><label class="label">${config.name}: </label></td>
+				<td><input type="text" name="${config.slug}" id="${config.slug}" value="${config.value}" /></td>
 			</tr>
 		</c:forEach>
 		<tr>
-			<td>Template Ativo: </td>
+			<td><label class="label">Template Ativo: </label> </td>
 			<td>
 				<select name="current-template">
 					<c:forEach var="template" items="${templates}">
@@ -35,12 +44,12 @@
 		</tr>	
 		<tr>
 			<td>
-				<button name="_method" class="submit" value="put">Editar</button>
+				<button name="_method" class="submit botoes" value="put"></button>
 			</td>
 		</tr>
 							
 	</table>
 
 </form>
-
+</section>
 <%@include file="../../../admin/footer.jsp" %>

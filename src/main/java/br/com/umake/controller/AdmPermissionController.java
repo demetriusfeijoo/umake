@@ -87,9 +87,10 @@ public class AdmPermissionController {
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.EDIT})}) 
 	public void edit(AdmPermission admPermission){
 
-		AdmPermission newAdmPermission = this.admPermissionDao.get(admPermission);
-		newAdmPermission.setContext(admPermission.getContext());
-		newAdmPermission.setType(admPermission.getType());
+		AdmPermission oldAdmPermission = this.admPermissionDao.get(admPermission);
+		admPermission.setAdmGroups(oldAdmPermission.getAdmGroups());
+		admPermission.setAdmUsers(oldAdmPermission.getAdmUsers());
+
 
 		this.result.include("retorno", this.admPermissionDao.edit(admPermission) );
 		this.result.include("tipoSubmit", "editada" );		
@@ -102,7 +103,9 @@ public class AdmPermissionController {
     @Restrictable(permissions={ @PermissionAnnotation(context="ADM_PERMISSION", permissionsTypes = { PermissionType.DELETE})}) 
 	public void delete(AdmPermission admPermission){
     	    	
-    	if(this.admPermissionDao.delete(admPermission)){
+    	AdmPermission admPermissionRecovered = this.admPermissionDao.get(admPermission);
+    	
+    	if(this.admPermissionDao.delete(admPermissionRecovered)){
     		
         	this.result.redirectTo(this).list();
     		

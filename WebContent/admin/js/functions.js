@@ -10,20 +10,20 @@ $(function(){
 
     });
 	
-	var urlOfSystem = "/umake";
+	var urlOfSystem = "";
 	
 	$("#listagemUser").flexigrid({
 		url: urlOfSystem+"/adm/user/flexi",
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', name : 'id', width : 40, sortable : true, align: 'left'},
-			{display: 'Nome', name : 'name', width : 180, sortable : true, align: 'left'},
-			{display: 'E-Mail', name : 'email', width : 180, sortable : true, align: 'left'},
-			{display: 'Data do registro', name : 'dateOfRegistration', width : 180, sortable : true, align: 'left'}
+			{display: 'Nome', name : 'name', width : 210, sortable : true, align: 'left'},
+			{display: 'E-Mail', name : 'email', width : 210, sortable : true, align: 'left'},
+			{display: 'Data do registro', name : 'dateOfRegistration', width : 210, sortable : true, align: 'left'}
 			],
          buttons : [
                     
-             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+             {name: 'Editar', bclass: 'edit', onpress : function(com, grid)
             	 {  
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
@@ -45,7 +45,7 @@ $(function(){
 		title: 'Usuários',
 		useRp: true,
 		rp: 10,
-		resizable: false,
+		resizable: true,
 		showTableToggleBtn: true,
 		singleSelect: true,
 		width: 720,
@@ -57,11 +57,11 @@ $(function(){
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', name : 'id', width : 40, sortable : true, align: 'left'},
-			{display: 'Nome', name : 'name', width : 180, sortable : true, align: 'left'}
+			{display: 'Nome', name : 'name', width : 650, sortable : true, align: 'left'}
 			],
          buttons : [
                     
-             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+             {name: 'Editar', bclass: 'edit', onpress : function(com, grid)
             	 {  
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
@@ -82,7 +82,7 @@ $(function(){
 		title: 'Grupos',
 		useRp: true,
 		rp: 10,
-		resizable: false,
+		resizable: true,
 		showTableToggleBtn: true,
 		singleSelect: true,
 		width: 720,
@@ -95,12 +95,12 @@ $(function(){
 		dataType: 'json',
 		colModel : [
 			{display: 'Id', name : 'id', width : 45, sortable : true, align: 'left'},
-			{display: 'Context', name : 'context', width : 210, sortable : true, align: 'left'},
-			{display: 'Type', name : 'type', width : 210, sortable : true, align: 'left'}
+			{display: 'Context', name : 'context', width : 315, sortable : true, align: 'left'},
+			{display: 'Type', name : 'type', width : 315, sortable : true, align: 'left'}
 			],
          buttons : [
                     
-             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+             {name: 'Editar', bclass: 'edit', onpress : function(com, grid)
             	 {  
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
@@ -122,7 +122,7 @@ $(function(){
 		title: 'Permissões',
 		useRp: true,
 		rp: 10,
-		resizable: false,
+		resizable: true,
 		showTableToggleBtn: true,
 		singleSelect: true,
 		width: 720,
@@ -141,7 +141,7 @@ $(function(){
 			],
          buttons : [
                     
-             {name: 'Edit', bclass: 'edit', onpress : function(com, grid)
+             {name: 'Editar', bclass: 'edit', onpress : function(com, grid)
             	 {  
 	            	 $('.trSelected', grid).each(function() {
 	            		 var id = $(this).attr('id');
@@ -401,7 +401,7 @@ $(function(){
 			buttons: {
 				"Confirmar": function() {
 					$( this ).dialog( "close" );
-					$("#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission, #formDeletePage").submit();
+					$("form#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission, #formDeletePage").submit();
 				},
 				Fechar: function() {
 					$( this ).dialog( "close" );

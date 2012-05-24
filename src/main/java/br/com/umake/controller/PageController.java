@@ -101,6 +101,7 @@ public class PageController {
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_PAGE", permissionsTypes={ PermissionType.DELETE} )})
 	public void delete(final Page page){
     	
+    	
     	if(this.pageDao.delete(page)){
     		
         	this.result.forwardTo(this).list();

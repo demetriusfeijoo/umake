@@ -2,7 +2,7 @@
 
 <section id="content">
 
-<h1>Listar Grupo</h1>
+<h1>Listar Grupos</h1>
 
 <div id="listagemGroup"></div>
 

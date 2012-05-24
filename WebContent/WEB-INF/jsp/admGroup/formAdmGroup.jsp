@@ -6,8 +6,8 @@
 	   <p>Você realmente deseja excluir esse grupo?</p>
 	</div>
 	
-<h1>Cadastrar Grupo</h1>
-
+<c:if test="${admGroup == null}"><h1>Cadastrar Grupo</h1></c:if>
+<c:if test="${admGroup != null}"><h1>Editar Grupo</h1></c:if>
 <form action="<c:url value="/adm/group" />" method="post" id="formAdmGroup">
 
 	<div id="mensagens">

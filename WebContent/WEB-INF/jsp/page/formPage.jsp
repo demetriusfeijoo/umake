@@ -6,8 +6,8 @@
 	   <p>Você realmente deseja excluir essa página?</p>
 	</div>
 	
-<h1>Cadastrar Página</h1>
-	
+<c:if test="${page == null}"><h1>Cadastrar Página</h1></c:if>
+<c:if test="${page != null}"><h1>Editar Página</h1></c:if>		
 <form action="<c:url value="/adm/page" />" method="post" id="formPage">
 
 	<div id="mensagens">

@@ -2,7 +2,6 @@ package br.com.umake.controller;
 
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Resource;
-import br.com.caelum.vraptor.Result;
 import br.com.umake.permissions.Restrictable;
 
 
