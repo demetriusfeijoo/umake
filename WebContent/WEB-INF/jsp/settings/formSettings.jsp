@@ -22,7 +22,17 @@
 				<td>${config.name}: </td>
 				<td><input name="${config.slug}" id="${config.slug}" value="${config.value}" /></td>
 			</tr>
-		</c:forEach>	
+		</c:forEach>
+		<tr>
+			<td>Template Ativo: </td>
+			<td>
+				<select name="current-template">
+					<c:forEach var="template" items="${templates}">
+						<option <c:if test="${template.name eq currentTemplate}">selected="selected"</c:if> value="${template.name}">${template.name}</option>
+					</c:forEach>				
+				</select>
+			</td>
+		</tr>	
 		<tr>
 			<td>
 				<button name="_method" class="submit" value="put">Editar</button>

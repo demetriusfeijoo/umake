@@ -3,6 +3,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.jpamodelgen.util.StringUtil;
+
+import antlr.StringUtils;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.dao.ConfigDao;
 import br.com.umake.dao.PageDao;
@@ -71,7 +74,7 @@ public class Application{
 			
 			String currentTemplateName = this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue();
 			
-			this.currentTemplate = templateFactory.createTemplate(currentTemplateName);
+			this.currentTemplate = templateFactory.getTemplate(currentTemplateName);
 			
 		}catch(NullPointerException nullPointerException){
 			
