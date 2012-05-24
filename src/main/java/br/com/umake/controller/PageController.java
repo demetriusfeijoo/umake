@@ -73,7 +73,7 @@ public class PageController {
 	public void create(Page page) {
 		
 		page.setDateOfRegistration( new Date() );
-		page.setAuthor(this.admUserControl.getUserAdm().getName());
+		page.setAuthor(this.admUserControl.getAdmUser().getName());
 		page.setSlug(TextHelper.createSlug(page.getTitle()));
 		
 		this.result.include("retorno", this.pageDao.insert(page) );

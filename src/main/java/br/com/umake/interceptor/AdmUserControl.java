@@ -9,11 +9,11 @@ import br.com.umake.model.AdmUser;
 @SessionScoped
 public class AdmUserControl {
 
-	private AdmUser user;
+	private AdmUser admUser;
 
 	public void login(AdmUser user) {
 
-		this.user = user;
+		this.admUser = user;
 
 	}
 	
@@ -23,21 +23,21 @@ public class AdmUserControl {
 		
 	}
 
-	public AdmUser getUserAdm() {
+	public AdmUser getAdmUser() {
 		
-		return this.user; 
+		return this.admUser; 
 
 	}
 
 	public void logout() {
 
-		this.user = null;
+		this.admUser = null;
 
 	}
 
 	public boolean isLogged() {
 		
-		return this.user != null;
+		return this.admUser != null;
 
 	}
 }

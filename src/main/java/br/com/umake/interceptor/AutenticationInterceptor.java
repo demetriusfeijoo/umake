@@ -55,7 +55,7 @@ public class AutenticationInterceptor implements Interceptor {
 			if (this.user.isLogged()) {
 				
 				//Update user's session
-				this.user.updateUser(this.userDao.get(this.user.getUserAdm()));
+				this.user.updateUser(this.userDao.get(this.user.getAdmUser()));
 
 				if (this.onlyRestrictable(method)) {
 					
@@ -63,7 +63,7 @@ public class AutenticationInterceptor implements Interceptor {
 
 				} else {
 
-					if (this.user.getUserAdm().hasAllNecessariesPermissions(
+					if (this.user.getAdmUser().hasAllNecessariesPermissions(
 							this.recoveryNecessariesPermissions(method))) {
 
 						stack.next(method, obj);
@@ -77,8 +77,8 @@ public class AutenticationInterceptor implements Interceptor {
 
 				}
 
-				this.user.getUserAdm().setDateLastVisit(new Date());
-				this.userDao.updateLastDate(this.user.getUserAdm());
+				this.user.getAdmUser().setDateLastVisit(new Date());
+				this.userDao.updateLastDate(this.user.getAdmUser());
 
 			} else {
 				

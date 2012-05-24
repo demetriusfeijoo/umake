@@ -19,3 +19,70 @@
 <title>Administracao</title>
 </head>
 <body>
+
+	<header class="back_header_footer">
+
+        <section>
+
+            <div class="seta_header_footer"></div>
+
+            <img id="logo_umake" src="<c:url value="/admin/css/images/logo_umake.png" />" width="205" height="120"/>
+
+            <div id="bem_vindo">
+                <label>Bem vindo, ${admUserControl.admUser.name}</label>
+                <a href="<c:url value="/adm/user/logout" />" id="logout"></a>
+            </div>
+
+
+        </section>
+
+	</header>
+
+    <section>
+
+        <nav>
+
+    		<ul>
+
+    			<li><a href="<c:url value="/" />">Ir para o site</a></li>
+    			<li id="usuario">
+                    <a href="javascript:void(0)">Usuário</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/user/create" />">Cadastrar Usuário</a></li>
+                            <li><a href="<c:url value="/adm/user" />">Listar Usuários</a></li>
+                        </ul>
+                    </div>
+                </li>
+    			<li id="grupo">
+                    <a href="javascript:void(0)">Grupo</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/group/create" />">Cadastrar Grupo</a></li>
+                            <li><a href="<c:url value="/adm/group" />">Listar Grupos</a></li>
+                        </ul>
+                    </div>
+                </li>
+    			<li id="permissao">
+                    <a href="javascript:void(0)">Permissão</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/permission/create" />">Cadastrar Permissão</a></li>
+                            <li><a href="<c:url value="/adm/permission" />">Listar Permissões</a></li>
+                        </ul>
+                    </div>
+                </li>
+    			<li id="pagina">
+                    <a href="javascript:void(0)">Página</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/page/create" />">Cadastrar Página</a></li>
+                            <li><a href="<c:url value="/adm/page" />">Listar páginas</a></li>
+                        </ul>
+                    </div>
+                </li>
+    			<li id="configuracao"><a href="<c:url value="/adm/config" />">Configuração</a></li>
+
+    		</ul>
+
+	    </nav>

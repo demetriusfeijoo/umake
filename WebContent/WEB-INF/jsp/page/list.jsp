@@ -1,5 +1,9 @@
 <%@include file="../../../admin/header.jsp" %>
 
-<div id="listagemPage"></div>
+<section id="content">
+
+	<div id="listagemPage"></div>
+	
+</section>
 
 <%@include file="../../../admin/footer.jsp" %>
