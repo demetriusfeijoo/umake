@@ -1,9 +1,11 @@
 package br.com.umake.model;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +31,14 @@ public class TemplateFactory {
 		
 	}
 	
-	public Template createTemplate(String templateName){
+	public Template getTemplate(String templateName){
 		
 		XStream xstream;
 		File file;
 		InputStream inputStream;
 		Template template = null;
 		String filePath = this.templateFilePath+"/"+templateName+"/"+Template.TEMPLATE_FILE_NAME;
+		
 		try {
 
 			file = new File(filePath);
@@ -64,4 +67,54 @@ public class TemplateFactory {
 		
 	}
 	
+	
+	public List<Template> getAllTemplates(){
+	
+		File file = new File(this.templateFilePath);
+		
+		List<Template> templates = null;
+		
+		try{
+			
+			if(file.exists() && file.isDirectory()){
+			
+				templates =  new ArrayList<Template>(1);
+				
+				File[] directories = file.listFiles(new FileFilter() {
+					
+					public boolean accept(File pathname) {
+						
+						return pathname.isDirectory();
+						
+					}
+				});
+				
+				for (File dir : directories) {
+				
+					Template templateTemp = this.getTemplate(dir.getName());
+					
+					if( templateTemp != null ){
+					
+						templates.add(templateTemp);
+						
+					}
+					
+				}
+				
+				
+			}else{
+				
+				throw new FileNotFoundException();
+				
+			}
+			
+		}catch(FileNotFoundException fileNotFoundException){
+		
+			this.logManager.error("May the template's folder doesn't exist", TemplateFactory.class);
+			
+		}
+
+		return templates;
+		
+	}
 }

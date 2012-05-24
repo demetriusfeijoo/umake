@@ -81,7 +81,7 @@
                         </ul>
                     </div>
                 </li>
-    			<li id="configuracao"><a href="<c:url value="/adm/config" />">Configuração</a></li>
+    			<li id="configuracao"><a href="<c:url value="/adm/settings" />">Configuração</a></li>
 
     		</ul>
 
