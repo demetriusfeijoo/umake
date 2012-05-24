@@ -2,22 +2,33 @@
 
 <section id="content">
 
-<c:if test="${retorno == true}">
-
-	<p>Grupo ${tipoSubmit} com sucesso!</p>
-
-</c:if>
-<c:if test="${retorno == false}">
-
-	<p>ERRO! Grupo näo foi ${tipoSubmit}.</p>
-
-</c:if>
-
 	<div id="dialog-confirm">
 	   <p>Você realmente deseja excluir esse grupo?</p>
 	</div>
 	
+<h1>Cadastrar Grupo</h1>
+
 <form action="<c:url value="/adm/group" />" method="post" id="formAdmGroup">
+
+	<div id="mensagens">
+		
+		<c:if test="${retorno == true}">
+		
+			<div id="sucesso">
+				<p>Grupo ${tipoSubmit} com sucesso!</p>
+			</div>
+
+		</c:if>
+		<c:if test="${retorno == false}">
+		
+			<div id="erro">
+				<p>ERRO! Grupo näo foi ${tipoSubmit}.</p>
+			</div>
+			
+		</c:if>
+
+	</div>
+	
 	<c:if test="${admGroup != null}"><input name="admGroup.id" type="hidden" value="${admGroup.id}" /></c:if>	
 	<table>
 	

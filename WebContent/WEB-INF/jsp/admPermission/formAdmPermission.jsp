@@ -2,22 +2,33 @@
 
 <section id="content">
 
-<c:if test="${retorno == true}">
-
-	<p>Permissão ${tipoSubmit} com sucesso!</p>
-
-</c:if>
-<c:if test="${retorno == false}">
-
-	<p>ERRO! Permissão näo foi ${tipoSubmit}.</p>
-
-</c:if>
-
 	<div id="dialog-confirm">
 	   <p>Você realmente deseja excluir essa permissão?</p>
 	</div>
 	
+	<h1>Cadastrar Permissão</h1>
+	
 <form action="<c:url value="/adm/permission" />" method="post" id="formAdmPermission">
+
+	<div id="mensagens">
+		
+		<c:if test="${retorno == true}">
+		
+			<div id="sucesso">
+				<p>Permissão ${tipoSubmit} com sucesso!</p>
+			</div>
+
+		</c:if>
+		<c:if test="${retorno == false}">
+		
+			<div id="erro">
+				<p>ERRO! Permissão näo foi ${tipoSubmit}.</p>
+			</div>
+			
+		</c:if>
+
+	</div>
+	
 	<c:if test="${admPermission != null}"><input name="admPermission.id" type="hidden" value="${admPermission.id}" /></c:if>	
 	<table>
 	
