@@ -1,4 +1,4 @@
-/*package br.com.umake.model;
+package br.com.umake.model;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -118,4 +118,3 @@ public class TemplateFactory {
 		
 	}
 }
-*/

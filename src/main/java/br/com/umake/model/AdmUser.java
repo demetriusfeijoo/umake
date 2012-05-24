@@ -1,6 +1,5 @@
 package br.com.umake.model;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +12,7 @@ import br.com.umake.helper.flexigrid.Column;
 import br.com.umake.helper.flexigrid.Id;
 
 @Component
-public class AdmUser implements Serializable {
+public class AdmUser{
 
 	@Column(position=1)
 	@Id 
@@ -31,8 +30,7 @@ public class AdmUser implements Serializable {
 	private Boolean userBlock;
 	private Set<AdmGroup> admGroups = new HashSet<AdmGroup>();
 	private Set<AdmPermission> admPermissions = new HashSet<AdmPermission>();
-	private static final long serialVersionUID = 1L;
-
+	
 	public AdmUser() {
 		
 	}
