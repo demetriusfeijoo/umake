@@ -31,6 +31,10 @@
 			<td><input type="text" name="page.title" id="title" value="${page.title}" /></td>
 		</tr>
 		<tr>
+			<td><label class="label">Ordem:</label></td>
+			<td><input type="text" name="page.ordered" id="ordered" value="${page.ordered}" /></td>
+		</tr>
+		<tr>
 			<td colspan="2"><textarea name="page.content" id="content2" >${page.content}</textarea></td>
 		</tr>	
 		<tr>

@@ -93,7 +93,7 @@ public class PageController {
 		this.result.include("retorno", this.pageDao.edit(page) );
 		this.result.include("tipoSubmit", "editado" );
 		
-		this.result.forwardTo(this).getPage(page);		
+		this.result.redirectTo(this).getPage(page);		
 		
 	}
 	
