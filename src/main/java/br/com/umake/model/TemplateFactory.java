@@ -1,4 +1,4 @@
-package br.com.umake.model;
+/*package br.com.umake.model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,3 +65,4 @@ public class TemplateFactory {
 	}
 	
 }
+*/

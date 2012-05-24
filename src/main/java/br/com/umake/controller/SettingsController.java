@@ -1,4 +1,4 @@
-package br.com.umake.controller;
+/*package br.com.umake.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,3 +65,4 @@ public class SettingsController {
 	}    
 	
 }
+*/
