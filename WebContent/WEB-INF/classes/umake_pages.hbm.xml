@@ -17,9 +17,8 @@
         <property name="title"></property>
         <property name="slug"></property>
         <property name="author" update="false"></property>
-        <property name="content"></property>
-<!--         <property name="order"></property> -->
-        
+        <property name="ordered"></property>
+        <property name="content"></property>        
     </class>
     
 </hibernate-mapping>

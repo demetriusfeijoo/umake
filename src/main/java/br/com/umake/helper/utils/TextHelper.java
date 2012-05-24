@@ -15,6 +15,7 @@ public final class TextHelper {
 		generateSlug = generateSlug.replaceAll("[ª]", "a.");
 		generateSlug = generateSlug.replaceAll("[º]", "o.");
 		generateSlug = generateSlug.replaceAll("(\\s)++", "-");		
+		generateSlug = generateSlug.toLowerCase();	
 		
 		return generateSlug;
 		

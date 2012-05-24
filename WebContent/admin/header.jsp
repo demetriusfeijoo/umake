@@ -12,6 +12,7 @@
 	<meta name="description" content="" />
 	<meta http-equiv="content-language" content="pt-br" />
 
+<link href="<c:url value="/admin/css/AdmStyle.css" />" type="text/css" rel="stylesheet" />
 <link href="<c:url value="/admin/css/flexigrid.pack.css" />" type="text/css" rel="stylesheet" />
 <link href="<c:url value="/admin/css/jquery-ui-1.8.20.custom.css" />" type="text/css" rel="stylesheet" />
 

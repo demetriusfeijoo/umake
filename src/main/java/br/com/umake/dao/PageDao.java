@@ -59,6 +59,13 @@ public class PageDao {
 		return this.session.createCriteria(Page.class).list();
 
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Page> getAllActivies(){
+		
+		return this.session.createCriteria(Page.class).add(Restrictions.eq("status", 1)).list();
+
+	}
 	
 	public Boolean edit( Page page ){
 		

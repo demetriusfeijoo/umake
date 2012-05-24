@@ -1,5 +1,6 @@
 package br.com.umake.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.vraptor.ioc.Component;
@@ -16,33 +17,68 @@ public class Application{
 	private final ConfigManager configManager;
 	private final ConfigDao configDao;
 	private final PageDao pageDao;
+	private final LogManager logManager;
+	private final TemplateFactory templateFactory;
+	private final Menu menu;
 	private static final String SLUG_CONFIG_CURRENT_TEMPLATE = "current-template";
 	public static final String APPLICATION_VERSION = "Umake Beta"; 
 	
-	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, Template currentTemplate ){
+	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, TemplateFactory templateFactory, LogManager logManager, Menu menu ){
 		
 		this.configManager = configManager;
 		this.configDao = configDao;
 		this.pageDao = pageDao;
-		this.currentTemplate = currentTemplate;
+		this.templateFactory = templateFactory;
+		this.logManager = logManager;
+		this.menu = menu;
 		
 		this.configManager.setConfigs( this.configDao.getAll() );
 		this.allPages = this.pageDao.getAll();
 		
-		try{
+		this.initMenu();
+		this.initTemplate(this.templateFactory);
+				
+	}
+	
+	private void initMenu(){
+		
+		List<Menuable> menuElements = new ArrayList<Menuable>(1);
+		
+		Page pageHome = new Page();
+		pageHome.setSlug("/umake");
+		pageHome.setTitle("Home");
+		pageHome.setOrdered(0);
+		
+		menuElements.add(pageHome);
+		
+		for (Page elementPage : this.allPages) {
+		
+			if(elementPage.getStatus()){
 			
-			this.currentTemplate.setName(this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue());	
-
-		}catch(NullPointerException nullPointerException){
-			
-			System.out.println(nullPointerException.getMessage());
-			
-		}catch(IllegalStateException illegalStateException){
-			
-			System.out.println(illegalStateException.getMessage());
+				menuElements.add(elementPage);
+				
+			}
 			
 		}
-				
+		
+		this.menu.setMenuElements(menuElements);
+		
+	}
+	
+	private void initTemplate(TemplateFactory templateFactory) {
+		
+		try{
+			
+			String currentTemplateName = this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue();
+			
+			this.currentTemplate = templateFactory.createTemplate(currentTemplateName);
+			
+		}catch(NullPointerException nullPointerException){
+			
+			this.logManager.error("An error occurred while The Application was initializing. May the problem is with a Current Template. Please, Check It.", Application.class);
+			
+		}	
+		
 	}
 
 	public Page getCurrentPage() {
@@ -81,10 +117,28 @@ public class Application{
 		
 	}
 	
+	public TemplateFactory getTemplateFactory(){
+		
+		return this.templateFactory;
+		
+	}
+	
 	public ConfigManager getConfigManager(){
 		
 		return this.configManager;
 		
 	}
 		
+	public LogManager getLogManager(){
+		
+		return this.logManager;
+		
+	}
+	
+	public Menu getMenu(){
+		
+		return this.menu;
+		
+	}
+	
 }

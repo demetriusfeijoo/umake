@@ -2,11 +2,11 @@
 
 <template>
 
-    <name>default</name>
+    <name>sky</name>
     <author>Umake Author</author>
     <authorEmail>contato@umake.com.br</authorEmail>
     <authorWebsite>www.umake.com.br</authorWebsite>
-    <description>default template</description>
+    <description>sky template</description>
     <indexFileName>index.jsp</indexFileName>
     <pageFileName>page.jsp</pageFileName>
 

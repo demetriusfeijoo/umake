@@ -13,9 +13,10 @@
 		<meta name="description" content="${siteDescription}" />
 		<meta name="keywords" content="${siteKeywords}" />
 		<meta name="reply-to" content="${siteEmail}" />
-		<c:forEach items="${cssPaths}" var="cssPath">		
 		
-			<link rel="stylesheet" type="text/css" href="<c:url value="${cssPath}" />" media="screen" />			
+		<c:forEach items="${cssFiles}" var="css">		
+		
+			<link rel="stylesheet" type="text/css" href="<c:url value="${templateRoot}/${css.fileName}" />" media="${css.media}" />			
  
  		</c:forEach>
 		
@@ -28,17 +29,7 @@
 	        <header>
 	
 	            <nav>
-	
-	                <ul>
-	
-	                    <li><a href="#">Home</a></li>
-	                    <li><a href="#">Quem somos</a></li>
-	                    <li><a href="#">Fale conosco</a></li>
-	                    <li><a href="#">Cadastro</a></li>
-	                    <li><a href="#">Portifolio</a></li>
-	
-	                </ul>
-	
+					${menu}	
 	            </nav>
 	
 	        </header>
@@ -53,17 +44,7 @@
 	        <footer>
 	
 	            <nav>
-	
-	                <ul>
-	
-	                    <li><a href="#">Home</a></li>
-	                    <li><a href="#">Quem somos</a></li>
-	                    <li><a href="#">Fale conosco</a></li>
-	                    <li><a href="#">Cadastro</a></li>
-	                    <li><a href="#">Portfolio</a></li>
-	
-	                </ul>
-	
+					${menu}	
 	            </nav>
 	
 	        </footer>

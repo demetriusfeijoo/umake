@@ -13,10 +13,12 @@
 		<meta name="description" content="${siteDescription}" />
 		<meta name="keywords" content="${siteKeywords}" />
 		<meta name="reply-to" content="${siteEmail}" />
-
-		<c:forEach items="${cssPaths}" var="cssPath">
-			<link rel="stylesheet" href="<c:url value="${cssPath}" />" media="screen" />	
-		</c:forEach>
+		
+		<c:forEach items="${cssFiles}" var="css">		
+		
+			<link rel="stylesheet" type="text/css" href="<c:url value="${templateRoot}/${css.fileName}" />" media="${css.media}" />			
+ 
+ 		</c:forEach>
 		
 		<title>${currentPage.title} | ${siteTitle}</title>
 	</head>
@@ -26,7 +28,7 @@
 	
 	        <header>
 	
-	            <img src="<c:url value="${templatePathFolder}/templateImg.png" />  " width="1000" height="250"/>
+	            <img src="<c:url value="${templateRoot}/templateImg.png" />  " width="1000" height="250"/>
 	
 	        </header>
 	
@@ -35,17 +37,7 @@
 	            <aside>
 	
 	                <nav>
-	
-	                    <ul>
-	
-	                        <li><a href="#">Home</a></li>
-	                        <li><a href="#">Quem somos</a></li>
-	                        <li><a href="#">Fale conosco</a></li>
-	                        <li><a href="#">Cadastro</a></li>
-	                        <li><a href="#">Portifolio</a></li>
-	
-	                    </ul>
-	
+						${menu}	
 	                </nav>
 	
 	            </aside>

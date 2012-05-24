@@ -13,10 +13,12 @@ public class Template {
 	private String authorEmail;
 	private String authorWebsite;
 	private String description;
-	private String indexFileName = "index.jsp";
-	private String pageFileName = "page.jsp";
-	private List<Css> cssFiles = new ArrayList<Template.Css>();
-
+	private String indexFileName;
+	private String pageFileName;
+	private List<Template.Css> cssFiles = new ArrayList<Template.Css>();
+	public final static String TEMPLATES_FOLDER_NAME = "/templates";
+	public final static String TEMPLATE_FILE_NAME = "template.xml";
+	
 	public Template(){
 		
 	}
@@ -90,8 +92,26 @@ public class Template {
 	public void setCssFiles(List<Css> cssFiles) {
 		this.cssFiles = cssFiles;
 	}
-
-	private class Css{
+	
+	public String getTemplateRoot(){
+		
+		return Template.TEMPLATES_FOLDER_NAME+"/"+this.getName();
+		
+	}
+	
+	public String getIndexPath(){
+	
+		return this.getTemplateRoot()+"/"+this.getIndexFileName();
+		
+	}
+	
+	public String getPagePath(){
+		
+		return this.getTemplateRoot()+"/"+this.getPageFileName();
+		
+	}
+	
+	public static class Css{
 		
 		private String fileName;
 		private String media;
@@ -128,5 +148,4 @@ public class Template {
 		
 		
 	}
-	
 }

@@ -3,6 +3,8 @@ package br.com.umake.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;

@@ -7,7 +7,7 @@ import br.com.umake.helper.flexigrid.Column;
 import br.com.umake.helper.flexigrid.Id;
 
 @Component
-public class Page {
+public class Page implements Menuable {
 	
 	@Column(position=1)
 	@Id
@@ -21,7 +21,7 @@ public class Page {
 	@Column(position=3)
 	private String author;
 	private String content;
-	//private int order;
+	private int ordered;
 	
 	public Page(){
 		
@@ -85,11 +85,11 @@ public class Page {
 		
 	}
 	
-/*	public int getOrder(){
+	public int getOrdered(){
 		
-		return this.order;
+		return this.ordered;
 		
-	}*/
+	}
 	
 	public void setId(Long id){
 		
@@ -133,9 +133,35 @@ public class Page {
 		
 	}
 	
-/*	public void setOrder( int order ){
+	public void setOrdered( int ordered ){
 		
-		this.order = order;
+		this.ordered = ordered;
 		
-	}*/
+	}
+	
+	public int getItemPosition(){
+		
+		return this.getOrdered();
+		
+	}
+	
+	public String getItemUrl(){
+		
+		String slug = this.getSlug(); 
+		
+		if( !slug.startsWith("/", 0)){
+			
+			slug = "/umake/"+slug;
+			
+		}
+		
+		return slug;
+		
+	}
+	
+	public String getItemValue(){
+		
+		return this.getTitle();
+		
+	}
 }
