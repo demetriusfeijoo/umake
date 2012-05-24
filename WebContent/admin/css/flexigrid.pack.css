@@ -1,5 +1,5 @@
 @charset UTF-8;
-.flexigrid{float:left;margin-left:54px;font-family:Arial, Helvetica, sans-serif;font-size:11px;position:relative;border:0 solid #eee;overflow:hidden;color:#000}
+.flexigrid{float:left;margin-left:54px;margin-top:20px;font-family:Arial, Helvetica, sans-serif;font-size:11px;position:relative;border:0 solid #eee;overflow:hidden;color:#000}
 .flexigrid.hideBody{height:26px!important;border-bottom:1px solid #ccc; }
 .ie6fullwidthbug{border-right:0 solid #ccc;padding-right:2px}
 .flexigrid div.nDiv{background:#eee url(images/line.gif) repeat-y -1px top;border:1px solid #ccc;border-top:0;overflow:auto;left:0;position:absolute;z-index:999;float:left}

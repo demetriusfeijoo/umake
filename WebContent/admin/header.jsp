@@ -46,7 +46,7 @@
 
     			<li><a href="<c:url value="/" />">Ir para o site</a></li>
     			<li id="usuario">
-                    <a href="javascript:void(0)">Usuário</a>
+                    <a href="javascript:void(0)">USUÁRIO</a>
                     <div class="subMenu">
                         <ul>
                             <li><a href="<c:url value="/adm/user/create" />">Cadastrar Usuário</a></li>
@@ -55,7 +55,7 @@
                     </div>
                 </li>
     			<li id="grupo">
-                    <a href="javascript:void(0)">Grupo</a>
+                    <a href="javascript:void(0)">GRUPO</a>
                     <div class="subMenu">
                         <ul>
                             <li><a href="<c:url value="/adm/group/create" />">Cadastrar Grupo</a></li>
@@ -64,7 +64,7 @@
                     </div>
                 </li>
     			<li id="permissao">
-                    <a href="javascript:void(0)">Permissão</a>
+                    <a href="javascript:void(0)">PERMISSÃO</a>
                     <div class="subMenu">
                         <ul>
                             <li><a href="<c:url value="/adm/permission/create" />">Cadastrar Permissão</a></li>
@@ -73,7 +73,7 @@
                     </div>
                 </li>
     			<li id="pagina">
-                    <a href="javascript:void(0)">Página</a>
+                    <a href="javascript:void(0)">PÁGINA</a>
                     <div class="subMenu">
                         <ul>
                             <li><a href="<c:url value="/adm/page/create" />">Cadastrar Página</a></li>

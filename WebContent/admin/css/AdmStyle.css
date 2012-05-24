@@ -40,8 +40,13 @@ section nav .subMenu ul li:hover{background:none;}
 section nav .subMenu a{display:block; width:176px; height:20px; padding:9px 0 0 16px; color:#fff; font-size:16px; font-style:italic; text-decoration:none;}
 section nav .subMenu a:hover{color:#DFDFDF;}
 
-section#content{width:791px; height:100%; float:left; position:relative;}
+section#content{width:791px; height:100%; float:left; position:relative; margin-bottom:40px;}
+section#content h1{font-size:25px; font-weight:bold; margin-top:40px; margin-left:54px;}
 section#content form{width:500px; margin:20px 0 0 50px;}
+section#content form #mensagens{width:450px; height:auto; float:left; position:relative; margin-bottom:10px;}
+section#content form #mensagens p{width:auto; height:auto; float:left; margin:17px 0 0 64px; color:#fff;}
+section#content form #mensagens #sucesso{width:100%; min-height:53px; background:url(images/box_acerto.gif) no-repeat left top #93c953;}
+section#content form #mensagens #erro{width:100%; min-height:53px; background:url(images/box_erro.gif) no-repeat left top #eb8e1f;}
 section#content form label.label{float:right; font-size:14px; font-weight:bold; margin-right:10px; width:96px; text-align:right;}
 section#content form label.error{float:left; clear:both; color:#a4332d;}
 section#content form tr{margin-bottom:15px; float:left; clear:both;}
@@ -62,4 +67,4 @@ footer #logo_umake_footer{position:absolute; right:0; bottom:30px;}
 footer ul{float:left; margin:20px 30px;}
 footer ul li a{font-size:14px; text-decoration:none; margin-top:5px; display:block; margin-top:10px;}
 footer ul li a:hover{text-decoration:underline;}
-footer .titulo_menu_footer{color:#fff; font-size:20px;}
+footer .titulo_menu_footer{color:#fff; font-size:20px; font-style:italic;}
