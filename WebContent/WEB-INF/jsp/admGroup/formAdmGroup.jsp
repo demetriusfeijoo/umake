@@ -1,5 +1,7 @@
 <%@include file="../../../admin/header.jsp" %>
 
+<section id="content">
+
 <c:if test="${retorno == true}">
 
 	<p>Grupo ${tipoSubmit} com sucesso!</p>
@@ -20,11 +22,11 @@
 	<table>
 	
 		<tr>
-			<td><label for="name">Name: </label></td>
+			<td><label for="name" class="label">Name: </label></td>
 			<td><input type="text" name="admGroup.name" value="${admGroup.name}" id="name" maxlength="45" autofocus /></td>
 		</tr>
 		<tr>
-			<td><label for="parentGroup">Grupo Pai: </label></td>
+			<td><label for="parentGroup" class="label">Grupo Pai: </label></td>
 			<td>
 				<select name="admGroup.parentAdmGroup.id">
 				
@@ -43,8 +45,9 @@
 		</tr>
 		<tr>
 			<td>
-				<label>Permissoes:</label>
-				<br />
+				<label class="label">Permissoes:</label>
+			</td>
+			<td>
 				<c:forEach var="permission" items="${permissions}" begin="0" varStatus="count">
 					
 					<label for="permission_${permission.id}">${permission.context}</label>
@@ -66,9 +69,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${admGroup == null}"><button name="_method" class="submit" value="post">Cadastrar</button></c:if>
+				<c:if test="${admGroup == null}"><button name="_method" class="submit botoes" value="post"></button></c:if>
 				<c:if test="${admGroup.id != null}">
-					<button name="_method" class="submit" value="put">Editar</button>
+					<button name="_method" class="submit botoes" value="put"></button>
 				</c:if>
 			</td>
 		</tr>
@@ -80,10 +83,10 @@
 <c:if test="${admGroup != null}">
 
 	<form method="post" action="<c:url value="/adm/group/${admGroup.id}" />" id="formDeleteAdmGroup">
-		<input name="btnDeleteAdmGroup" id="btnDeleteAdmGroup" value="Deletar" type="button" />
+		<input name="btnDeleteAdmGroup" class="botoes delete" id="btnDeleteAdmGroup" value="" type="button" />
 		<input name="_method" id="_method" value="delete" type="hidden" />
 	</form>
 	
 </c:if>
-
+</section>
 <%@include file="../../../admin/footer.jsp" %>

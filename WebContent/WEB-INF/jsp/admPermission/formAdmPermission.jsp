@@ -1,5 +1,7 @@
 <%@include file="../../../admin/header.jsp" %>
 
+<section id="content">
+
 <c:if test="${retorno == true}">
 
 	<p>Permissão ${tipoSubmit} com sucesso!</p>
@@ -20,11 +22,11 @@
 	<table>
 	
 		<tr>
-			<td><label for="name">Context: </label></td>
+			<td><label class="label" for="name">Context: </label></td>
 			<td><input type="text" name="admPermission.context" value="${admPermission.context}" id="name" maxlength="45" required autofocus /></td>
 		</tr>
 		<tr>
-			<td><label for="type">Tipo: </label></td>
+			<td><label class="label" for="type">Tipo: </label></td>
 			<td>
 				<select name="admPermission.type">
 					<option value="CREATE" <c:if test="${admPermission.type == 'CREATE'}">selected="selected"</c:if> >CREATE</option>
@@ -36,9 +38,9 @@
 		</tr>
 		<tr>
 			<td>
-				<c:if test="${admPermission == null}"><button name="_method" class="submit" value="post">Cadastrar</button></c:if>
+				<c:if test="${admPermission == null}"><button name="_method" class="submit botoes" value="post"></button></c:if>
 				<c:if test="${admPermission.id != null}">
-					<button name="_method" class="submit" value="put">Editar</button>
+					<button name="_method" class="submit botoes" value="put"></button>
 				</c:if>
 			</td>
 		</tr>
@@ -50,10 +52,12 @@
 <c:if test="${admPermission != null}">
 
 	<form method="post" action="<c:url value="/adm/permission/${admPermission.id}" />" id="formDeleteAdmPermission">
-		<input name="btnDeleteAdmPermission" id="btnDeleteAdmPermission" value="Deletar" type="button" />
+		<input name="btnDeleteAdmPermission" class="delete botoes" id="btnDeleteAdmPermission" value="" type="button" />
 		<input name="_method" id="_method" value="delete" type="hidden" />
 	</form>
 	
 </c:if>
+
+</section>
 
 <%@include file="../../../admin/footer.jsp" %>

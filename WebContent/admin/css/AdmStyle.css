@@ -1,0 +1,65 @@
+@CHARSET "UTF-8";
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;font-family:trebuchet ms;color:#808080;vertical-align:baseline;background:transparent;}
+body{line-height: 1;background:#fff; overflow-x:hidden;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after {content:'';content:none;}
+ins{text-decoration:underline;font-style:italic;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+.botoes{background:url(images/botoes.png) no-repeat 0 0; border:0; cursor:pointer;}
+.seta_header_footer{width:209px; height:46px; position:absolute; z-index:2; left:0;background:url(images/seta_header_footer.png) no-repeat 0 -52px;}
+.back_header_footer{background-image:url(images/back_header.gif); background-repeat:repeat-x; background-position:center bottom; background-color:#262626;}
+
+section#backLogin{width:100%; height:319px; box-shadow:0 0 10px 1px #000; background:#181818; position:absolute; top:50%; margin-top:-159.5px;}
+#orderLogin{width:1000px; height:319px; margin:auto; background:url(images/umake.png) no-repeat left center;}
+#divLogin{width:100%; height:279px; float:right; padding:40px 0 0 110px; background:url(images/setaLogin.png) no-repeat left center #deddd8; position:absolute; left:57%;}
+#divLogin #tituloLogin{background:url(images/login.gif) no-repeat; width:79px; height:32px;}
+#divLogin p{font-family:Arial; width:289px; font-size:14px; margin-top:10px;}
+form#formLogin{margin-top:20px;}
+form#formLogin label{font-weight:bold; font-size:15px; float:right;}
+form#formLogin input{width:184px; height:31px; font-size:20px; padding-left:5px; margin:0 0 12px 10px;}
+form#formLogin input[type=submit]{width:192px; height:52px; float:right; cursor:pointer; border:none; margin:0; padding:0;}
+form#formLogin input[type=submit]:hover{background-position:-195px 0;}
+
+header{width:100%; height:110px;}
+header section{width:1000px; height:110px; position:relative; margin:auto;}
+header section #bem_vindo{width:auto; height:auto; position:absolute; right:0; top:0;}
+header section #bem_vindo label{color:#fff; font-size:14px; font-style:italic; float:left; margin-top:15px;}
+header section #bem_vindo #logout{background:url(images/logout.gif) no-repeat; width:70px; height:43px; display:block; float:left; margin-left:100px;}
+header .seta_header_footer{bottom:-44px;}
+
+section{width:1000px; height:100%; margin:auto;}
+section nav{width:209px; height:100%; float:left; background:#93c953; padding-top:60px; padding-bottom:78px; position:relative;}
+section nav ul li{position:relative;}
+section nav ul li:hover{background:url(images/back_hover.gif) no-repeat right -48px;}
+section nav a{display:block; width:176px; height:29px; color:#fff; background:url(images/back_link.png) no-repeat center bottom; padding:23px 0 0 30px; font-size:20px; font-style:italic; text-decoration:none;}
+section nav .subMenu{display:none; width:auto; height:auto; background:#1d7f56; position:absolute; z-index:999; right:-192px; top:9px;}
+section nav .subMenu ul li:hover{background:none;}
+section nav .subMenu a{display:block; width:176px; height:20px; padding:9px 0 0 16px; color:#fff; font-size:16px; font-style:italic; text-decoration:none;}
+section nav .subMenu a:hover{color:#DFDFDF;}
+
+section#content{width:791px; height:100%; float:left; position:relative;}
+section#content form{width:500px; margin:20px 0 0 50px;}
+section#content form label.label{float:right; font-size:14px; font-weight:bold; margin-right:10px; width:96px; text-align:right;}
+section#content form label.error{float:left; clear:both; color:#a4332d;}
+section#content form tr{margin-bottom:15px; float:left; clear:both;}
+section#content form select{width:305px; height:36px; font-size:20px;}
+section#content input[type=text], section#content input[type=password]{width:296px; height:36px; box-shadow:0px 0px 15px #888888 inset; font-size:20px; padding-left:5px;}
+section#content button.submit, section#content input.delete{width:192px; height:52px; float:left;}
+section#content button.submit[value=post]{background-position:0px -108px; margin-left:219px;}
+section#content button.submit:hover[value=post]{background-position:-195px -108px;}
+section#content button.submit[value=put]{background-position:0 -162px; float:left;}
+section#content button.submit:hover[value=put]{background-position:-195px -162px;}
+section#content input.delete{background-position:0 -54px; bottom:35px; float:left; margin-right:-64px; position:absolute; right:50%;}
+section#content input.delete:hover{background-position:-195px -54px;}
+
+footer{width:100%; height:300px; position:relative; float:left; background-position:50% 0%!important;}
+footer section{width:1000px; height:100%; position:relative; margin:auto;}
+footer .seta_header_footer{top:-44px; background-position:0 -4px;}
+footer #logo_umake_footer{position:absolute; right:0; bottom:30px;}
+footer ul{float:left; margin:20px 30px;}
+footer ul li a{font-size:14px; text-decoration:none; margin-top:5px; display:block; margin-top:10px;}
+footer ul li a:hover{text-decoration:underline;}
+footer .titulo_menu_footer{color:#fff; font-size:20px;}

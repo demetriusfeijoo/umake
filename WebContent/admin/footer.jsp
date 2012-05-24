@@ -1,4 +1,33 @@
-﻿FOOTER
+﻿    </section>
+    
+    <footer class="back_header_footer">
+
+        <section>
+
+            <div class="seta_header_footer"></div>
+
+            <img id="logo_umake_footer" src="<c:url value="/admin/css/images/logo_umake.png" />" width="205" height="120"/>
+
+            <ul>
+                <li class="titulo_menu_footer">Usuário</li>
+                <li><a href="<c:url value="/adm/user/create" />">Criar Usuário</a></li>
+                <li><a href="<c:url value="/adm/user" />">Listar Usuários</a></li>
+            </ul>
+            <ul>
+                <li class="titulo_menu_footer">Grupo</li>
+                <li><a href="<c:url value="/adm/group/create" />">Criar Grupo</a></li>
+                <li><a href="<c:url value="/adm/group" />">Listar Grupos</a></li>
+            </ul>
+            <ul>           
+                <li class="titulo_menu_footer">Permissão</li>
+                <li><a href="<c:url value="/adm/permission/create" />">Criar Permissão</a></li>
+                <li><a href="<c:url value="/adm/permission" />">Listar Permissões</a></li>            
+            </ul>
+
+        </section>
+
+    </footer>
+
 <script src="http://jquery.com/src/jquery-latest.js" type="text/javascript"></script>
 <script src="<c:url value="/admin/js/jquery-ui-1.8.20.custom.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/admin/js/tiny_mce/tiny_mce.js" />" type="text/javascript"></script>

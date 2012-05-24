@@ -1,5 +1,15 @@
 $(function(){
 	
+    $("nav ul li").hover(function(){
+
+        $( "#"+$(this).attr("id")+" .subMenu").css("display", "block");
+
+    }, function(){
+
+        $( "#"+$(this).attr("id")+" .subMenu").css("display", "none");
+
+    });
+	
 	var urlOfSystem = "/umake";
 	
 	$("#listagemUser").flexigrid({
@@ -38,8 +48,8 @@ $(function(){
 		resizable: false,
 		showTableToggleBtn: true,
 		singleSelect: true,
-		width: 580,
-		height: 200
+		width: 720,
+		height: 300
 	}); 
 
 	$("#listagemGroup").flexigrid({
@@ -75,8 +85,8 @@ $(function(){
 		resizable: false,
 		showTableToggleBtn: true,
 		singleSelect: true,
-		width: 580,
-		height: 200
+		width: 720,
+		height: 300
 	});
 
 
@@ -115,8 +125,8 @@ $(function(){
 		resizable: false,
 		showTableToggleBtn: true,
 		singleSelect: true,
-		width: 520,
-		height: 200
+		width: 720,
+		height: 300
 	});
 
 
@@ -157,7 +167,7 @@ $(function(){
 		showTableToggleBtn: true,
 		singleSelect: true,
 		width: 730,
-		height: 200
+		height: 300
 	});
 	
 	$("#formLogin").validate({
@@ -379,7 +389,7 @@ $(function(){
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
         theme_advanced_statusbar_location : "bottom",
-        theme_advanced_resizing : false,
+        theme_advanced_resizing : false
 
 	});
 });
