@@ -1,4 +1,4 @@
-package br.com.umake.model;
+/*package br.com.umake.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,3 +145,4 @@ public class Application{
 	}
 	
 }
+*/

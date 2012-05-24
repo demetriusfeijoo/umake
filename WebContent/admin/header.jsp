@@ -26,7 +26,7 @@
 
             <div class="seta_header_footer"></div>
 
-            <img id="logo_umake" src="<c:url value="/admin/css/images/logo_umake.png" />" width="205" height="120"/>
+            <a href="<c:url value="/adm"/>"><img id="logo_umake" src="<c:url value="/admin/css/images/logo_umake.png" />" width="205" height="120"/></a>
 
             <div id="bem_vindo">
                 <label>Bem vindo, ${admUserControl.admUser.name}</label>

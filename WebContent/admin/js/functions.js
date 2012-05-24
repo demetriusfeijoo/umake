@@ -334,11 +334,9 @@ $(function(){
 				required: true,
 				minlength: 2,
 				maxlength: 45
-				
 			}	
-	
-		},
-	
+		},	
+		
 		messages: {
 			
 			"config.title": {
@@ -347,13 +345,51 @@ $(function(){
 				minlength: "O titulo necessita ter no mínimo 2 caracteres",
 				maxlength: "O titulo necessita ter no máximo 45 caracteres"
 				
+			}	
+		}
+	});
+	
+	$("#formPage").validate({
+		
+		rules: {
+			
+			"page.title": {
+				
+				required: true,
+				minlength: 1,
+				maxlength: 70
+				
+			}, 	
+			
+			"page.ordered": {
+				
+				required: true,
+				number: true
+				
+			}
+			
+		},
+	
+		messages: {
+			
+			"page.title": {
+				
+				required: "Preencha o titulo",
+				minlength: "O titulo necessita ter no mínimo 1 caracteres",
+				maxlength: "O titulo necessita ter no máximo 70 caracteres"
+				
+			},
+			"page.ordered":{
+				
+				required: "Digite a ordem da página",
+				number: "Necessita ser um número inteiro"
 			}
 			
 		}
 		
 	});
 	
-	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission").click(function(event){
+	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission, #btnDeletePage").click(function(event){
 		
 		event.preventDefault();
 		
@@ -365,7 +401,7 @@ $(function(){
 			buttons: {
 				"Confirmar": function() {
 					$( this ).dialog( "close" );
-					$("#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission").submit();
+					$("#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission, #formDeletePage").submit();
 				},
 				Fechar: function() {
 					$( this ).dialog( "close" );

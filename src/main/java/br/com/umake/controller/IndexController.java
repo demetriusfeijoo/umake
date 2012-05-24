@@ -1,4 +1,4 @@
-package br.com.umake.controller;
+/*package br.com.umake.controller;
 
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
@@ -116,3 +116,4 @@ public class IndexController {
 		
 	}
 }
+*/

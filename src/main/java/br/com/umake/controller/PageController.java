@@ -70,14 +70,14 @@ public class PageController {
     
 	@Post("adm/page")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.CREATE }) }) 
-	public void create(Page page) {
+	public void create(final Page page) {
 		
 		page.setDateOfRegistration( new Date() );
 		page.setAuthor(this.admUserControl.getAdmUser().getName());
 		page.setSlug(TextHelper.createSlug(page.getTitle()));
 		
 		this.result.include("retorno", this.pageDao.insert(page) );
-		this.result.include("tipoSubmit", "cadastrado" );		
+		this.result.include("tipoSubmit", "cadastrada" );		
 		this.result.include("page", page);
 
 		this.result.redirectTo(this).formPage();
@@ -97,7 +97,7 @@ public class PageController {
 		
 	}
 	
-    @Delete("adm/page")
+    @Delete("adm/page/{page.id}")
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_PAGE", permissionsTypes={ PermissionType.DELETE} )})
 	public void delete(final Page page){
     	
@@ -107,8 +107,8 @@ public class PageController {
     		
     	}else{
     		
-    		this.result.include("page", page);
-        	this.result.forwardTo(this).formPage();
+        	this.result.redirectTo(this).getPage(page);
+
     		
     	}
     	    	
