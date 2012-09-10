@@ -16,9 +16,11 @@
         <property name="status"></property>
         <property name="title"></property>
         <property name="slug"></property>
-        <property name="author" update="false"></property>
         <property name="ordered"></property>
-        <property name="content"></property>        
+        <property name="content"></property>     
+        
+		<many-to-one name="admUser" column="id_adm_user" class="br.com.umake.model.AdmUser" not-found="ignore" cascade="none"/>  
+
     </class>
     
 </hibernate-mapping>

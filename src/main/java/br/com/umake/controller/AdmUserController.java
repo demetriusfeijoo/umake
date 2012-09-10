@@ -17,11 +17,13 @@ import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.AdmGroupDao;
 import br.com.umake.dao.AdmPermissionDao;
 import br.com.umake.dao.AdmUserDao;
+import br.com.umake.dao.PageDao;
 import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.interceptor.AdmUserControl;
 import br.com.umake.model.AdmGroup;
 import br.com.umake.model.AdmPermission;
 import br.com.umake.model.AdmUser;
+import br.com.umake.model.Page;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -33,15 +35,17 @@ public class AdmUserController {
 	private AdmUserDao admUserDao;
 	private AdmGroupDao admGroupDao;
 	private AdmPermissionDao admPermissionDao;
+	private PageDao pageDao;
 	private Result result;
 	private Validator validator;
 	
-	public AdmUserController(AdmUserControl admUserControl, AdmUserDao admUserDao, AdmGroupDao admGroupDao, AdmPermissionDao admPermissionDao, Result result, Validator validator) {
+	public AdmUserController(AdmUserControl admUserControl, AdmUserDao admUserDao, AdmGroupDao admGroupDao, AdmPermissionDao admPermissionDao, PageDao pageDao, Result result, Validator validator) {
 	
 		this.admUserControl = admUserControl;
 		this.admUserDao = admUserDao;
 		this.admGroupDao = admGroupDao;
 		this.admPermissionDao = admPermissionDao;
+		this.pageDao = pageDao;
 		this.result = result;
 		this.validator = validator;
 		
@@ -192,17 +196,30 @@ public class AdmUserController {
 	public void delete(AdmUser admUser){
 		
 		AdmUser admUserTemp = this.admUserDao.get(admUser);
+		List<Page> pages = pageDao.getAutor(admUserTemp);
 		admUserTemp.setDateLastVisit(new Date());
 		
-    	if(this.admUserDao.delete(admUserTemp)){
-    		
+		if(pages.size() > 0){
+			
+			admUserTemp.setStatus(0);
+			admUserDao.desativar(admUserTemp);
+			pageDao.disablePages(pages);
+			
         	this.result.redirectTo(this).list();
-    		
-    	}else{
-    		
-        	this.result.redirectTo(this).getAdmUser(admUser);
-    		
-    	}
+			
+		}else{
+		
+	    	if(this.admUserDao.delete(admUserTemp)){
+	    		
+	        	this.result.redirectTo(this).list();
+	    		
+	    	}else{
+	    		
+	        	this.result.redirectTo(this).getAdmUser(admUser);
+	    		
+	    	}
+    	
+		}
     	    	
 	}
 

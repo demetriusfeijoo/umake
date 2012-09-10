@@ -63,11 +63,11 @@
 		<tr>
 			<td><label for="userBlock" class="label">Bloqueado: </label></td>
 			<td><label for="blockTrue">Sim</label><input type="radio"
-				name="admUser.userBlock" class="userBlock" id="userBlock" value="1"
-				<c:if test="${admUser.userBlock == true}">checked="checked"</c:if> />
+				name="admUser.status" class="userBlock" id="userBlock" value="2"
+				<c:if test="${admUser.status == 2}">checked="checked"</c:if> />
 				<label for="blockFalse">Não</label><input type="radio"
-				name="admUser.userBlock" class="userBlock" id="userBlock" value="0"
-				<c:if test="${admUser.userBlock == false || empty admUser.userBlock}">checked="checked"</c:if> />
+				name="admUser.status" class="userBlock" id="userBlock" value="0"
+				<c:if test="${admUser.status != 2 || empty admUser.status}">checked="checked"</c:if> />
 			</td>
 		</tr>
 		<tr>

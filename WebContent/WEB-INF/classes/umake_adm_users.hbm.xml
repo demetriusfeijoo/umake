@@ -19,8 +19,8 @@
 		<property name="dateOfRegistration" update="false" />
 		<property name="dateLastVisit" not-null="true"/>
 		<property name="receiveEmail" not-null="true" />
-		<property name="userBlock" not-null="true" />
-
+		<property name="status" not-null="true" />
+		
 		<!-- Relacionamento da classe -->
  		<set name="admGroups" table="umake_adm_users_adm_groups" lazy="true" cascade="none" >
 			<key column="id_adm_user" />

@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.umake.model.AdmUser;
 import br.com.umake.model.Page;
 
 @Component
@@ -54,6 +55,13 @@ public class PageDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Page> getAutor(AdmUser user){
+	
+		return (List<Page>) this.session.createCriteria(Page.class).add(Restrictions.eq("admUser", user)).list();
+		
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Page> getAll(){
 		
 		return this.session.createCriteria(Page.class).list();
@@ -88,7 +96,29 @@ public class PageDao {
 		try{
 
 			this.session.createQuery("DELETE FROM Page WHERE id="+page.getId()).executeUpdate();
-
+			
+		}catch(HibernateException e){
+			
+			e.printStackTrace();
+			return false;
+			
+		}
+		
+		return true;
+		
+	}
+	
+	public Boolean disablePages( List<Page> pages ){
+	
+		try{
+		
+			for(Page pagesList : pages){
+				
+				pagesList.setStatus(false);
+				this.session.update(pagesList);
+				
+			}
+			
 		}catch(HibernateException e){
 			
 			e.printStackTrace();

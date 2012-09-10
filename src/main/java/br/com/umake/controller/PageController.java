@@ -12,10 +12,12 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.view.Results;
+import br.com.umake.dao.AdmUserDao;
 import br.com.umake.dao.PageDao;
 import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.helper.utils.TextHelper;
 import br.com.umake.interceptor.AdmUserControl;
+import br.com.umake.model.AdmUser;
 import br.com.umake.model.Page;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
@@ -28,12 +30,14 @@ public class PageController {
 	private final Result result;
 	private final PageDao pageDao;
 	private final AdmUserControl admUserControl;
+	private AdmUserDao userDao;
 	
-	public PageController(Result result, PageDao pageDao, AdmUserControl admUserControl){
+	public PageController(Result result, PageDao pageDao, AdmUserDao userDao, AdmUserControl admUserControl){
 		
 		this.result = result;
 		this.pageDao = pageDao;
 		this.admUserControl = admUserControl;
+		this.userDao = userDao;
 		
 	}
 	
@@ -73,7 +77,7 @@ public class PageController {
 	public void create(final Page page) {
 		
 		page.setDateOfRegistration( new Date() );
-		page.setAuthor(this.admUserControl.getAdmUser().getName());
+		page.setAdmUser(this.admUserControl.getAdmUser());
 		page.setSlug(TextHelper.createSlug(page.getTitle()));
 		
 		this.result.include("retorno", this.pageDao.insert(page) );
@@ -101,17 +105,28 @@ public class PageController {
     @Restrictable(permissions={@PermissionAnnotation(context="ADM_PAGE", permissionsTypes={ PermissionType.DELETE} )})
 	public void delete(final Page page){
     	
-    	
-    	if(this.pageDao.delete(page)){
-    		
-        	this.result.forwardTo(this).list();
+        Page pageDeleted = this.pageDao.get(page);
+        
+    	if(pageDeleted.getAdmUser() == null){
+
+    		this.result.include("erroAutor", pageDeleted);
     		
     	}else{
     		
-        	this.result.redirectTo(this).getPage(page);
+        	if(this.pageDao.delete(pageDeleted)){
+        		
+            	this.result.forwardTo(this).list();
+        		
+        	}else{
+        		
+            	this.result.redirectTo(this).getPage(page);
 
+        		
+        	}
     		
     	}
+    	
+
     	    	
 	}
     
