@@ -82,6 +82,23 @@ public class AdmUserDao {
 		
 	}
 	
+	public Boolean desativar( AdmUser admUser ){
+		
+		try{
+			
+			this.session.update(admUser);
+			
+		}catch(HibernateException e){
+			
+			e.printStackTrace();
+			return false;
+			
+		}
+		
+		return true;
+		
+	}
+	
 	public boolean updateLastDate(AdmUser admUser){
 		
 		try{
@@ -102,7 +119,7 @@ public class AdmUserDao {
 		AdmUser userFound = (AdmUser) session.createCriteria(AdmUser.class)
 				.add(Restrictions.eq("login", admUser.getLogin()))
 				.add(Restrictions.eq("password", admUser.getPassword()))
-				.add(Restrictions.eq("userBlock", false)).uniqueResult();
+				.add(Restrictions.eq("status", 1)).uniqueResult();
 		
 		return userFound;
 		

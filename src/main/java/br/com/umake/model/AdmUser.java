@@ -27,7 +27,7 @@ public class AdmUser{
 	private Date dateOfRegistration;
 	private Date dateLastVisit;
 	private Boolean receiveEmail;
-	private Boolean userBlock;
+	private int status;
 	private Set<AdmGroup> admGroups = new HashSet<AdmGroup>();
 	private Set<AdmPermission> admPermissions = new HashSet<AdmPermission>();
 	
@@ -90,9 +90,9 @@ public class AdmUser{
 	public Boolean getReceiveEmail() {
 		return receiveEmail;
 	}
-
-	public Boolean getUserBlock() {
-		return userBlock;
+	
+	public int getStatus() {
+		return status;
 	}
 
 	public Set<AdmGroup> getAdmGroups() {
@@ -136,9 +136,9 @@ public class AdmUser{
 	public void setReceiveEmail(Boolean receiveEmail) {
 		this.receiveEmail = receiveEmail;
 	}
-
-	public void setUserBlock(Boolean userBlock) {
-		this.userBlock = userBlock;
+	
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public void setAdmGroups(Set<AdmGroup> admGroups) {

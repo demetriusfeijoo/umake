@@ -18,8 +18,7 @@ public class Page implements Menuable {
 	@Column(position=2)
 	private String title;
 	private String slug;
-	@Column(position=3)
-	private String author;
+	private AdmUser admUser;
 	private String content;
 	private int ordered;
 	
@@ -73,9 +72,9 @@ public class Page implements Menuable {
 	}
 	
 	
-	public String getAuthor(){
+	public AdmUser getAdmUser(){
 		
-		return this.author;
+		return this.admUser;
 		
 	}
 	
@@ -121,9 +120,9 @@ public class Page implements Menuable {
 		
 	}
 	
-	public void setAuthor( String author ){
+	public void setAdmUser( AdmUser admUser ){
 		
-		this.author = author;
+		this.admUser = admUser;
 		
 	}
 	
