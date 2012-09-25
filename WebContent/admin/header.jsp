@@ -81,6 +81,15 @@
                         </ul>
                     </div>
                 </li>
+                <li id="menu">
+                    <a href="javascript:void(0)">MENU</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/menu/create" />">Cadastrar Menu</a></li>
+                            <li><a href="<c:url value="/adm/menu" />">Listar Menus</a></li>
+                        </ul>
+                    </div>
+                </li>
     			<li id="configuracao"><a href="<c:url value="/adm/settings" />">CONFIGURAÇÕES</a></li>
 
     		</ul>

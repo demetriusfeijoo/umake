@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+   
+<hibernate-mapping>
+    
+    <class name="br.com.umake.model.Menu" table="umake_menus">
+        
+    	<id name="id" column="id" type="long">    
+    	    <generator class="native" /> 
+    	</id>   
+    	
+    	<!-- Propriedades da classe -->
+        <property name="name"></property>
+        <property name="position"></property>     
+        
+ 		<!--<set name="menuItens" table="umake_menu_menuitens" lazy="true" cascade="none" >
+			<key column="id_menu" />
+			<many-to-many column="id_menu_item" class="br.com.umake.model.MenuItem" not-found="ignore"/>
+		</set>-->
+		
+    </class>
+    
+</hibernate-mapping>

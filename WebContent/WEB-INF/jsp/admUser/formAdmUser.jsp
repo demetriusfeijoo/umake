@@ -66,7 +66,7 @@
 				name="admUser.status" class="userBlock" id="userBlock" value="2"
 				<c:if test="${admUser.status == 2}">checked="checked"</c:if> />
 				<label for="blockFalse">Não</label><input type="radio"
-				name="admUser.status" class="userBlock" id="userBlock" value="0"
+				name="admUser.status" class="userBlock" id="userBlock" value="1"
 				<c:if test="${admUser.status != 2 || empty admUser.status}">checked="checked"</c:if> />
 			</td>
 		</tr>

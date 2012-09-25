@@ -23,7 +23,8 @@
 		<mapping resource="umake_adm_users.hbm.xml"/>
 		<mapping resource="umake_adm_groups.hbm.xml"/>
 		<mapping resource="umake_adm_permissions.hbm.xml"/>
-		<mapping resource="umake_pages.hbm.xml"/>
+		<mapping resource="umake_pages.hbm.xml"/>	
+		<mapping resource="umake_menus.hbm.xml"/>
 		<mapping resource="umake_configs.hbm.xml"/>
 				
 	</session-factory>

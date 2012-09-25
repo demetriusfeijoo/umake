@@ -35,12 +35,12 @@ public class Application{
 		this.configManager.setConfigs( this.configDao.getAll() );
 		this.allPages = this.pageDao.getAll();
 		
-		this.initMenu();
+		//this.initMenu();
 		this.initTemplate(this.templateFactory);
 				
 	}
 	
-	private void initMenu(){
+	/*private void initMenu(){
 		
 		List<Menuable> menuElements = new ArrayList<Menuable>(1);
 		
@@ -63,7 +63,7 @@ public class Application{
 		
 		this.menu.setMenuElements(menuElements);
 		
-	}
+	}*/
 	
 	private void initTemplate(TemplateFactory templateFactory) {
 		
