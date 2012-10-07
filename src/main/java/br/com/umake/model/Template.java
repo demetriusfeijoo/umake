@@ -115,6 +115,7 @@ public class Template {
 		
 		private String fileName;
 		private String media;
+		private String content;
 		
 		public String toString(){
 			
@@ -143,6 +144,18 @@ public class Template {
 		public void setMedia(String media) {
 			
 			this.media = media;
+			
+		}
+		
+		public void setContent(String content){
+			
+			this.content = content;
+			
+		}
+		
+		public String getContent(){
+			
+			return this.content;
 			
 		}
 		

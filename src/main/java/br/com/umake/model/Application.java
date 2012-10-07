@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.caelum.vraptor.ioc.Component;
+import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.umake.dao.ConfigDao;
 import br.com.umake.dao.PageDao;
 
 
 @Component
+@RequestScoped
 public class Application{
 	
 	private Page currentPage;
@@ -70,7 +72,7 @@ public class Application{
 		try{
 			
 			String currentTemplateName = this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue();
-			
+			System.out.println("aqui");
 			this.currentTemplate = templateFactory.getTemplate(currentTemplateName);
 			
 		}catch(NullPointerException nullPointerException){

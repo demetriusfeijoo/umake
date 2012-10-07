@@ -1,14 +1,19 @@
 package br.com.umake.model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
+import sun.text.normalizer.Replaceable;
 
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.umake.model.Template.Css;
@@ -39,10 +44,12 @@ public class TemplateFactory {
 		Template template = null;
 		String filePath = this.templateFilePath+"/"+templateName+"/"+Template.TEMPLATE_FILE_NAME;
 		
+		
 		try {
 
 			file = new File(filePath);
 			inputStream = new FileInputStream(file);
+			String str = "";
 
 			xstream = new XStream(new DomDriver());
 			xstream.alias("template", Template.class);
@@ -50,6 +57,21 @@ public class TemplateFactory {
 			xstream.alias("css", Css.class);
 			
 			template = (Template) xstream.fromXML(inputStream);
+			try{
+				
+			BufferedReader in = new BufferedReader(new FileReader(this.templateFilePath+"\\"+templateName+"\\"+template.getCssFiles().get(0).getFileName().replace("/", "\\")));
+
+			str = in.readLine();
+			System.out.println(str);
+/*			while(str != null){
+				str = in.readLine();
+			}*/
+			
+			}catch(IOException e){
+				System.out.println(e.getMessage());
+			}
+						
+			template.getCssFiles().get(0).setContent(str);
 			
 			return template;
 			
@@ -111,7 +133,7 @@ public class TemplateFactory {
 		}catch(FileNotFoundException fileNotFoundException){
 		
 			this.logManager.error("May the template's folder doesn't exist", TemplateFactory.class);
-			
+
 		}
 
 		return templates;

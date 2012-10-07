@@ -492,4 +492,8 @@ $(function(){
         theme_advanced_resizing : false
 
 	});
+	
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {lineNumbers:1});
+
+	
 });

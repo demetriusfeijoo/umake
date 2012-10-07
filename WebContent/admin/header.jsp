@@ -90,6 +90,14 @@
                         </ul>
                     </div>
                 </li>
+                <li id="css">
+                    <a href="javascript:void(0)">CSS</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/template/editCss" />">Editar CSS</a></li>
+                        </ul>
+                    </div>
+                </li>
     			<li id="configuracao"><a href="<c:url value="/adm/settings" />">CONFIGURAÇÕES</a></li>
 
     		</ul>
