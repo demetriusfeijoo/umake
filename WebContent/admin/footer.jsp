@@ -27,7 +27,7 @@
         </section>
 
     </footer>
-
+    
 <script src="http://code.jquery.com/jquery-1.8.0.min.js" type="text/javascript"></script>
 <script src="<c:url value="/admin/js/tiny_mce/tiny_mce.js" />" type="text/javascript"></script>
 <script src="<c:url value="/admin/js/flexigrid.pack.js" />" type="text/javascript"></script>

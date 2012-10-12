@@ -61,14 +61,12 @@ public class TemplateFactory {
 				
 			BufferedReader in = new BufferedReader(new FileReader(this.templateFilePath+"\\"+templateName+"\\"+template.getCssFiles().get(0).getFileName().replace("/", "\\")));
 
-			str = in.readLine();
-			System.out.println(str);
-/*			while(str != null){
-				str = in.readLine();
-			}*/
+			while(in.readLine() != null){
+				str += in.readLine() + "\n";
+			}
 			
 			}catch(IOException e){
-				System.out.println(e.getMessage());
+
 			}
 						
 			template.getCssFiles().get(0).setContent(str);

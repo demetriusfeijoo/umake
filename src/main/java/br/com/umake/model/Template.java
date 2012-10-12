@@ -159,6 +159,12 @@ public class Template {
 			
 		}
 		
+		public String replaceContent( String css ){
+			
+			return css.trim().replace("{", "{\n").replace("*/", "*/\n").replace("}", "}\n").replace(";", ";\n");
+			
+		}
+		
 		
 	}
 }

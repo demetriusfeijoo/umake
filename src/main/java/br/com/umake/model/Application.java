@@ -72,7 +72,7 @@ public class Application{
 		try{
 			
 			String currentTemplateName = this.getConfigManager().searchConfigBy(Application.SLUG_CONFIG_CURRENT_TEMPLATE).getValue();
-			System.out.println("aqui");
+
 			this.currentTemplate = templateFactory.getTemplate(currentTemplateName);
 			
 		}catch(NullPointerException nullPointerException){
