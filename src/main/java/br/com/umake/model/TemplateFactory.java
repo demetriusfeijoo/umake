@@ -57,19 +57,21 @@ public class TemplateFactory {
 			xstream.alias("css", Css.class);
 			
 			template = (Template) xstream.fromXML(inputStream);
+			String tempValue = "";
+
 			try{
 				
 			BufferedReader in = new BufferedReader(new FileReader(this.templateFilePath+"\\"+templateName+"\\"+template.getCssFiles().get(0).getFileName().replace("/", "\\")));
-
-			while(in.readLine() != null){
-				str += in.readLine() + "\n";
-			}
+			
+			while((str = in.readLine()) != null){
+				tempValue += str;
+			} 
 			
 			}catch(IOException e){
 
 			}
 						
-			template.getCssFiles().get(0).setContent(str);
+			template.getCssFiles().get(0).setContent(tempValue);
 			
 			return template;
 			
