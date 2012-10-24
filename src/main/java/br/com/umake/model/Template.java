@@ -16,6 +16,8 @@ public class Template {
 	private String indexFileName;
 	private String pageFileName;
 	private List<Template.Css> cssFiles = new ArrayList<Template.Css>();
+	private String templateUrl;
+	private String templatePath;
 	public final static String TEMPLATES_FOLDER_NAME = "/templates";
 	public final static String TEMPLATE_FILE_NAME = "template.xml";
 	
@@ -93,21 +95,39 @@ public class Template {
 		this.cssFiles = cssFiles;
 	}
 	
-	public String getTemplateRoot(){
+	public void setTemplateUrl(String templateUrl){
 		
-		return Template.TEMPLATES_FOLDER_NAME+"/"+this.getName();
+		this.templateUrl = templateUrl;
 		
 	}
 	
+	public String getTemplateUrl(){
+		
+		return this.templateUrl;
+		
+	}
+		
 	public String getIndexPath(){
 	
-		return this.getTemplateRoot()+"/"+this.getIndexFileName();
+		return Template.TEMPLATES_FOLDER_NAME+"/"+this.getName()+"/"+this.getIndexFileName();
 		
 	}
 	
 	public String getPagePath(){
 		
-		return this.getTemplateRoot()+"/"+this.getPageFileName();
+		return Template.TEMPLATES_FOLDER_NAME+"/"+this.getName()+"/"+this.getPageFileName();
+		
+	}
+	
+	public void setTemplatePath(String templatePath){
+		
+		this.templatePath = templatePath;
+		
+	}
+	
+	public String getTemplatePath(){
+		
+		return this.templatePath;
 		
 	}
 	

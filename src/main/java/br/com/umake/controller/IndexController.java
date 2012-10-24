@@ -99,7 +99,7 @@ public class IndexController {
 		
 		try{
 
-			this.result.include("templateRoot", this.application.getCurrentTemplate().getTemplateRoot());
+			this.result.include("templateRoot", this.application.getCurrentTemplate().getTemplateUrl());
 			this.result.include("cssFiles", this.application.getCurrentTemplate().getCssFiles() );
 			
 		}catch( NullPointerException nullPointerException ){

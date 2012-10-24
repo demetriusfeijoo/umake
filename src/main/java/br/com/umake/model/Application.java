@@ -3,6 +3,8 @@ package br.com.umake.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.umake.dao.ConfigDao;
@@ -23,18 +25,26 @@ public class Application{
 	private final TemplateFactory templateFactory;
 	private final Menu menu;
 	private static final String SLUG_CONFIG_CURRENT_TEMPLATE = "current-template";
+	private static final String SLUG_CONFIG_SITE_URL = "site-url";
+	private String siteUrl;
 	public static final String APPLICATION_VERSION = "Umake Beta"; 
 	
-	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, TemplateFactory templateFactory, LogManager logManager, Menu menu ){
+	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, HttpServletRequest httpServletRequest, LogManager logManager, Menu menu ){
 		
 		this.configManager = configManager;
 		this.configDao = configDao;
 		this.pageDao = pageDao;
-		this.templateFactory = templateFactory;
+		this.templateFactory = new TemplateFactory(httpServletRequest, logManager, this);
 		this.logManager = logManager;
 		this.menu = menu;
 		
 		this.configManager.setConfigs( this.configDao.getAll() );
+		Config tempSiteUrl = this.configManager.searchConfigBy(Application.SLUG_CONFIG_SITE_URL);
+		
+		if(tempSiteUrl != null){
+			this.siteUrl = tempSiteUrl.getValue();
+		}
+		
 		this.allPages = this.pageDao.getAll();
 		
 		//this.initMenu();
@@ -141,6 +151,10 @@ public class Application{
 		
 		return this.menu;
 		
+	}
+	
+	public String getSiteUrl(){
+		return this.siteUrl;
 	}
 	
 }

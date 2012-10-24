@@ -22,17 +22,18 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.mapper.CannotResolveClassException;
 
-@Component
 public class TemplateFactory {
 
 	private LogManager logManager;
 	private String templateFilePath;
+	private Application application;
 	
 	@SuppressWarnings({"deprecation" })
-	public TemplateFactory(HttpServletRequest httpServletRequest, LogManager logManager){
+	public TemplateFactory(HttpServletRequest httpServletRequest, LogManager logManager, Application application){
 			
 		this.logManager = logManager;
 		this.templateFilePath = httpServletRequest.getRealPath(Template.TEMPLATES_FOLDER_NAME);
+		this.application = application; 
 		
 	}
 	
@@ -58,7 +59,10 @@ public class TemplateFactory {
 			
 			template = (Template) xstream.fromXML(inputStream);
 			String tempValue = "";
-
+			
+			template.setTemplateUrl( this.application.getSiteUrl()+Template.TEMPLATES_FOLDER_NAME+"/"+template.getName() );
+			template.setTemplatePath(this.templateFilePath+"\\"+templateName+"\\");
+			
 			try{
 				
 			BufferedReader in = new BufferedReader(new FileReader(this.templateFilePath+"\\"+templateName+"\\"+template.getCssFiles().get(0).getFileName().replace("/", "\\")));
