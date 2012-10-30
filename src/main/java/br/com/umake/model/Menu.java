@@ -1,13 +1,13 @@
 package br.com.umake.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-
-import org.hibernate.annotations.Entity;
+import java.util.Set;
 
 import br.com.caelum.vraptor.ioc.Component;
-import br.com.caelum.vraptor.ioc.PrototypeScoped;
 import br.com.umake.helper.flexigrid.Column;
 import br.com.umake.helper.flexigrid.Id;
 
@@ -21,22 +21,22 @@ public class Menu {
 	private String name;
 	@Column(position=3)
 	private int position;
-	//List<Menuable> menuElements;
+	private boolean status;
+	private Set<Menuable> menuLinks = new HashSet<Menuable>();
+	private Set<Menuable> menuPages = new HashSet<Menuable>();	
+
 	
 	public Menu(){
 		
 	}
 	
-	/*@Override
+	@Override
 	public String toString(){
 		
 		return this.getDefaultMenu();
 		
-	}*/
+	}
 
-	/*public List<Menuable> getMenuElements() {
-		return menuElements;
-	}*/
 	
 	public void setId(Long id){
 		
@@ -72,15 +72,46 @@ public class Menu {
 		
 		return this.position;
 		
+	}	
+
+	public boolean getStatus() {
+		return status;
 	}
 
-	/*public void setMenuElements(List<Menuable> menuElements) {
-		this.menuElements = menuElements;
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public void setMenuLinks(Set<Menuable> menuLinks) {
+		this.menuLinks = menuLinks;
+	}
+
+	public Set<Menuable> getMenuLinks() {
+		return menuLinks;
 	}
 	
+	public void setMenuPages(Set<Menuable> menuPages) {
+		this.menuPages = menuPages;
+	}
+
+	public Set<Menuable> getMenuPages() {
+		return menuPages;
+	}
+
 	public String getDefaultMenu(){
 		
-		Collections.sort(this.getMenuElements(), new Comparator<Menuable>() {
+		Set<Menuable> allElementsOfMenu = this.getMenuLinks();
+		allElementsOfMenu.addAll(this.getMenuPages());
+		
+		List<Menuable> orderedList = new ArrayList<Menuable>( allElementsOfMenu.size() );
+		
+		for (Menuable menuable : allElementsOfMenu) {
+		
+			orderedList.add(menuable);
+			
+		}
+		
+		Collections.sort(orderedList, new Comparator<Menuable>() {
 			
 			public int compare(Menuable o1, Menuable o2) {
 				
@@ -91,19 +122,38 @@ public class Menu {
 			
 		});
 		
+				
 		StringBuilder menuPrint = new StringBuilder("<ul>");
 		
-		for (Menuable menuElement : this.getMenuElements()) {
+		for (Menuable menuElement : orderedList) {
 			
-			menuPrint.append(String.format("<li> <a href=\"%s\"> %s </a> </li>", menuElement.getItemUrl(), menuElement.getItemValue()));
+			boolean canInsert = true;
 			
+			if( menuElement instanceof Page ){
+				
+				Page pageTemp = (Page) menuElement;
+				
+				if(!pageTemp.getStatus()){
+					
+					canInsert = false;
+					
+				}
+				
+			}
+			
+			if(canInsert){
+				
+				menuPrint.append(String.format("<li> <a href=\"%s\"> %s </a> </li>", menuElement.getItemUrl(), menuElement.getItemValue()));
+				
+			}
+						
 		}
 		
 		menuPrint.append("</ul>");
 
 		return menuPrint.toString();
 		
-	}*/
+	}
 
 
 }

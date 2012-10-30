@@ -58,10 +58,19 @@
 			<td>
 				<label class="label">Permissoes:</label>
 			</td>
-			<td>
-				<c:forEach var="permission" items="${permissions}" begin="0" varStatus="count">
+		</tr>
+		
+		<c:forEach var="permission" items="${permissions}" begin="0" varStatus="count">
+
+			<c:if test="${count.index % 4 == 0 && count.index != 0}">
 					
-					<label for="permission_${permission.id}">${permission.context}</label>
+				<% out.print("</tr><tr>"); %>
+										
+			</c:if>
+							
+			<td style="padding:5px; border:1px solid gray;">
+					
+					<label for="permission_${permission.id}">${permission.context} - ${permission.type}</label>
 					
 					<% String ifChecked = ""; %>
 					

@@ -21,8 +21,9 @@ public class Page implements Menuable {
 	private AdmUser admUser;
 	private String content;
 	private int ordered;
+	private boolean isIndex;
 	
-	public Page(){
+	public Page(){ 
 		
 	}
 	
@@ -90,6 +91,10 @@ public class Page implements Menuable {
 		
 	}
 	
+	public boolean getIsIndex() {
+		return isIndex;
+	}
+	
 	public void setId(Long id){
 		
 		this.id = id;
@@ -137,7 +142,11 @@ public class Page implements Menuable {
 		this.ordered = ordered;
 		
 	}
-	
+
+	public void setIsIndex(boolean isIndex) {
+		this.isIndex = isIndex;
+	}
+
 	public int getItemPosition(){
 		
 		return this.getOrdered();

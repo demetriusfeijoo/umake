@@ -87,43 +87,53 @@
 		<tr></tr>
 		<tr>
 			<td><label class="label">Grupos:</label></td>
-			<td><c:forEach var="admGroup" items="${admGroups}" begin="0"
-					varStatus="count">
-
-					<label for="group_${admGroup.id}">${admGroup.name}</label>
-
-					<%
-						String ifChecked = "";
-					%>
-
-					<c:forEach var="userGroups" items="${admUser.admGroups}">
-
-						<c:if test="${userGroups.id == admGroup.id}">
-							<%
-								ifChecked = "checked='checked'";
-							%>
-						</c:if>
-
-					</c:forEach>
-
-					<input type="checkbox" id="group_${admGroup.id}"
-						name="admGroups[${count.index}].id" <%out.print(ifChecked);%>
-						value="${admGroup.id}" />
-
-				</c:forEach></td>
 		</tr>
 		<tr>
-			<td><label class="label">Permissoes:</label></td>
-			 <c:forEach var="admPermission" items="${admPermissions}" begin="0" varStatus="count">
+			 <c:forEach var="admGroup" items="${admGroups}" begin="0" varStatus="count">
 			
-					<c:if test="${count.index % 3 == 0 && count.index != 0}">
+					<c:if test="${count.index % 4 == 0 && count.index != 0}">
 					
 						<% out.print("</tr><tr>"); %>
 										
 					</c:if>
 						
-					<td>
-						<label for="permission_${admPermission.id}">${admPermission.context}</label>
+					<td style="padding:5px; border:1px solid gray;">
+						<label for="group_${admGroup.id}">${admGroup.name}</label>
+	
+						<%
+							String ifChecked = "";
+						%>
+	
+						<c:forEach var="userGroups" items="${admUser.admGroups}">
+	
+							<c:if test="${userGroups.id == admGroup.id}">
+								<%
+									ifChecked = "checked='checked'";
+								%>
+							</c:if>
+	
+						</c:forEach>
+	
+						<input type="checkbox" id="group_${admGroup.id}"
+							name="admGroups[${count.index}].id" <%out.print(ifChecked);%>
+							value="${admGroup.id}" />
+					</td>
+				</c:forEach>
+		</tr>
+		<tr>
+			<td><label class="label">Permissoes:</label></td>
+		</tr>
+		<tr>
+			 <c:forEach var="admPermission" items="${admPermissions}" begin="0" varStatus="count">
+			
+					<c:if test="${count.index % 4 == 0 && count.index != 0}">
+					
+						<% out.print("</tr><tr>"); %>
+										
+					</c:if>
+						
+					<td style="padding:5px; border:1px solid gray;">
+						<label for="permission_${admPermission.id}">${admPermission.context} - ${admPermission.type}</label>
 	
 						<%
 							String ifChecked = "";

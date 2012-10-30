@@ -72,15 +72,6 @@
                         </ul>
                     </div>
                 </li>
-    			<li id="pagina">
-                    <a href="javascript:void(0)">PÁGINA</a>
-                    <div class="subMenu">
-                        <ul>
-                            <li><a href="<c:url value="/adm/page/create" />">Cadastrar Página</a></li>
-                            <li><a href="<c:url value="/adm/page" />">Listar páginas</a></li>
-                        </ul>
-                    </div>
-                </li>
                 <li id="menu">
                     <a href="javascript:void(0)">MENU</a>
                     <div class="subMenu">
@@ -90,6 +81,25 @@
                         </ul>
                     </div>
                 </li>
+                <li id="pagina">
+                    <a href="javascript:void(0)">PÁGINA</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/page/create" />">Cadastrar Página</a></li>
+                            <li><a href="<c:url value="/adm/page" />">Listar páginas</a></li>
+                            <li><a href="<c:url value="/adm/page/editIndex" />">Editar Index</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="link">
+                    <a href="javascript:void(0)">LINK</a>
+                    <div class="subMenu">
+                        <ul>
+                            <li><a href="<c:url value="/adm/link/create" />">Cadastrar Link</a></li>
+                            <li><a href="<c:url value="/adm/link" />">Listar Links</a></li>
+                        </ul>
+                    </div>
+                </li>                
                 <li id="css">
                     <a href="javascript:void(0)">CSS</a>
                     <div class="subMenu">

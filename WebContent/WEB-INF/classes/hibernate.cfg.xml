@@ -26,6 +26,8 @@
 		<mapping resource="umake_pages.hbm.xml"/>	
 		<mapping resource="umake_menus.hbm.xml"/>
 		<mapping resource="umake_configs.hbm.xml"/>
+		<mapping resource="umake_links_menu.hbm.xml"/>
+
 				
 	</session-factory>
 

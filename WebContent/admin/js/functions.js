@@ -207,6 +207,44 @@ $(function(){
 		height: 300
 	});
 	
+	$("#listagemLink").flexigrid({
+		url: urlOfSystem+"/adm/link/flexi",
+		dataType: 'json',
+		colModel : [
+			{display: 'Id', name : 'id', width : 45, sortable : true, align: 'left'},
+			{display: 'Nome', name : 'value', width : 210, sortable : true, align: 'left'},
+			{display: 'url', name : 'url', width : 210, sortable : true, align: 'left'}
+			],
+         buttons : [
+                    
+             {name: 'Editar', bclass: 'edit', onpress : function(com, grid)
+            	 {  
+	            	 $('.trSelected', grid).each(function() {
+	            		 var id = $(this).attr('id');
+	            		 id = id.substring(id.lastIndexOf('row')+3); 
+	            		 window.location.href=urlOfSystem+"/adm/link/"+id;
+	            	 });
+            	 }},
+             {separator: true}
+            	 
+             ],
+         searchitems : [
+              {display: 'Id', name : 'id'},
+              {display: 'Nome', name : 'value'}
+              ],
+		sortname: "id",
+		sortorder: "asc",
+		usepager: true,
+		title: 'Links',
+		useRp: true,
+		rp: 10,
+		resizable: false,
+		showTableToggleBtn: true,
+		singleSelect: true,
+		width: 730,
+		height: 300
+	});
+	
 	$("#formLogin").validate({
 		rules: {
 			
@@ -454,7 +492,35 @@ $(function(){
 		
 	});
 	
-	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission, #btnDeletePage, #btnDeleteMenu").click(function(event){
+	$("#formMenuLink").validate({
+		
+		rules: {
+			
+			"link.value": {
+				
+				required: true,
+				minlength: 1,
+				maxlength: 70
+				
+			}
+			
+		},
+	
+		messages: {
+			
+			"link.value": {
+				
+				required: "Preencha o Nome",
+				minlength: "O nome necessita ter no mínimo 1 caracteres",
+				maxlength: "O nome necessita ter no máximo 70 caracteres"
+				
+			}
+			
+		}
+		
+	});
+	
+	$("#btnDeleteAdmUser, #btnDeleteAdmGroup, #btnDeleteAdmPermission, #btnDeletePage, #btnDeleteMenu, #btnDeleteLink").click(function(event){
 		
 		event.preventDefault();
 		
@@ -466,7 +532,7 @@ $(function(){
 			buttons: {
 				"Confirmar": function() {
 					$( this ).dialog( "close" );
-					$("form#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission, #formDeletePage, #formDeletePage, #formDeleteMenu").submit();
+					$("form#formDeleteAdmUser, #formDeleteAdmGroup, #formDeleteAdmPermission, #formDeletePage, #formDeleteMenu, #formDeleteLink").submit();
 				},
 				Fechar: function() {
 					$( this ).dialog( "close" );

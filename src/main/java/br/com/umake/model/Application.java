@@ -1,6 +1,5 @@
 package br.com.umake.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import br.com.caelum.vraptor.ioc.Component;
 import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.umake.dao.ConfigDao;
+import br.com.umake.dao.MenuDao;
 import br.com.umake.dao.PageDao;
 
 
@@ -21,23 +21,24 @@ public class Application{
 	private final ConfigManager configManager;
 	private final ConfigDao configDao;
 	private final PageDao pageDao;
+	private final MenuDao menuDao;
 	private final LogManager logManager;
 	private final TemplateFactory templateFactory;
-	private final Menu menu;
+	private Menu menu;
 	private static final String SLUG_CONFIG_CURRENT_TEMPLATE = "current-template";
 	private static final String SLUG_CONFIG_SITE_URL = "site-url";
 	private String siteUrl;
 	public static final String APPLICATION_VERSION = "Umake Beta"; 
 	
-	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, HttpServletRequest httpServletRequest, LogManager logManager, Menu menu ){
+	public Application( ConfigManager configManager, ConfigDao configDao, PageDao pageDao, HttpServletRequest httpServletRequest, LogManager logManager, MenuDao menuDao){
 		
 		this.configManager = configManager;
 		this.configDao = configDao;
 		this.pageDao = pageDao;
 		this.templateFactory = new TemplateFactory(httpServletRequest, logManager, this);
 		this.logManager = logManager;
-		this.menu = menu;
-		
+		this.menuDao = menuDao;
+				
 		this.configManager.setConfigs( this.configDao.getAll() );
 		Config tempSiteUrl = this.configManager.searchConfigBy(Application.SLUG_CONFIG_SITE_URL);
 		
@@ -47,35 +48,10 @@ public class Application{
 		
 		this.allPages = this.pageDao.getAll();
 		
-		//this.initMenu();
 		this.initTemplate(this.templateFactory);
+		this.initMenu();
 				
 	}
-	
-	/*private void initMenu(){
-		
-		List<Menuable> menuElements = new ArrayList<Menuable>(1);
-		
-		Page pageHome = new Page();
-		pageHome.setSlug("/");
-		pageHome.setTitle("Home");
-		pageHome.setOrdered(0);
-		
-		menuElements.add(pageHome);
-		
-		for (Page elementPage : this.allPages) {
-		
-			if(elementPage.getStatus()){
-			
-				menuElements.add(elementPage);
-				
-			}
-			
-		}
-		
-		this.menu.setMenuElements(menuElements);
-		
-	}*/
 	
 	private void initTemplate(TemplateFactory templateFactory) {
 		
@@ -88,6 +64,22 @@ public class Application{
 		}catch(NullPointerException nullPointerException){
 			
 			this.logManager.error("An error occurred while The Application was initializing. May the problem is with a Current Template. Please, Check It.", Application.class);
+			
+		}	
+		
+	}
+	
+	private void initMenu(){
+		
+		List<Menu> menusTemp = menuDao.getAllActivies();
+
+		if( menusTemp.size() > 0 ){
+			
+			this.menu = menusTemp.get(0);	
+			
+		}else{
+			
+			this.menu = new Menu();
 			
 		}	
 		
