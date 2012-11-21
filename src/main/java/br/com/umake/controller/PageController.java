@@ -127,7 +127,7 @@ public class PageController {
 		indexPage.setIsIndex(true);
 		indexPage.setSlug("index");
 				
-		this.result.include("retorno", this.pageDao.editindex(indexPage) );
+		this.result.include("retorno", this.pageDao.editIndex(indexPage) );
 		this.result.include("tipoSubmit", "editada" );
 		
 		this.result.redirectTo(this).editIndex();

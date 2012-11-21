@@ -173,7 +173,7 @@ public class PageDao {
 	}
 
 
-	public boolean editindex(Page newIndexPage) {
+	public boolean editIndex(Page newIndexPage) {
 
 		try{
 

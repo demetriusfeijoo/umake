@@ -18,6 +18,7 @@ public class Application{
 	private Page currentPage;
 	private Template currentTemplate;
 	private List<Page> allPages;
+	private Page indexPage;
 	private final ConfigManager configManager;
 	private final ConfigDao configDao;
 	private final PageDao pageDao;
@@ -47,6 +48,14 @@ public class Application{
 		}
 		
 		this.allPages = this.pageDao.getAll();
+		
+		Page pageTemp = this.pageDao.getIndexPage();
+		
+		if(pageTemp != null && pageTemp.getStatus()){
+		
+			this.indexPage = pageTemp;
+			
+		}
 		
 		this.initTemplate(this.templateFactory);
 		this.initMenu();
@@ -147,6 +156,10 @@ public class Application{
 	
 	public String getSiteUrl(){
 		return this.siteUrl;
+	}
+	
+	public Page getIndexPage(){
+		return this.indexPage;
 	}
 	
 }
