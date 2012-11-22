@@ -30,12 +30,21 @@ public class IndexController {
 
 	@Get("/")
 	public void index(){
-				
-		this.initJspDependencies();
 
 		try{
 			
-			this.result.forwardTo(this.application.getCurrentTemplate().getIndexPath());		
+			if(this.application.getIndexPage() != null ){
+				
+				this.initJspDependencies(this.application.getIndexPage());
+				this.result.forwardTo(this.application.getCurrentTemplate().getPagePath());	
+				
+			}else{
+				
+				this.initJspDependencies();
+				this.result.forwardTo(this.application.getCurrentTemplate().getIndexPath());		
+				
+			}
+						
 			
 		}catch( NullPointerException nullPointerException ){
 		
@@ -99,7 +108,7 @@ public class IndexController {
 		
 		try{
 
-			this.result.include("templateRoot", this.application.getCurrentTemplate().getTemplateRoot());
+			this.result.include("templateRoot", this.application.getCurrentTemplate().getTemplateUrl());
 			this.result.include("cssFiles", this.application.getCurrentTemplate().getCssFiles() );
 			
 		}catch( NullPointerException nullPointerException ){

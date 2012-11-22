@@ -1,6 +1,9 @@
 package br.com.umake.controller;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.caelum.vraptor.Delete;
 import br.com.caelum.vraptor.Get;
@@ -9,12 +12,16 @@ import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.caelum.vraptor.view.Results;
 import br.com.umake.dao.MenuDao;
+import br.com.umake.dao.MenuLinkDao;
+import br.com.umake.dao.PageDao;
 import br.com.umake.helper.flexigrid.FlexiGridJson;
 import br.com.umake.interceptor.AdmUserControl;
 import br.com.umake.model.Menu;
+import br.com.umake.model.MenuLink;
+import br.com.umake.model.Menuable;
+import br.com.umake.model.Page;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
@@ -25,12 +32,16 @@ public class MenuController {
 	private final Result result;
 	private final MenuDao menuDao;
 	private final AdmUserControl admUserControl;
+	private MenuLinkDao menuLinkDao;
+	private PageDao pageDao;
 	
-	public MenuController(Result result, MenuDao menuDao, AdmUserControl admUserControl){
+	public MenuController(Result result, MenuDao menuDao, PageDao pageDao, MenuLinkDao menuLinkDao,AdmUserControl admUserControl){
 		
 		this.result = result;
 		this.menuDao = menuDao;
 		this.admUserControl = admUserControl;
+		this.menuLinkDao = menuLinkDao;
+		this.pageDao = pageDao;
 		
 	}
 	
@@ -39,10 +50,15 @@ public class MenuController {
 	public void getMenu( Menu menu ){
 		
 		Menu menuRecovered = this.menuDao.get(menu);		
-		
+		List<MenuLink> links = this.menuLinkDao.getAll();
+		List<Page> pages = this.pageDao.getAll();
+
 		if(menuRecovered != null ){
 			
 			this.result.include("menu", menuRecovered);
+			this.result.include("menuLinks", links);
+			this.result.include("menuPages", pages);
+
 			this.result.forwardTo(this).formMenu();
 			
 		}else{
@@ -57,6 +73,12 @@ public class MenuController {
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_MENU", permissionsTypes = { PermissionType.VIEW})}) 
 	public void formMenu(){
     	
+		List<MenuLink> links = this.menuLinkDao.getAll();
+		List<Page> pages = this.pageDao.getAll();
+		
+		this.result.include("menuPages", pages);
+		this.result.include("menuLinks", links);
+		
     }
     
 	@Get("adm/menu")
@@ -67,8 +89,23 @@ public class MenuController {
     
 	@Post("adm/menu")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_MENU", permissionsTypes = { PermissionType.CREATE }) }) 
-	public void create(final Menu menu) {
+	public void create(final Menu menu, List<Page> menuPages, List<MenuLink> menuLinks) {
+		
+		Set<Menuable> newPages =  new HashSet<Menuable>();
+		Set<Menuable> newLinks =  new HashSet<Menuable>();
 
+		for (Page pages : menuPages) {
+			newPages.add(pages);
+		}
+		
+		
+		for (MenuLink links : menuLinks) {
+			newLinks.add(links);
+		}
+		
+		menu.setMenuPages(newPages);
+		menu.setMenuLinks(newLinks);
+		
 		this.result.include("retorno", this.menuDao.insert(menu) );
 		this.result.include("tipoSubmit", "cadastrado" );		
 		this.result.include("menu", menu);
@@ -79,8 +116,23 @@ public class MenuController {
 	
 	@Put("adm/menu")
 	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_MENU", permissionsTypes = { PermissionType.EDIT})}) 
-	public void edit(final Menu menu){
-				
+	public void edit(final Menu menu, List<Page> menuPages, List<MenuLink> menuLinks){
+
+		Set<Menuable> newPages =  new HashSet<Menuable>();
+		Set<Menuable> newLinks =  new HashSet<Menuable>();
+
+		for (Page pages : menuPages) {
+			newPages.add(pages);
+		}
+		
+		
+		for (MenuLink links : menuLinks) {
+			newLinks.add(links);
+		}
+		
+		menu.setMenuPages(newPages);
+		menu.setMenuLinks(newLinks);
+		
 		this.result.include("retorno", this.menuDao.edit(menu) );
 		this.result.include("tipoSubmit", "editado" );
 		

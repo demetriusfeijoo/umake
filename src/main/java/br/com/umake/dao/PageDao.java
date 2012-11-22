@@ -54,6 +54,12 @@ public class PageDao {
 		
 	}
 	
+	public Page getIndexPage(){
+		
+		return (Page) this.session.createCriteria(Page.class).add(Restrictions.eq("isIndex", new Boolean(true))).uniqueResult();
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Page> getAutor(AdmUser user){
 	
@@ -64,14 +70,14 @@ public class PageDao {
 	@SuppressWarnings("unchecked")
 	public List<Page> getAll(){
 		
-		return this.session.createCriteria(Page.class).list();
+		return this.session.createCriteria(Page.class).add(Restrictions.eq("isIndex", new Boolean(false))).list();
 
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Page> getAllActivies(){
 		
-		return this.session.createCriteria(Page.class).add(Restrictions.eq("status", 1)).list();
+		return this.session.createCriteria(Page.class).add(Restrictions.eq("status", 1)).add(Restrictions.eq("isIndex", new Boolean(false))).list();
 
 	}
 	
@@ -137,11 +143,11 @@ public class PageDao {
 		
 		if( propertyName != null && propertySortName != null ){
 			
-			HQL = String.format("from Page order by %s %s", propertyName, propertySortName);
+			HQL = String.format("from Page where isIndex='0' order by %s %s", propertyName, propertySortName);
 			
 		}else if(propertyName != null && propertySortName == null){
 			
-			HQL = String.format("from Page order by %s ", propertyName);			
+			HQL = String.format("from Page where isIndex='0' order by %s ", propertyName);			
 			
 		}else{
 			
@@ -158,11 +164,29 @@ public class PageDao {
 	
 		if( !propertyName.isEmpty() && !search.isEmpty() ){
 			
-			return this.session.createQuery("from Page where "+propertyName+" LIKE '%"+search+"%'").list();
+			return this.session.createQuery("from Page where isIndex='0' AND "+propertyName+" LIKE '%"+search+"%'").list();
 		
 		}
 		
 		return new ArrayList<Page>();
 		
 	}
+
+
+	public boolean editIndex(Page newIndexPage) {
+
+		try{
+
+			this.session.merge(newIndexPage);
+			
+		}catch(HibernateException e){
+
+			return false;
+			
+		}
+
+		return true;	
+		
+	}
+	
 }

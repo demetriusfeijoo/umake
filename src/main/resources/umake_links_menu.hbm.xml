@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC  
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"  
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+   
+<hibernate-mapping>
+    
+    <class name="br.com.umake.model.MenuLink" table="umake_links_menu">
+    	
+        <id name="id" column="id" type="long">
+            
+        	<generator class="native"></generator>
+            
+        </id>
+        
+    	<!-- Propriedades da classe -->
+        <property name="position"></property>
+        <property name="url"></property>
+        <property name="value"></property>
+        
+    </class>
+    
+</hibernate-mapping>

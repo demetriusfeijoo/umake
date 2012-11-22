@@ -47,9 +47,12 @@ public class PageController {
 		
 		Page pageRecovered = this.pageDao.get(page);		
 		
+		List<AdmUser> admUsers = this.userDao.getAll();
+		
 		if(pageRecovered != null ){
 			
 			this.result.include("page", pageRecovered);
+			this.result.include("admUsers", admUsers);
 			this.result.forwardTo(this).formPage();
 			
 		}else{
@@ -93,11 +96,41 @@ public class PageController {
 	public void edit(final Page page){
 		
 		page.setSlug(TextHelper.createSlug(page.getTitle()));
+		AdmUser newUser = this.userDao.get(page.getAdmUser());		
+		
+		page.setAdmUser(newUser);
 		
 		this.result.include("retorno", this.pageDao.edit(page) );
 		this.result.include("tipoSubmit", "editado" );
 		
 		this.result.redirectTo(this).getPage(page);		
+		
+	}
+	
+	@Get("adm/page/editIndex")
+	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.EDIT})}) 
+	public void editIndex(){
+		
+		Page indexPage = this.pageDao.getIndexPage();
+		
+		this.result.include("indexPage", indexPage);
+		
+	}
+	
+	@Put("adm/page/editIndex")
+	@Restrictable(permissions={ @PermissionAnnotation(context="ADM_PAGE", permissionsTypes = { PermissionType.EDIT})}) 
+	public void _editIndex(final Page indexPage){
+
+		indexPage.setAdmUser(this.admUserControl.getAdmUser());
+		indexPage.setOrdered(1);
+		indexPage.setDateOfRegistration(new Date());
+		indexPage.setIsIndex(true);
+		indexPage.setSlug("index");
+				
+		this.result.include("retorno", this.pageDao.editIndex(indexPage) );
+		this.result.include("tipoSubmit", "editada" );
+		
+		this.result.redirectTo(this).editIndex();
 		
 	}
 	

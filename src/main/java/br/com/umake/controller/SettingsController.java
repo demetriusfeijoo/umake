@@ -10,13 +10,13 @@ import br.com.caelum.vraptor.Put;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 import br.com.umake.dao.ConfigDao;
+import br.com.umake.model.Application;
 import br.com.umake.model.Config;
 import br.com.umake.model.LogManager;
 import br.com.umake.model.TemplateFactory;
 import br.com.umake.permissions.PermissionAnnotation;
 import br.com.umake.permissions.PermissionType;
 import br.com.umake.permissions.Restrictable;
-
 
 @Resource
 public class SettingsController {
@@ -29,12 +29,12 @@ public class SettingsController {
 	private static final String []configsSlugs = new String[]{"site-title", "site-email", "site-description", "site-keywords"};
 	private static final String slugCurrentTemplate = "current-template";
 	
-	public SettingsController(Result result, ConfigDao configDao, HttpServletRequest httpServletRequest, TemplateFactory templateFactory, LogManager logManager){
+	public SettingsController(Result result, ConfigDao configDao, HttpServletRequest httpServletRequest, LogManager logManager, Application application){
 		
 		this.result = result;
 		this.configDao = configDao;
 		this.httpServletRequest = httpServletRequest;
-		this.templateFactory = templateFactory;
+		this.templateFactory = new TemplateFactory(httpServletRequest, logManager, application);
 		this.logManager = logManager;
 		
 	}

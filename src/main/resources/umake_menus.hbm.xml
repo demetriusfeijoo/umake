@@ -13,12 +13,18 @@
     	
     	<!-- Propriedades da classe -->
         <property name="name"></property>
-        <property name="position"></property>     
+        <property name="position"></property>  
+        <property name="status"></property>   
         
- 		<!--<set name="menuItens" table="umake_menu_menuitens" lazy="true" cascade="none" >
+ 		<set name="menuLinks" table="umake_menus_links_menu" lazy="true" cascade="none" >
 			<key column="id_menu" />
-			<many-to-many column="id_menu_item" class="br.com.umake.model.MenuItem" not-found="ignore"/>
-		</set>-->
+			<many-to-many column="id_link_menu" class="br.com.umake.model.MenuLink" not-found="ignore"/>
+		</set>
+		
+ 		<set name="menuPages" table="umake_menus_pages" lazy="true" cascade="none" >
+			<key column="id_menu" />
+			<many-to-many column="id_page" class="br.com.umake.model.Page" not-found="ignore"/>
+		</set>
 		
     </class>
     

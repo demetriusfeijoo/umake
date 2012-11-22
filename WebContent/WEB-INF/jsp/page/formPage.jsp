@@ -25,7 +25,7 @@
 		
 	</div>
 	
-	<c:if test="${page != null}">
+	<c:if test="${page.id != null}">
 		<input name="page.id" type="hidden" value="${page.id}" />
 	</c:if>	
 	<table cellpadding="0" cellspacing="0">
@@ -45,11 +45,30 @@
 			<td><input type="text" name="page.ordered" id="ordered" value="${page.ordered}" /></td>
 		</tr>
 		<tr>
+			<td><label class="label">Autor:</label></td>
+			<td>
+				<select name="page.admUser.id">
+				
+						<option value="${page.admUser.id}">${page.admUser.name}</option>
+						
+					<c:forEach var="admUser" items="${admUsers}">
+						
+						<c:if test="${admUser.id != page.admUser.id}">
+						
+							<option value="${admUser.id}">${admUser.name}</option>
+						
+						</c:if>
+						
+					</c:forEach>
+				</select>
+			</td>
+		</tr>		
+		<tr>
 			<td colspan="2"><textarea name="page.content" id="content" >${page.content}</textarea></td>
 		</tr>	
 		<tr>
-			<td>
-				<c:if test="${page == null}">
+			<td colspan="2">
+				<c:if test="${page.id == null}">
 					<button name="_method" class="submit botoes" value="post"></button>
 				</c:if>
 				<c:if test="${page.id != null}">

@@ -16,6 +16,9 @@ import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.umake.model.Application;
 import br.com.umake.model.Template;
 import br.com.umake.model.Template.Css;
+import br.com.umake.permissions.PermissionAnnotation;
+import br.com.umake.permissions.PermissionType;
+import br.com.umake.permissions.Restrictable;
 
 @Resource
 @RequestScoped
@@ -32,6 +35,7 @@ public class TemplateController {
 	}
 	
 	@Get("adm/template/editCss")
+	@Restrictable(permissions={@PermissionAnnotation(context="ADM_CSS", permissionsTypes = { PermissionType.VIEW})}) 
 	public void editCss(){
 				
 		this.result.include("cssFile", this.application.getCurrentTemplate().getCssFiles().get(0).replaceContent(this.application.getCurrentTemplate().getCssFiles().get(0).getContent()));
@@ -39,12 +43,13 @@ public class TemplateController {
 	}
 	
 	@Put("adm/template/saveCss")
+	@Restrictable(permissions={@PermissionAnnotation(context="ADM_CSS", permissionsTypes = { PermissionType.EDIT})}) 
 	public void saveCss( String cssContent ) throws IOException{
 		
 		String contentCss = this.application.getCurrentTemplate().getCssFiles().get(0).replaceContent(cssContent);
 		
 		this.application.getCurrentTemplate().getCssFiles().get(0).setContent(contentCss);
-		File css = new File("C:\\Users\\Jonathan\\Documents\\apache-tomcat-7.0.26\\wtpwebapps\\umake\\templates\\sky\\css\\style.css");
+		File css = new File(this.application.getCurrentTemplate().getTemplatePath()+"\\"+this.application.getCurrentTemplate().getCssFiles().get(0).getFileName().replace("/", "\\"));
 		css.setWritable(true);
 		try{
 					

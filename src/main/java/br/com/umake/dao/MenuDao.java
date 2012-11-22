@@ -60,7 +60,8 @@ public class MenuDao {
 	@SuppressWarnings("unchecked")
 	public List<Menu> getAllActivies(){
 		
-		return this.session.createCriteria(Menu.class).add(Restrictions.eq("status", 1)).list();
+		Boolean status = true;
+		return this.session.createCriteria(Menu.class).add(Restrictions.eq("status", status)).list();
 
 	}
 	
@@ -84,7 +85,7 @@ public class MenuDao {
 		
 		try{
 
-			this.session.createQuery("DELETE FROM Menu WHERE id="+menu.getId()).executeUpdate();
+			this.session.delete(menu);
 			
 		}catch(HibernateException e){
 			
