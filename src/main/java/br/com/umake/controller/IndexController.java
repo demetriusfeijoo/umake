@@ -3,6 +3,7 @@ package br.com.umake.controller;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
+import br.com.caelum.vraptor.ioc.RequestScoped;
 import br.com.umake.dao.PageDao;
 import br.com.umake.model.Application;
 import br.com.umake.model.Config;
@@ -10,6 +11,7 @@ import br.com.umake.model.LogManager;
 import br.com.umake.model.Page;
 
 @Resource
+@RequestScoped
 public class IndexController {
 	
 	private Result result;
