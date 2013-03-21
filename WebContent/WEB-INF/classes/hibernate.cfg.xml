@@ -1,69 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC
-	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
-<hibernate-configuration>
-
-	<session-factory name="br.com.umake.components.FactorySessionFactory">
-
-<!-- 		<property name="hibernate.connection.username">umakecom</property>
-		<property name="hibernate.connection.password">djsd1234</property>
-		<property name="hibernate.connection.url">jdbc:www.umake.com.br:3306/umake_db</property> -->
-		<property name="hibernate.connection.username">umakecom_db</property>
-		<property name="hibernate.connection.password">djsd1234</property>
-		<property name="hibernate.connection.url">jdbc:mysql://www.umake.com.br:3306/umakecom_db</property>
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
-		<property name="show_sql">false</property>
-		<property name="format_sql">true</property>
-		<!-- <property name="hibernate.cache.provider_class" >org.hibernate.cache.EhCacheProvider</property> -->
-
-		<mapping resource="umake_adm_users.hbm.xml"/>
-		<mapping resource="umake_adm_groups.hbm.xml"/>
-		<mapping resource="umake_adm_permissions.hbm.xml"/>
-		<mapping resource="umake_pages.hbm.xml"/>
-		<mapping resource="umake_configs.hbm.xml"/>
-				
-	</session-factory>
-
-=======
-<?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE hibernate-configuration PUBLIC
-	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
-
-<hibernate-configuration>
-
-	<session-factory name="br.com.umake.components.FactorySessionFactory">
-
-<!-- 		<property name="hibernate.connection.username">umakecom</property>
-		<property name="hibernate.connection.password">djsd1234</property>
-		<property name="hibernate.connection.url">jdbc:www.umake.com.br:3306/umake_db</property> -->
-		<property name="hibernate.connection.username">umakecom_db</property>
-		<property name="hibernate.connection.password">djsd1234</property>
-		<property name="hibernate.connection.url">jdbc:mysql://www.umake.com.br:3306/umakecom_db</property>
-		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
-		<property name="show_sql">false</property>
-		<property name="format_sql">true</property>
-		<!-- <property name="hibernate.cache.provider_class" >org.hibernate.cache.EhCacheProvider</property> -->
-
-		<mapping resource="umake_adm_users.hbm.xml"/>
-		<mapping resource="umake_adm_groups.hbm.xml"/>
-		<mapping resource="umake_adm_permissions.hbm.xml"/>
-		<mapping resource="umake_pages.hbm.xml"/>	
-		<mapping resource="umake_menus.hbm.xml"/>
-		<mapping resource="umake_configs.hbm.xml"/>
-				
-	</session-factory>
-
->>>>>>> 80db7d9309ec3b98a209a9462fca3628ce65c326
-=======
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
 	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
@@ -97,5 +31,4 @@
 				
 	</session-factory>
 
->>>>>>> 5697851452f50c4a6f3f65bc01fa89859af7d3f1
 </hibernate-configuration>
